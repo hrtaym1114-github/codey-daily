@@ -3,22 +3,122 @@ import Base from '../layouts/Base.astro';
 ---
 <Base title="Codey Daily — Claude Code を毎日5秒で発見">
   <main class="container mx-auto px-4 py-8 max-w-2xl">
-    <h1 class="text-4xl font-bold mb-2">Codey Daily</h1>
-    <p class="text-gray-600 mb-8">Claude Code を毎日5秒で発見するWebアプリ</p>
+    <header class="mb-6">
+      <h1 class="text-4xl font-bold mb-1">Codey Daily</h1>
+      <p class="text-gray-600 text-sm">Claude Code を毎日5秒で発見</p>
+    </header>
 
-    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mb-6">
-      <p class="font-semibold">🚧 Phase 1: 基盤構築中</p>
-      <p class="text-sm text-gray-600 mt-2">公開予定: 2026-05-22</p>
-    </div>
+    <section id="streak-bar" class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-6 flex justify-between text-sm">
+      <span><span class="font-bold" id="streak-count">-</span> 日連続 🔥</span>
+      <span>累計 <span class="font-bold" id="touched-count">-</span> 機能</span>
+    </section>
 
-    <div class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-2xl font-bold mb-4">✨ Coming Soon</h2>
-      <ul class="space-y-2 text-gray-700">
-        <li>📅 毎朝1機能発見</li>
-        <li>📊 進度マップ</li>
-        <li>🔥 ストリーク</li>
-        <li>📲 PWA + Web Push</li>
+    <section id="today-card" class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <p class="text-xs text-gray-500 mb-2">✨ 今日の機能</p>
+      <div id="today-loading" class="text-gray-400">読み込み中...</div>
+      <div id="today-content" style="display:none">
+        <h2 class="text-2xl font-bold mb-1" id="feature-name"></h2>
+        <p class="text-xs uppercase tracking-wider text-gray-500 mb-3" id="feature-category"></p>
+        <p class="text-gray-700 mb-4" id="feature-summary"></p>
+        <details class="mb-4">
+          <summary class="cursor-pointer text-sm text-blue-600">📖 詳細を読む</summary>
+          <div class="mt-3 prose prose-sm max-w-none" id="feature-description"></div>
+        </details>
+        <div id="feature-examples" class="mb-4"></div>
+        <div class="flex gap-2">
+          <button id="btn-touch" class="flex-1 bg-blue-500 text-white rounded-lg py-2 font-semibold hover:bg-blue-600 active:scale-95 transition">
+            ✅ 触った
+          </button>
+          <button id="btn-skip" class="flex-1 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 active:scale-95 transition">
+            ⏭️ 後で
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <h2 class="text-lg font-bold mb-3">📂 カテゴリ別</h2>
+      <ul id="categories-list" class="space-y-2 text-sm">
+        <li class="text-gray-400">読み込み中...</li>
       </ul>
-    </div>
+    </section>
+
+    <footer class="text-center text-xs text-gray-400 mt-8">
+      <p>🚧 Phase 1: 基盤構築中（〜2026-05-22 公開予定）</p>
+    </footer>
   </main>
+
+  <script>
+    // 匿名IDを生成・保存
+    function getAnonId(): string {
+      let id = localStorage.getItem('cd_anon_id');
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem('cd_anon_id', id);
+      }
+      return id;
+    }
+
+    const anonId = getAnonId();
+
+    async function loadToday() {
+      const res = await fetch('/api/today');
+      if (!res.ok) {
+        document.getElementById('today-loading')!.textContent = '読み込みエラー';
+        return;
+      }
+      const data = await res.json();
+      const f = data.feature;
+
+      (document.getElementById('feature-name') as HTMLElement).textContent = f.name;
+      (document.getElementById('feature-category') as HTMLElement).textContent = f.category;
+      (document.getElementById('feature-summary') as HTMLElement).textContent = f.summary_ja;
+      (document.getElementById('feature-description') as HTMLElement).textContent = f.description_ja;
+
+      const exContainer = document.getElementById('feature-examples') as HTMLElement;
+      if (f.examples?.length) {
+        exContainer.innerHTML = '<p class="text-sm font-semibold mb-2">💡 使用例</p>' +
+          f.examples.map((ex: { title: string; code: string }) =>
+            `<pre class="bg-gray-50 border border-gray-200 rounded p-3 text-xs overflow-x-auto"><code>${ex.code.replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]!))}</code></pre>`
+          ).join('');
+      }
+
+      document.getElementById('today-loading')!.style.display = 'none';
+      (document.getElementById('today-content') as HTMLElement).style.display = 'block';
+
+      // ボタン
+      document.getElementById('btn-touch')!.addEventListener('click', () => updateProgress('touch', f.id));
+      document.getElementById('btn-skip')!.addEventListener('click', () => updateProgress('skip', f.id));
+    }
+
+    async function loadProgress() {
+      const res = await fetch('/api/progress', { headers: { 'X-Anon-Id': anonId } });
+      const data = await res.json();
+      (document.getElementById('streak-count') as HTMLElement).textContent = String(data.streak ?? 0);
+      (document.getElementById('touched-count') as HTMLElement).textContent = String(data.touched?.length ?? 0);
+    }
+
+    async function updateProgress(action: 'touch' | 'skip', featureId: string) {
+      await fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'X-Anon-Id': anonId, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, featureId }),
+      });
+      await loadProgress();
+    }
+
+    async function loadCategories() {
+      const res = await fetch('/api/categories');
+      const data = await res.json();
+      const ul = document.getElementById('categories-list') as HTMLElement;
+      ul.innerHTML = data.categories.map((c: { category: string; count: number }) => `
+        <li class="flex justify-between border-b border-gray-100 py-1">
+          <span class="capitalize">${c.category.replace('-', ' ')}</span>
+          <span class="text-gray-500">${c.count} 件</span>
+        </li>
+      `).join('');
+    }
+
+    Promise.all([loadToday(), loadProgress(), loadCategories()]);
+  </script>
 </Base>
