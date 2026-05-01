@@ -1,0 +1,175 @@
+---
+import Base from '../../layouts/Base.astro';
+import featuresData from '../../../data/features.json';
+
+export function getStaticPaths() {
+  const data = featuresData as any;
+  return data.features.map((f: any) => ({ params: { id: f.id }, props: { feature: f } }));
+}
+
+const { feature } = Astro.props as { feature: any };
+
+const labels: Record<string, string> = {
+  'slash-command': 'Slash Commands',
+  'tool': 'Built-in Tools',
+  'hook': 'Hooks',
+  'agent': 'Agents',
+  'skill': 'Skills',
+  'mcp': 'MCP',
+  'mode': 'Modes',
+  'file': 'Files & Memory',
+  'cli': 'CLI Flags',
+  'setting': 'Settings',
+};
+
+const title = `${feature.name} — Claude Code ${labels[feature.category] ?? feature.category} | Codey Daily`;
+const description = feature.summary_ja;
+const canonical = `https://codey-daily.hrtaym1114.workers.dev/feature/${feature.id}`;
+
+// JSON-LD structured data
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: feature.name,
+  description: feature.summary_ja,
+  articleBody: feature.description_ja,
+  author: { '@type': 'Organization', name: 'Codey Daily' },
+  datePublished: '2026-05-01',
+  about: {
+    '@type': 'SoftwareApplication',
+    name: 'Claude Code',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'macOS, Linux, Windows',
+  },
+  url: canonical,
+};
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={`https://codey-daily.hrtaym1114.workers.dev/og.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
+
+  <main class="container mx-auto px-4 py-8 max-w-2xl">
+    <nav class="text-sm mb-4 flex gap-2 text-gray-500">
+      <a href="/" class="text-blue-600 hover:underline">トップ</a>
+      <span>/</span>
+      <a href={`/category/${feature.category}`} class="text-blue-600 hover:underline">
+        {labels[feature.category] ?? feature.category}
+      </a>
+    </nav>
+
+    <article class="bg-white rounded-xl shadow-md p-6 mb-6">
+      <header class="mb-4">
+        <p class="text-xs uppercase tracking-wider text-gray-500 mb-1">
+          {labels[feature.category] ?? feature.category}
+          {feature.tier === 'pro' && <span class="ml-2 text-amber-600">Pro</span>}
+        </p>
+        <h1 class="text-3xl font-bold mb-2">{feature.name}</h1>
+        <p class="text-gray-700 text-lg">{feature.summary_ja}</p>
+        <p class="text-xs text-gray-400 mt-2">難易度 {'★'.repeat(feature.difficulty)}{'☆'.repeat(5 - feature.difficulty)}</p>
+      </header>
+
+      <section class="prose prose-sm max-w-none mb-6 text-gray-700 whitespace-pre-line">
+        {feature.description_ja}
+      </section>
+
+      {feature.examples && feature.examples.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">💡 使用例</h2>
+          <div class="space-y-2">
+            {feature.examples.map((ex: any) => (
+              <div>
+                <p class="text-sm font-semibold text-gray-700 mb-1">{ex.title}</p>
+                <pre class="bg-gray-50 border border-gray-200 rounded p-3 text-xs overflow-x-auto"><code>{ex.code}</code></pre>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {feature.related && feature.related.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">🔗 関連機能</h2>
+          <ul class="flex flex-wrap gap-2">
+            {feature.related.map((rid: string) => (
+              <li>
+                <a href={`/feature/${rid}`} class="inline-block bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded hover:bg-blue-100">
+                  {rid}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {feature.links && feature.links.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">📚 参考リンク</h2>
+          <ul class="text-sm space-y-1">
+            {feature.links.map((link: any) => (
+              <li>
+                <a href={link.url} target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+                  {link.label} ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <div class="flex gap-2 pt-4 border-t border-gray-100">
+        <button id="btn-touch" data-feature-id={feature.id} class="flex-1 bg-blue-500 text-white rounded-lg py-2 font-semibold hover:bg-blue-600 active:scale-95 transition">
+          ✅ 触った
+        </button>
+        <button id="btn-skip" data-feature-id={feature.id} class="flex-1 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 active:scale-95 transition">
+          ⏭️ 後で
+        </button>
+      </div>
+    </article>
+
+    <footer class="text-center text-xs text-gray-400">
+      <a href="/" class="text-blue-600 hover:underline">トップへ戻る</a>
+    </footer>
+  </main>
+
+  <script>
+    function getAnonId(): string {
+      let id = localStorage.getItem('cd_anon_id');
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem('cd_anon_id', id);
+      }
+      return id;
+    }
+
+    async function updateProgress(action: 'touch' | 'skip', featureId: string) {
+      await fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'X-Anon-Id': getAnonId(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, featureId }),
+      });
+      const btn = document.getElementById(action === 'touch' ? 'btn-touch' : 'btn-skip') as HTMLButtonElement;
+      btn.textContent = action === 'touch' ? '✅ 記録しました!' : '⏭️ 次回また';
+      btn.disabled = true;
+    }
+
+    document.getElementById('btn-touch')!.addEventListener('click', (e) => {
+      const id = (e.currentTarget as HTMLElement).dataset.featureId!;
+      updateProgress('touch', id);
+    });
+    document.getElementById('btn-skip')!.addEventListener('click', (e) => {
+      const id = (e.currentTarget as HTMLElement).dataset.featureId!;
+      updateProgress('skip', id);
+    });
+  </script>
+</Base>

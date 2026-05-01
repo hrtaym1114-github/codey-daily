@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import featuresData from '../../../data/features.json';
+
+export function getStaticPaths() {
+  const data = featuresData as any;
+  const categories = [...new Set(data.features.map((f: any) => f.category))];
+  return categories.map((id: any) => ({ params: { id } }));
+}
+
+const { id } = Astro.params;
+const data = featuresData as any;
+const features = data.features.filter((f: any) => f.category === id);
+const total = features.length;
+
+const labels: Record<string, string> = {
+  'slash-command': 'Slash Commands',
+  'tool': 'Built-in Tools',
+  'hook': 'Hooks',
+  'agent': 'Agents',
+  'skill': 'Skills',
+  'mcp': 'MCP',
+  'mode': 'Modes',
+  'file': 'Files & Memory',
+  'cli': 'CLI Flags',
+  'setting': 'Settings',
+};
+
+const title = `${labels[id ?? ''] ?? id} — Codey Daily`;
+const description = `Claude Code の${labels[id ?? ''] ?? id}カテゴリ ${total}項目の機能リスト。`;
+---
+
+<Base title={title} description={description}>
+  <main class="container mx-auto px-4 py-8 max-w-2xl">
+    <nav class="text-sm mb-4">
+      <a href="/" class="text-blue-600 hover:underline">← トップ</a>
+    </nav>
+
+    <header class="mb-6">
+      <p class="text-xs uppercase tracking-wider text-gray-500">{id}</p>
+      <h1 class="text-3xl font-bold">{labels[id ?? ''] ?? id}</h1>
+      <p class="text-gray-600 text-sm mt-1">全 {total} 機能</p>
+    </header>
+
+    <ul class="bg-white rounded-xl shadow-md divide-y divide-gray-100">
+      {features.map((f: any) => (
+        <li class="p-4 hover:bg-gray-50 transition">
+          <a href={`/feature/${f.id}`} class="flex justify-between items-start gap-3">
+            <div class="flex-1 min-w-0">
+              <h2 class="font-semibold text-gray-900 truncate">{f.name}</h2>
+              <p class="text-sm text-gray-600 mt-0.5 line-clamp-2">{f.summary_ja}</p>
+            </div>
+            <div class="flex flex-col items-end text-xs text-gray-500 shrink-0">
+              <span>{'★'.repeat(f.difficulty)}</span>
+              {f.tier === 'pro' && <span class="text-amber-600 mt-1">Pro</span>}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <footer class="text-center text-xs text-gray-400 mt-8">
+      <a href="/" class="text-blue-600 hover:underline">トップへ戻る</a>
+    </footer>
+  </main>
+</Base>
