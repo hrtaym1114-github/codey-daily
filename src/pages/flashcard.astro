@@ -1,0 +1,243 @@
+---
+import Base from '../layouts/Base.astro';
+import featuresData from '../../data/features.json';
+
+const data = featuresData as any;
+const features = data.features;
+const total = features.length;
+
+const labels: Record<string, string> = {
+  'slash-command': 'Slash Commands',
+  'tool': 'Built-in Tools',
+  'hook': 'Hooks',
+  'agent': 'Agents',
+  'skill': 'Skills',
+  'mcp': 'MCP',
+  'mode': 'Modes',
+  'file': 'Files & Memory',
+  'cli': 'CLI Flags',
+  'setting': 'Settings',
+};
+
+const categories = [...new Set(features.map((f: any) => f.category))] as string[];
+---
+<Base title="フラッシュカード — Codey Daily" description="Claude Code 73機能をフラッシュカードで反復学習。タップして答え合わせ、知ってた/あやふや/初見で記録。">
+  <main class="container mx-auto px-4 py-6 max-w-2xl">
+    <nav class="text-sm mb-3"><a href="/" class="text-blue-600 hover:underline">← トップ</a></nav>
+
+    <header class="mb-4">
+      <h1 class="text-2xl font-bold">🃏 フラッシュカード</h1>
+      <p class="text-sm text-gray-600">タップで裏返す → 知ってた / あやふや / 初見 で記録</p>
+    </header>
+
+    <section id="filter-bar" class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-4">
+      <label class="block text-xs text-gray-500 mb-1">カテゴリ</label>
+      <select id="cat-filter" class="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-sm">
+        <option value="all">全 {total} 機能</option>
+        {categories.map((c: string) => (
+          <option value={c}>{labels[c] ?? c} ({features.filter((f: any) => f.category === c).length})</option>
+        ))}
+      </select>
+    </section>
+
+    <div id="progress-text" class="text-center text-sm text-gray-500 mb-3">
+      <span id="card-pos">-</span> / <span id="card-total">-</span>
+    </div>
+
+    <section id="card-container" class="perspective-1000 mb-6 select-none">
+      <div id="card" class="relative w-full bg-white rounded-2xl shadow-lg cursor-pointer transition-transform" style="min-height: 320px; transform-style: preserve-3d;">
+        <div id="card-front" class="absolute inset-0 p-6 flex flex-col items-center justify-center" style="backface-visibility: hidden;">
+          <p class="text-xs uppercase tracking-wider text-gray-400 mb-3" id="front-category"></p>
+          <h2 class="text-3xl font-bold text-center mb-3" id="front-name"></h2>
+          <p class="text-xs text-gray-400 mt-auto">タップで答えを表示 →</p>
+        </div>
+        <div id="card-back" class="absolute inset-0 p-6 flex flex-col" style="backface-visibility: hidden; transform: rotateY(180deg);">
+          <p class="text-xs uppercase tracking-wider text-blue-500 mb-2" id="back-category"></p>
+          <h2 class="text-xl font-bold mb-3" id="back-name"></h2>
+          <p class="text-gray-700 mb-3" id="back-summary"></p>
+          <div id="back-example" class="text-xs"></div>
+          <a href="#" id="back-link" class="text-xs text-blue-600 mt-auto hover:underline">📚 詳細ページ →</a>
+        </div>
+      </div>
+    </section>
+
+    <div id="action-buttons" class="grid grid-cols-3 gap-2 mb-4" style="display: none;">
+      <button data-grade="unknown" class="grade-btn bg-rose-500 text-white rounded-lg py-2.5 font-semibold hover:bg-rose-600 active:scale-95 transition">
+        🔥 初見
+      </button>
+      <button data-grade="vague" class="grade-btn bg-amber-500 text-white rounded-lg py-2.5 font-semibold hover:bg-amber-600 active:scale-95 transition">
+        🤔 あやふや
+      </button>
+      <button data-grade="known" class="grade-btn bg-emerald-500 text-white rounded-lg py-2.5 font-semibold hover:bg-emerald-600 active:scale-95 transition">
+        ✅ 知ってた
+      </button>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <button id="btn-prev" class="text-sm text-gray-500 hover:text-gray-700 disabled:opacity-30">◀ 前</button>
+      <span class="text-xs text-gray-400">↻ シャッフル: <button id="btn-shuffle" class="text-blue-600 hover:underline">再開</button></span>
+      <button id="btn-next" class="text-sm text-gray-500 hover:text-gray-700 disabled:opacity-30">次 ▶</button>
+    </div>
+
+    <section id="summary-panel" class="mt-6 bg-white rounded-xl shadow-md p-5" style="display: none;">
+      <h3 class="font-bold mb-3">🎉 セッション完了</h3>
+      <div class="grid grid-cols-3 gap-3 text-center text-sm">
+        <div class="bg-emerald-50 rounded-lg p-3">
+          <p class="text-2xl font-bold text-emerald-600" id="stat-known">0</p>
+          <p class="text-xs text-gray-500">知ってた</p>
+        </div>
+        <div class="bg-amber-50 rounded-lg p-3">
+          <p class="text-2xl font-bold text-amber-600" id="stat-vague">0</p>
+          <p class="text-xs text-gray-500">あやふや</p>
+        </div>
+        <div class="bg-rose-50 rounded-lg p-3">
+          <p class="text-2xl font-bold text-rose-600" id="stat-unknown">0</p>
+          <p class="text-xs text-gray-500">初見</p>
+        </div>
+      </div>
+      <button id="btn-restart" class="w-full mt-4 bg-blue-500 text-white rounded-lg py-2 font-semibold hover:bg-blue-600">
+        🔁 もう一度
+      </button>
+    </section>
+  </main>
+
+  <style>
+    #card.flipped { transform: rotateY(180deg); }
+    .perspective-1000 { perspective: 1000px; }
+  </style>
+
+  <script is:inline define:vars={{ allFeatures: features, labels }}>
+    function getAnonId() {
+      let id = localStorage.getItem('cd_anon_id');
+      if (!id) { id = crypto.randomUUID(); localStorage.setItem('cd_anon_id', id); }
+      return id;
+    }
+    const anonId = getAnonId();
+
+    const stats = { known: 0, vague: 0, unknown: 0 };
+    let deck = [];
+    let pos = 0;
+    let flipped = false;
+
+    const card = document.getElementById('card');
+    const front = {
+      category: document.getElementById('front-category'),
+      name: document.getElementById('front-name'),
+    };
+    const back = {
+      category: document.getElementById('back-category'),
+      name: document.getElementById('back-name'),
+      summary: document.getElementById('back-summary'),
+      example: document.getElementById('back-example'),
+      link: document.getElementById('back-link'),
+    };
+    const posEl = document.getElementById('card-pos');
+    const totalEl = document.getElementById('card-total');
+    const actions = document.getElementById('action-buttons');
+    const summary = document.getElementById('summary-panel');
+    const filterEl = document.getElementById('cat-filter');
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function buildDeck() {
+      const filter = filterEl.value;
+      const filtered = filter === 'all' ? allFeatures : allFeatures.filter(f => f.category === filter);
+      deck = shuffle(filtered).slice(0, 20);
+      pos = 0;
+      stats.known = stats.vague = stats.unknown = 0;
+      summary.style.display = 'none';
+      showCard();
+    }
+
+    function showCard() {
+      if (pos >= deck.length) { showSummary(); return; }
+      const f = deck[pos];
+      front.category.textContent = labels[f.category] ?? f.category;
+      front.name.textContent = f.name;
+      back.category.textContent = labels[f.category] ?? f.category;
+      back.name.textContent = f.name;
+      back.summary.textContent = f.summary_ja;
+      back.link.href = '/feature/' + f.id;
+      back.example.innerHTML = (f.examples?.[0])
+        ? '<p class="text-gray-500 mb-1">' + f.examples[0].title + '</p>' +
+          '<pre class="bg-gray-50 border border-gray-200 rounded p-2 overflow-x-auto"><code>' +
+            (f.examples[0].code || '').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])) +
+          '</code></pre>'
+        : '';
+
+      flipped = false;
+      card.classList.remove('flipped');
+      actions.style.display = 'none';
+      posEl.textContent = pos + 1;
+      totalEl.textContent = deck.length;
+    }
+
+    function flipCard() {
+      flipped = !flipped;
+      card.classList.toggle('flipped', flipped);
+      actions.style.display = flipped ? 'grid' : 'none';
+    }
+
+    async function gradeAndAdvance(grade) {
+      stats[grade]++;
+      const f = deck[pos];
+      // 「知ってた」だけ touched に追加
+      if (grade === 'known') {
+        try {
+          await fetch('/api/progress', {
+            method: 'POST',
+            headers: { 'X-Anon-Id': anonId, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'touch', featureId: f.id }),
+          });
+        } catch (_) {}
+      }
+      pos++;
+      showCard();
+    }
+
+    function showSummary() {
+      card.parentElement.style.display = 'none';
+      actions.style.display = 'none';
+      document.getElementById('progress-text').style.display = 'none';
+      document.getElementById('stat-known').textContent = stats.known;
+      document.getElementById('stat-vague').textContent = stats.vague;
+      document.getElementById('stat-unknown').textContent = stats.unknown;
+      summary.style.display = 'block';
+    }
+
+    card.addEventListener('click', flipCard);
+    document.querySelectorAll('.grade-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const grade = btn.dataset.grade;
+        gradeAndAdvance(grade);
+      });
+    });
+    document.getElementById('btn-prev').addEventListener('click', () => {
+      if (pos > 0) { pos--; showCard(); }
+    });
+    document.getElementById('btn-next').addEventListener('click', () => {
+      pos++; showCard();
+    });
+    document.getElementById('btn-shuffle').addEventListener('click', () => {
+      card.parentElement.style.display = 'block';
+      document.getElementById('progress-text').style.display = 'block';
+      buildDeck();
+    });
+    document.getElementById('btn-restart').addEventListener('click', () => {
+      card.parentElement.style.display = 'block';
+      document.getElementById('progress-text').style.display = 'block';
+      buildDeck();
+    });
+    filterEl.addEventListener('change', buildDeck);
+
+    buildDeck();
+  </script>
+</Base>

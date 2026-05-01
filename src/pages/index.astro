@@ -31,18 +31,33 @@ const labels: Record<string, string> = {
     <meta name="twitter:card" content="summary_large_image" />
   </Fragment>
 
-  <main class="container mx-auto px-4 py-8 max-w-2xl">
-    <header class="mb-6">
-      <h1 class="text-4xl font-bold mb-1">Codey Daily</h1>
-      <p class="text-gray-600 text-sm">Claude Code の標準機能 {total} を毎日1個ずつ発見</p>
+  <main class="container mx-auto px-4 py-6 max-w-2xl">
+    <header class="mb-5">
+      <h1 class="text-3xl font-bold mb-1">Codey Daily</h1>
+      <p class="text-gray-600 text-sm">Claude Code の標準機能 {total} を3つの方法で学ぶ</p>
     </header>
 
-    <section id="streak-bar" class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-6 flex justify-between text-sm">
+    <section id="streak-bar" class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-5 flex justify-between text-sm">
       <span><span class="font-bold" id="streak-count">-</span> 日連続 🔥</span>
       <span>累計 <span class="font-bold" id="touched-count">-</span> / {total} 機能</span>
     </section>
 
-    <section id="today-card" class="bg-white rounded-xl shadow-md p-6 mb-6">
+    <section class="grid grid-cols-3 gap-2 mb-5">
+      <a href="/" class="bg-blue-500 text-white rounded-xl p-3 text-center shadow-md hover:shadow-lg transition">
+        <p class="text-xl mb-1">📅</p>
+        <p class="text-xs font-bold">今日</p>
+      </a>
+      <a href="/flashcard" class="bg-white border-2 border-gray-200 rounded-xl p-3 text-center shadow-sm hover:border-blue-400 hover:bg-blue-50 transition">
+        <p class="text-xl mb-1">🃏</p>
+        <p class="text-xs font-bold">フラッシュ</p>
+      </a>
+      <a href="/quiz" class="bg-white border-2 border-gray-200 rounded-xl p-3 text-center shadow-sm hover:border-blue-400 hover:bg-blue-50 transition">
+        <p class="text-xl mb-1">🎯</p>
+        <p class="text-xs font-bold">クイズ</p>
+      </a>
+    </section>
+
+    <section id="today-card" class="bg-white rounded-xl shadow-md p-6 mb-5">
       <p class="text-xs text-gray-500 mb-2">✨ 今日の機能</p>
       <div id="today-loading" class="text-gray-400 text-sm">読み込み中...</div>
       <div id="today-content" style="display:none">
@@ -62,9 +77,9 @@ const labels: Record<string, string> = {
       </div>
     </section>
 
-    <section class="bg-white rounded-xl shadow-md p-6 mb-6">
+    <section class="bg-white rounded-xl shadow-md p-6 mb-5">
       <h2 class="text-lg font-bold mb-3">📂 カテゴリ別</h2>
-      <ul class="space-y-2 text-sm">
+      <ul class="space-y-1 text-sm">
         {categories.map((c) => (
           <li>
             <a href={`/category/${c.id}`} class="flex justify-between border-b border-gray-100 py-2 hover:bg-gray-50 px-2 -mx-2 rounded transition">
@@ -77,7 +92,8 @@ const labels: Record<string, string> = {
     </section>
 
     <footer class="text-center text-xs text-gray-400 mt-8">
-      <p>毎朝1機能発見・累計 {total} 機能 / Open Source</p>
+      <p>3モード学習: 発見 + フラッシュカード + クイズ</p>
+      <p class="mt-1">累計 {total} 機能 / Open Source</p>
     </footer>
   </main>
 

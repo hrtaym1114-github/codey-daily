@@ -1,0 +1,298 @@
+---
+import Base from '../layouts/Base.astro';
+import featuresData from '../../data/features.json';
+
+const data = featuresData as any;
+const features = data.features;
+const total = features.length;
+
+const labels: Record<string, string> = {
+  'slash-command': 'Slash Commands',
+  'tool': 'Built-in Tools',
+  'hook': 'Hooks',
+  'agent': 'Agents',
+  'skill': 'Skills',
+  'mcp': 'MCP',
+  'mode': 'Modes',
+  'file': 'Files & Memory',
+  'cli': 'CLI Flags',
+  'setting': 'Settings',
+};
+
+const categories = [...new Set(features.map((f: any) => f.category))] as string[];
+---
+<Base title="クイズ — Codey Daily" description="Claude Code 73機能の4択クイズ。10問でスコア判定、弱点を発見しよう。">
+  <main class="container mx-auto px-4 py-6 max-w-2xl">
+    <nav class="text-sm mb-3"><a href="/" class="text-blue-600 hover:underline">← トップ</a></nav>
+
+    <header class="mb-4">
+      <h1 class="text-2xl font-bold">🎯 4択クイズ</h1>
+      <p class="text-sm text-gray-600">10問のチャレンジ。正解を選んで知識を確認</p>
+    </header>
+
+    <section id="setup-panel" class="bg-white rounded-xl shadow-md p-5 mb-4">
+      <label class="block text-xs text-gray-500 mb-1">カテゴリ</label>
+      <select id="cat-filter" class="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-sm mb-4">
+        <option value="all">全 {total} 機能</option>
+        {categories.map((c: string) => (
+          <option value={c}>{labels[c] ?? c} ({features.filter((f: any) => f.category === c).length})</option>
+        ))}
+      </select>
+      <button id="btn-start" class="w-full bg-blue-500 text-white rounded-lg py-3 font-semibold hover:bg-blue-600 active:scale-95 transition">
+        🚀 クイズ開始（10問）
+      </button>
+    </section>
+
+    <section id="quiz-panel" class="hidden">
+      <div class="flex justify-between items-center mb-3 text-sm">
+        <span class="text-gray-500">問題 <span id="q-pos">1</span> / <span id="q-total">10</span></span>
+        <span class="text-emerald-600 font-bold">✓ <span id="q-correct">0</span></span>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-md p-5 mb-4">
+        <p class="text-xs uppercase tracking-wider text-gray-400 mb-2" id="q-hint"></p>
+        <h2 class="text-lg font-bold mb-2" id="q-text"></h2>
+        <p id="q-sub" class="text-sm text-gray-600 mb-2"></p>
+      </div>
+
+      <div id="q-options" class="space-y-2 mb-4"></div>
+
+      <div id="q-feedback" class="hidden bg-white rounded-xl shadow-md p-4 mb-4">
+        <p id="feedback-result" class="font-bold mb-2"></p>
+        <p class="text-sm text-gray-600 mb-2">正解: <span class="font-semibold" id="feedback-correct"></span></p>
+        <p class="text-sm text-gray-600 mb-3" id="feedback-explanation"></p>
+        <a id="feedback-link" href="#" class="text-sm text-blue-600 hover:underline">📚 詳細を読む →</a>
+      </div>
+
+      <button id="btn-next-q" class="hidden w-full bg-blue-500 text-white rounded-lg py-2.5 font-semibold hover:bg-blue-600 active:scale-95 transition">
+        次の問題へ →
+      </button>
+    </section>
+
+    <section id="result-panel" class="hidden bg-white rounded-xl shadow-md p-5">
+      <h2 class="text-2xl font-bold mb-3 text-center" id="r-title">🎉 セッション完了</h2>
+      <div class="text-center mb-5">
+        <p class="text-5xl font-black mb-1" id="r-score">0/10</p>
+        <p class="text-sm text-gray-500" id="r-percent">0%</p>
+      </div>
+
+      <div id="r-grade" class="text-center text-lg font-bold mb-5"></div>
+
+      <div id="r-incorrect-list" class="mb-5">
+        <p class="text-sm font-semibold mb-2">📝 復習推奨</p>
+        <ul class="space-y-1 text-sm" id="r-incorrect-ul"></ul>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button id="btn-retry" class="bg-blue-500 text-white rounded-lg py-2.5 font-semibold hover:bg-blue-600 active:scale-95 transition">
+          🔁 もう一度
+        </button>
+        <button id="btn-share" class="bg-gray-100 text-gray-700 rounded-lg py-2.5 font-semibold hover:bg-gray-200 active:scale-95 transition">
+          📤 シェア
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline define:vars={{ allFeatures: features, labels }}>
+    function getAnonId() {
+      let id = localStorage.getItem('cd_anon_id');
+      if (!id) { id = crypto.randomUUID(); localStorage.setItem('cd_anon_id', id); }
+      return id;
+    }
+    const anonId = getAnonId();
+
+    const QUESTIONS_PER_SESSION = 10;
+    let questions = [];
+    let pos = 0;
+    let correct = 0;
+    let incorrect = [];
+    let currentQ = null;
+
+    const filterEl = document.getElementById('cat-filter');
+    const setupPanel = document.getElementById('setup-panel');
+    const quizPanel = document.getElementById('quiz-panel');
+    const resultPanel = document.getElementById('result-panel');
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function generateQuestions(filter) {
+      const pool = filter === 'all' ? allFeatures : allFeatures.filter(f => f.category === filter);
+      if (pool.length < 4) {
+        // distractors 不足の場合は全プールから補完
+        return [];
+      }
+      const selected = shuffle(pool).slice(0, QUESTIONS_PER_SESSION);
+      return selected.map(target => generateQuestion(target, pool));
+    }
+
+    function generateQuestion(target, pool) {
+      // Type A: 名前→説明 / Type B: 説明→名前 を交互に
+      const type = Math.random() < 0.5 ? 'A' : 'B';
+
+      // Distractor候補（同カテゴリ優先、不足時は他カテゴリ）
+      const sameCat = pool.filter(f => f.id !== target.id && f.category === target.category);
+      const otherCat = pool.filter(f => f.id !== target.id && f.category !== target.category);
+      const distractorPool = sameCat.length >= 3 ? sameCat : [...sameCat, ...otherCat];
+      const distractors = shuffle(distractorPool).slice(0, 3);
+
+      const options = shuffle([
+        { feature: target, isCorrect: true },
+        ...distractors.map(f => ({ feature: f, isCorrect: false })),
+      ]);
+
+      return { type, target, options };
+    }
+
+    function renderQuestion() {
+      currentQ = questions[pos];
+      document.getElementById('q-pos').textContent = pos + 1;
+      document.getElementById('q-total').textContent = questions.length;
+      document.getElementById('q-correct').textContent = correct;
+
+      const hint = document.getElementById('q-hint');
+      const text = document.getElementById('q-text');
+      const sub = document.getElementById('q-sub');
+
+      if (currentQ.type === 'A') {
+        hint.textContent = '次の機能の役割は?';
+        text.textContent = currentQ.target.name;
+        sub.textContent = labels[currentQ.target.category] ?? currentQ.target.category;
+      } else {
+        hint.textContent = '次の説明に当てはまる機能は?';
+        text.textContent = currentQ.target.summary_ja;
+        sub.textContent = labels[currentQ.target.category] ?? currentQ.target.category;
+      }
+
+      const opts = document.getElementById('q-options');
+      opts.innerHTML = '';
+      currentQ.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'opt-btn w-full text-left bg-white border-2 border-gray-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition active:scale-98';
+        btn.dataset.correct = opt.isCorrect ? '1' : '0';
+        btn.dataset.fid = opt.feature.id;
+        btn.innerHTML = '<span class="inline-block bg-gray-100 text-gray-600 text-xs font-bold w-6 h-6 rounded-full text-center leading-6 mr-2">' + 'ABCD'[idx] + '</span>' +
+          '<span class="text-sm">' + (currentQ.type === 'A' ? opt.feature.summary_ja : opt.feature.name) + '</span>';
+        btn.addEventListener('click', () => handleAnswer(btn, opt));
+        opts.appendChild(btn);
+      });
+
+      document.getElementById('q-feedback').classList.add('hidden');
+      document.getElementById('btn-next-q').classList.add('hidden');
+    }
+
+    async function handleAnswer(btn, selected) {
+      // 全ボタンを無効化 + 色付け
+      document.querySelectorAll('.opt-btn').forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:border-blue-400', 'hover:bg-blue-50');
+        if (b.dataset.correct === '1') {
+          b.classList.add('border-emerald-500', 'bg-emerald-50');
+        } else if (b === btn) {
+          b.classList.add('border-rose-500', 'bg-rose-50');
+        }
+      });
+
+      // 結果記録
+      if (selected.isCorrect) {
+        correct++;
+        try {
+          await fetch('/api/progress', {
+            method: 'POST',
+            headers: { 'X-Anon-Id': anonId, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'touch', featureId: currentQ.target.id }),
+          });
+        } catch (_) {}
+      } else {
+        incorrect.push(currentQ.target);
+      }
+
+      // フィードバック
+      const fb = document.getElementById('q-feedback');
+      const result = document.getElementById('feedback-result');
+      const correctEl = document.getElementById('feedback-correct');
+      const expEl = document.getElementById('feedback-explanation');
+      const linkEl = document.getElementById('feedback-link');
+
+      result.textContent = selected.isCorrect ? '✅ 正解!' : '❌ 不正解';
+      result.className = 'font-bold mb-2 ' + (selected.isCorrect ? 'text-emerald-600' : 'text-rose-600');
+      correctEl.textContent = currentQ.type === 'A' ? currentQ.target.summary_ja : currentQ.target.name;
+      expEl.textContent = currentQ.target.description_ja.slice(0, 200);
+      linkEl.href = '/feature/' + currentQ.target.id;
+      fb.classList.remove('hidden');
+      document.getElementById('btn-next-q').classList.remove('hidden');
+      document.getElementById('q-correct').textContent = correct;
+    }
+
+    function showResult() {
+      quizPanel.classList.add('hidden');
+      resultPanel.classList.remove('hidden');
+
+      const total = questions.length;
+      const pct = Math.round((correct / total) * 100);
+      document.getElementById('r-score').textContent = correct + '/' + total;
+      document.getElementById('r-percent').textContent = pct + '%';
+
+      const grade = document.getElementById('r-grade');
+      let label, color;
+      if (pct === 100) { label = '🏆 パーフェクト! Claude Code マスター'; color = 'text-amber-600'; }
+      else if (pct >= 80) { label = '🎯 素晴らしい! 上級者レベル'; color = 'text-emerald-600'; }
+      else if (pct >= 60) { label = '👍 順調! あと少し'; color = 'text-blue-600'; }
+      else if (pct >= 40) { label = '📚 もう一歩. 復習しよう'; color = 'text-amber-500'; }
+      else { label = '💪 これから. 学習継続!'; color = 'text-rose-500'; }
+      grade.textContent = label;
+      grade.className = 'text-center text-lg font-bold mb-5 ' + color;
+
+      const ul = document.getElementById('r-incorrect-ul');
+      const incorrectSection = document.getElementById('r-incorrect-list');
+      if (incorrect.length === 0) {
+        incorrectSection.style.display = 'none';
+      } else {
+        incorrectSection.style.display = 'block';
+        ul.innerHTML = incorrect.map(f =>
+          '<li><a href="/feature/' + f.id + '" class="text-blue-600 hover:underline">' + f.name + '</a> <span class="text-gray-500 text-xs">— ' + f.summary_ja + '</span></li>'
+        ).join('');
+      }
+    }
+
+    function startQuiz() {
+      questions = generateQuestions(filterEl.value);
+      if (questions.length === 0) {
+        alert('問題を作成できませんでした。別のカテゴリを選択してください。');
+        return;
+      }
+      pos = 0;
+      correct = 0;
+      incorrect = [];
+      setupPanel.classList.add('hidden');
+      resultPanel.classList.add('hidden');
+      quizPanel.classList.remove('hidden');
+      renderQuestion();
+    }
+
+    document.getElementById('btn-start').addEventListener('click', startQuiz);
+    document.getElementById('btn-next-q').addEventListener('click', () => {
+      pos++;
+      if (pos >= questions.length) showResult();
+      else renderQuestion();
+    });
+    document.getElementById('btn-retry').addEventListener('click', () => {
+      resultPanel.classList.add('hidden');
+      setupPanel.classList.remove('hidden');
+    });
+    document.getElementById('btn-share').addEventListener('click', () => {
+      const total = questions.length;
+      const pct = Math.round((correct / total) * 100);
+      const text = 'Codey Daily の Claude Code クイズ ' + correct + '/' + total + ' (' + pct + '%) 達成!\n#CodeyDaily #ClaudeCode';
+      const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent('https://codey-daily.hrtaym1114.workers.dev/quiz');
+      window.open(url, '_blank');
+    });
+  </script>
+</Base>
