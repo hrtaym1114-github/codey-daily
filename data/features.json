@@ -1,0 +1,1732 @@
+{
+  "version": "0.2.0",
+  "updated": "2026-05-01",
+  "features": [
+    {
+      "id": "slash-ai-adoption-guide",
+      "name": "/ai-adoption-guide — AIエージェント活用ガイド",
+      "category": "slash-command",
+      "summary_ja": "対話形式でユーザーの業務課題を引き出し、最適なAIエージェント活用パターンを提案し、その場でMVP（最小実装）を構築するガイドセッション。「自分も挑戦してみよう」と思える体験を提供する。",
+      "description_ja": "# /ai-adoption-guide — AIエージェント活用ガイド\n\n## Description\n\n対話形式でユーザーの業務課題を引き出し、最適なAIエージェント活用パターンを提案し、その場でMVP（最小実装）を構築するガイドセッション。「自分も挑戦してみよう」と思える体験を提供する。\n\n## Usage\n\n```\n/ai-adoption-guide              # フルセッション（発見→提案→体験）\n/ai-adoption-guide --discover   # 発見フェーズのみ（提案まで）\n/ai-adoption-guide --build      # 指定パターンのMVP構築のみ\n```\n\n## Instructions\n\n### 事前準備（黙って読み込む）\n\n以下のファイルを読み込み、セッションで参照できるようにする。内容をユーザーに羅列しない。\n\n1. `05_Output/Projects/@Planning/AI-Agent-Adoption/02_活用パターンDB.md` — 8パターン定義\n2. `05_Output/Projects/",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/ai-adoption-guide              # フルセッション（発見→提案→体験）\n/ai-adoption-guide --discover   # 発見フェーズのみ（提案まで）\n/ai-adoption-guide --build      # 指定パターンのMVP構築のみ"
+        },
+        {
+          "title": "使用例2",
+          "code": "Step 0: 開始モード選択  — ガイド型 or 自由記述 or クイック構築\nStep 1: 発見（Discover）  — 課題を特定\nStep 2: 提案（Propose）   — 事例+パターンで「できること」を提示\nStep 3: 体験（Experience） — MVPをその場で構築\nStep 4: まとめ（Report）  — やったことと次のアクションを出力"
+        },
+        {
+          "title": "使用例3",
+          "code": "AIエージェント活用ガイドへようこそ。\n\nあなたの業務課題に合ったAI活用方法を一緒に見つけて、\nその場で設定まで作れるガイドセッションです。"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-bookmark-digest",
+      "name": "Bookmark Digest — [DEPRECATED] VPS版ブックマークレビュー",
+      "category": "slash-command",
+      "summary_ja": "> **DEPRECATED 2026-04-05**: VPS版は停止済み。代わりに `/bookmark-sync` を使用してください。 > `/bookmark-sync` は fieldth",
+      "description_ja": "# Bookmark Digest — [DEPRECATED] VPS版ブックマークレビュー\n\n> **DEPRECATED 2026-04-05**: VPS版は停止済み。代わりに `/bookmark-sync` を使用してください。\n> `/bookmark-sync` は fieldtheory-cli (`ft`) ベースでローカル完結・無料です。\n\n## Description\n~~VPSで取得・分類されたX.comブックマークダイジェストをレビューし、コンテンツポテンシャルの高いアイテムを適切なパイプラインに振り分ける。~~\n\n## データソース\n- **ダイジェスト（MD）**: `03_Input/Bookmarks/digests/YYYY-MM-DD.md`\n- **詳細データ（JSON）**: `03_Input/Bookmarks/data/YYYY-MM-DD.json`\n- **処理状態**: `03_Input/Bookmarks/_review-state.json`（レビュー済みの日付を記録）\n\n## 引数\n- `$ARGUMENTS` — 省略可",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "if max_score >= 7:\n    → 該当パイプラインに振り分け（複数該当ありうる）\nelif max_score >= 5:\n    → 候補として Bookmark-Hub の「活用候補」に追加\nelse:\n    → Bookmark-Hub の「ストック」に追加"
+        },
+        {
+          "title": "使用例2",
+          "code": "#### Dev-Ideas振り分け時"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Phase 7: レポート出力"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-bookmark-sync",
+      "name": "Bookmark Sync — ローカルブックマーク同期 & デイリーレビュー",
+      "category": "slash-command",
+      "summary_ja": "取得したJSONの各ブックマークについて以下の情報を活用: - `text`: ツイート本文 - `authorHandle`: 著者 - `likeCount`, `repostCount`, `b",
+      "description_ja": "# Bookmark Sync — ローカルブックマーク同期 & デイリーレビュー\n\n## Description\nfieldtheory-cli (`ft`) を使ってX.comブックマークをローカル同期し、新着ブックマークをレビュー・スコアリングしてコンテンツパイプラインに振り分ける。\n\n## 前提条件\n- `ft` (fieldtheory-cli) がインストール済み: `npm install -g fieldtheory`\n- Google Chromeが起動中 & x.comにログイン済み\n- macOS環境（Chrome Cookie同期はmacOSのみ対応）\n\n## 引数\n- `$ARGUMENTS` — 省略可。以下のオプション:\n  - （なし）: 昨日以降の新着をレビュー\n  - `YYYY-MM-DD`: 指定日以降の新着をレビュー\n  - `--full`: 全ブックマーク再同期（初回 or リセット時）\n  - `--sync-only`: 同期のみ（レビューなし）\n  - `--review-only`: 同期スキップ、既存データのレビューのみ\n\n##",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "if max_score >= 7:\n    → 該当パイプラインに振り分け（複数該当ありうる）\nelif max_score >= 5:\n    → 「活用候補」としてHub記録\nelse:\n    → 「ストック」としてHub記録のみ"
+        },
+        {
+          "title": "使用例2",
+          "code": "#### Dev-Ideas振り分け時"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Phase 6: Bookmark-Hub更新\n`03_Input/Bookmarks/_Bookmark-Hub.md` を更新（なければ作成）:\n- スコア7以上: 「活用中」セクション（振り分け先リンク付き）\n- スコア5-6: 「活用候補」セクション\n- スコア5未満: 「ストック」セクション（件数のみ記録）\n\n### Phase 7: レポート出力"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-calendar-sync",
+      "name": "Calendar Sync - カレンダー同期",
+      "category": "slash-command",
+      "summary_ja": "以下を順に確認し、問題があれば処理を中断してガイダンスを表示:",
+      "description_ja": "# Calendar Sync - カレンダー同期\n\n## Description\nOutlookカレンダーの予定を同期し、Dailyノートに反映します。\n\n## Prompt\nカレンダーを同期してください。\n\n## Arguments\n- `$ARGUMENTS` — （任意）オプション指定\n\n## Options\n- `--days N` — 取得日数を指定（デフォルト: 1 = 今日のみ）\n- `--dry-run` — Dailyノートを更新せずプレビューのみ表示\n- `--force` — 既存スケジュールセクションを強制上書き（通常は差分更新）\n\n## Triggers\n- 「カレンダー同期」\n- 「カレンダーを同期」\n- 「calendar sync」\n- 「予定を取得」\n- 「今日のスケジュール」\n\n## Instructions\n\n### 1. 前提チェック（エラーハンドリング）\n\n以下を順に確認し、問題があれば処理を中断してガイダンスを表示:\n\n1. **PowerShellスクリプトの存在確認**:\n   - `07_System/Scripts/sync-out",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "powershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-calendar.ps1\""
+        },
+        {
+          "title": "使用例2",
+          "code": "- `--dry-run` 指定時はDailyノートを更新せず、上記フォーマットでプレビューのみ表示\n\n### 5. 結果サマリー\n\n同期完了後、以下の形式でサマリーを表示:"
+        },
+        {
+          "title": "使用例3",
+          "code": "## Usage"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-career-log-achievement",
+      "name": "/career-log-achievement - 実績ログ",
+      "category": "slash-command",
+      "summary_ja": "実績を構造化して記録する。日付・カテゴリ・インパクト・関連スキルを含む。",
+      "description_ja": "# /career-log-achievement - 実績ログ\n\n## Description\n\n実績を構造化して記録する。日付・カテゴリ・インパクト・関連スキルを含む。\n\n## Usage\n\n```\n/career-log-achievement [実績の説明]\n```\n\n### Arguments\n\n| 引数 | 説明 | 必須 |\n|------|------|------|\n| 実績の説明 | 何を達成したかの自由記述 | Yes |\n\n## Instructions\n\n### Phase 1: 実績分析\n\nユーザーの入力から以下を抽出:\n\n- **What**: 何を達成したか\n- **When**: いつ（日付。不明なら今日）\n- **Category**: Technical / Business / Management / Communication\n- **Impact**: 定量的な影響（あれば）\n- **Related Skills**: 関連するスキル\n- **Context**: プロジェクト名、状況\n\n### Phase 2: 実績ログ追記\n\n`04_M",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/career-log-achievement [実績の説明]"
+        },
+        {
+          "title": "使用例2",
+          "code": "既存ファイルがある場合は、適切な月のテーブルに行を追加。\n\n### Phase 3: 確認出力"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-career-skills-update",
+      "name": "/career-skills-update - スキルマップ更新",
+      "category": "slash-command",
+      "summary_ja": "直近の活動（デイリーノート、プロジェクト、実績ログ）からスキルを抽出し、スキルマップを更新する。",
+      "description_ja": "# /career-skills-update - スキルマップ更新\n\n## Description\n\n直近の活動（デイリーノート、プロジェクト、実績ログ）からスキルを抽出し、スキルマップを更新する。\n\n## Usage\n\n```\n/career-skills-update\n```\n\n## Instructions\n\n### Phase 1: 活動データ収集\n\n以下のソースから直近30日の活動を収集:\n\n1. `02_Daily/` — 直近のデイリーノート（最大10件）\n2. `05_Output/Projects/@Active/` — アクティブプロジェクト\n3. `04_Memory/Personal/Career/achievement-log.md` — 実績ログ（存在する場合）\n4. `04_Memory/` — 新規追加されたナレッジファイル\n\n### Phase 2: スキル抽出\n\n収集した活動から以下のカテゴリでスキルを抽出:\n\n| カテゴリ | 抽出キーワード例 |\n|---------|---------------|\n| Technical | Python,",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/career-skills-update"
+        },
+        {
+          "title": "使用例2",
+          "code": "### Phase 4: State File 更新\n\n`07_System/State/career-state.md` のスキル関連部分を更新。\n\n### Phase 5: 出力"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-commission-content",
+      "name": "/commission-content — コンテンツ発注書作成 + ai-publishing-house への送付",
+      "category": "slash-command",
+      "summary_ja": "今日のトレンド・シグナル・Seeds を収集し、チャネル別にスコアリングして発注書（Commission）を作成。ai-publishing-house の `09_Commissions/@Queu",
+      "description_ja": "# /commission-content — コンテンツ発注書作成 + ai-publishing-house への送付\n\n今日のトレンド・シグナル・Seeds を収集し、チャネル別にスコアリングして発注書（Commission）を作成。ai-publishing-house の `09_Commissions/@Queue/` に送付する。\n\n## Usage\n\n```\n/commission-content [オプション]\n```\n\n### Options\n\n| オプション | 説明 |\n|-----------|------|\n| `--signal [file]` | 特定シグナルファイルを発注 |\n| `--seed [file]` | 特定 Content Seed を発注 |\n| `--topic [text]` | アドホックなテーマを発注 |\n| `--channels [ids]` | 特定チャネルのみ（例: `x-ai,lbc-main`） |\n| `--dry-run` | プレビューのみ（ファイル作成しない） |\n\n## Prerequisites\n\n以下の",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/commission-content [オプション]"
+        },
+        {
+          "title": "使用例2",
+          "code": "**設計意図**: 発注書は**自己完結型**。ai-publishing-house が obsidian-1 の Vault にアクセスする必要がない。\n\n### Phase 6: ai-publishing-house への送付"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Phase 7: ログ記録\n\n`07_System/State/commission-log.md` に追記:"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-consult-content",
+      "name": "/consult-content — コンテンツ企画相談",
+      "category": "slash-command",
+      "summary_ja": "Advisory Board の6エージェントに相談し、コンテンツ企画の品質を検証・強化するコマンド。",
+      "description_ja": "# /consult-content — コンテンツ企画相談\n\nAdvisory Board の6エージェントに相談し、コンテンツ企画の品質を検証・強化するコマンド。\n\n## 使い方\n\n```\n/consult-content [テーマまたはメモファイルパス]\n```\n\n**例**:\n- `/consult-content \"Claude Codeでブログ記事を自動生成する方法\"`\n- `/consult-content 00_Memo/2026-02-27-ai-tool-comparison.md`\n\n## パイプライン\n\n```\nPhase 1: 読者反応シミュレーション\n  → audience-analyst (opus) react モード\n  → 5ペルソナの反応予測\n\nPhase 2: 競合コンテンツ分析 + AEO/Scraper強化\n  → market-scanner (sonnet) content モード\n  → 既存記事TOP10 + 差別化チャンス\n  → VPS Web Scraper データ参照（Zenn/はてブの構成パターン）\n  → AEO Sys",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/consult-content [テーマまたはメモファイルパス]"
+        },
+        {
+          "title": "使用例2",
+          "code": "1. advisory-registry.md を読み込み\n2. テーマまたはメモファイルを読み込み\n3. channel-registry.md から Active チャネル一覧を取得\n4. 04_Memory/Business/Advisory/frameworks/content-evaluation.md を読み込み"
+        },
+        {
+          "title": "使用例3",
+          "code": "入力: $THEME, $AUDIENCE_RESULT, $MARKET_RESULT (from Phase 1-2)\n出力: $STRUCTURED_CONCEPT (format: see データフロー定義)"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-consult-dev",
+      "name": "/consult-dev — ツール開発相談",
+      "category": "slash-command",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# /consult-dev — ツール開発相談\r\n\r\nAdvisory Board の6エージェントに相談し、ツール開発アイデアの検証・企画書作成を行うコマンド。\r\n\r\n## 使い方\r\n\r\n```\r\n/consult-dev [アイデアまたは課題の説明]\r\n```\r\n\r\n**例**:\r\n- `/consult-dev \"Obsidianのノートを自動的にnote.comに同期するツール\"`\r\n- `/consult-dev 03_Input/Dev-Ideas/20260225_playwright-1password-nix.md`\r\n\r\n## パイプライン\r\n\r\n```\r\nPhase 1: ユーザーニーズ分析\r\n  → audience-analyst (opus) jtbd モード\r\n  → 3層Job分析 + 機会スコア\r\n\r\nPhase 2: 競合ツール調査\r\n  → market-scanner (sonnet) tool モード\r\n  → 類似ツール一覧 + 未充足ニーズ\r\n\r\nPhase 3: 異分野アナロジー発見\r\n  → analogy-finder (sonne",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-consult-quick",
+      "name": "/consult-quick — クイック相談（日常のデフォルト判断ツール）",
+      "category": "slash-command",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# /consult-quick — クイック相談（日常のデフォルト判断ツール）\r\n\r\nAdvisory Board の2エージェント（devils-advocate + audience-analyst）による5分クイック検証。\r\n\r\n> **設計思想**: 「判断は自動化できない」が、「判断の速度」は上げられる。\r\n> このコマンドは ayumu の日常の意思決定を **5分以内** に支援する。\r\n> フル検証（/consult-content, /consult-dev）は**例外的な大きな判断**にのみ使う。\r\n\r\n## 使い方\r\n\r\n```\r\n/consult-quick [質問/アイデア/テーマ]\r\n```\r\n\r\n**例**:\r\n- `/consult-quick \"pyenv-winの続編記事を書こうと思うが需要あるか？\"`\r\n- `/consult-quick \"MCP serverをOSSで公開する価値はあるか？\"`\r\n- `/consult-quick \"リベシティでAIの話をもっと増やすべきか？\"`\r\n\r\n## パイプライン（2ステップのみ）\r\n\r\n```\r\nP",
+      "examples": [],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-coo-briefing",
+      "name": "/coo-briefing - 朝のオーケストレーション・ブリーフィング",
+      "category": "slash-command",
+      "summary_ja": "COOとして全4部門の状態を統合し、今日の優先アクションを提案する朝のブリーフィング。エージェントspawnなし、ファイル読込+テキスト出力のみ。",
+      "description_ja": "# /coo-briefing - 朝のオーケストレーション・ブリーフィング\n\n## Description\n\nCOOとして全4部門の状態を統合し、今日の優先アクションを提案する朝のブリーフィング。エージェントspawnなし、ファイル読込+テキスト出力のみ。\n\n## Usage\n\n```\n/coo-briefing\n```\n\n## Instructions\n\n### Phase 1: 環境確認\n\n1. `date '+%Y-%m-%d (%A)'` で今日の日付と曜日を確認\n2. `.claude/agents/org-registry.md` を読み込み、Active 部門一覧を取得\n\n### Staleness判定基準（全Phase共通）\n\n各データソースの鮮度を以下の閾値で判定する。判定結果はPhase 7のDivision Healthに反映。\n\n| データソース | Phase | Warning閾値 | Critical閾値 | 推奨アクション |\n|-------------|-------|------------|-------------|-------------",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/coo-briefing"
+        },
+        {
+          "title": "使用例2",
+          "code": "gh run list --limit 5 --json status,conclusion,name,createdAt 2>/dev/null"
+        },
+        {
+          "title": "使用例3",
+          "code": "**`07_System/State/rd-state.md`**:"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-coo-sprint",
+      "name": "/coo-sprint - 部門横断スプリント",
+      "category": "slash-command",
+      "summary_ja": "複数部門にまたがる作業が必要な場合に、COOとして部門横断のスプリントを提案・調整する。通常は `/coo-briefing` で十分であり、このコマンドは稀に使用する。",
+      "description_ja": "# /coo-sprint - 部門横断スプリント\n\n## Description\n\n複数部門にまたがる作業が必要な場合に、COOとして部門横断のスプリントを提案・調整する。通常は `/coo-briefing` で十分であり、このコマンドは稀に使用する。\n\n## Usage\n\n```\n/coo-sprint --divisions [div1,div2]\n```\n\n### Options\n\n| オプション | 説明 | 例 |\n|-----------|------|---|\n| `--divisions` | 対象部門（カンマ区切り） | `content,rd` |\n\n### Division IDs\n\n| ID | Division |\n|----|----------|\n| content | Content Marketing |\n| rd | R&D |\n| career | Career & Comms |\n| infra | Tech Infrastructure |\n\n## Instructions\n\n### Phase 1: 状態確認\n\n1. `date '+%Y",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/coo-sprint --divisions [div1,div2]"
+        },
+        {
+          "title": "使用例2",
+          "code": "Content × R&D: R&Dの成果 → Research/ → コンテンツネタ\nContent × Career: メール対応 → プロジェクト進捗 → コンテンツ\nR&D × Infra: GHA状態 → プロジェクトCI/CD\nCareer × Content: 実績 → コンテンツネタ（体験談）"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Phase 4: 実行（ユーザー承認後）\n\nユーザーが承認した場合のみ、提案されたコマンドの実行順序をガイド。\n\n**重要**: COO自身はエージェントをspawnしない。既存コマンドの実行をユーザーに委ねる。\n\n## Sprint Examples\n\n### Content × R&D"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-daily-evening",
+      "name": "Dailyまとめ（夕方）",
+      "category": "slash-command",
+      "summary_ja": "要件: - 今日のDailyノートを読み込む（`02_Daily/YYYY/YYYY-MM/YYYY-MM-DD/YYYY-MM-DD-Daily.md`） - Inboxフォルダ（`01_Inbox",
+      "description_ja": "# Dailyまとめ（夕方）\n\n## Description\n夕方にDailyノートに今日の気づきを追記し、Weekly Command Centerを更新し、Build/Ship/Breakシグナルを検出します（12-13分）。\n\n## Prompt\n今日のDailyノートに、今日の活動から重要な気づきを追記し、Weekly Command Centerの進捗を更新してください。\n\n要件:\n- 今日のDailyノートを読み込む（`02_Daily/YYYY/YYYY-MM/YYYY-MM-DD/YYYY-MM-DD-Daily.md`）\n- Inboxフォルダ（`01_Inbox/`）から今日作成されたノートを抽出\n- 重要な3つを選んで追記\n- 「🌙 Evening Reflection」セクションに追記\n- **Weekly Command Centerの進捗を更新**\n- **エネルギースコアをダッシュボードに転記**\n\n出力形式:\n\\`\\`\\`markdown\n## 🌙 Evening Reflection\n### ✅ Accomplished\n- [今日達成したこと1]",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "**サマリー表示**（Dailyノートに追記）:"
+        },
+        {
+          "title": "使用例2",
+          "code": "4. **承認処理**:\n   - ✅選択 → `03_Input/X-Operation/Tips-Queue/approved/tip-YYYYMMDD-[柱]-001.md` に保存\n   - ✏️修正 → ユーザーの修正を反映して保存\n   - ❌スキップ → `03_Input/X-Operation/Tips-Queue/skipped/` に記録（学習用）\n\n5. **Tipファイルフォーマット**:"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-daily-update",
+      "name": "Daily Update",
+      "category": "slash-command",
+      "summary_ja": "2. Daily Kanban読み込み - `07_System/Dashboards/Daily-Kanban.md`",
+      "description_ja": "# Daily Update\n\n## Description\n日中のタスク進捗を更新し、Dailyノートと Daily Kanban を同期します（2-3分）。\n\n## Prompt\n今日のDailyノートとDaily Kanbanの進捗を更新してください。\n\n## 使用タイミング\n- `/memo-to-inbox` でタスクが追加された後\n- `/email-check` で対応が必要なメールを確認した後\n- 会議後にタスクが増えた時\n- 作業が一段落して進捗を記録したい時\n\n## 要件\n1. 今日のDailyノートを読み込む\n2. Daily Kanbanの現在状態を読み込む\n3. 以下のソースから新規タスクを検出:\n   - `01_Inbox/` の今日作成されたファイル（タスク含むもの）\n   - `/email-check` の結果（対応必要メール）\n   - Dailyノートの手動追記タスク\n4. DailyノートとKanbanを同期更新\n5. 進捗サマリーを出力\n\n## 手順\n\n### Step 1: 現状把握\n```\n1. 今日のDailyノート読み込み\n   -",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. 今日のDailyノート読み込み\n   - `02_Daily/YYYY/YYYY-MM/YYYY-MM-DD/YYYY-MM-DD-Daily.md`\n\n2. Daily Kanban読み込み\n   - `07_System/Dashboards/Daily-Kanban.md`\n\n3. 差分検出のため、両ファイルのタスク一覧を抽出"
+        },
+        {
+          "title": "使用例2",
+          "code": "1. Inboxから今日作成/更新されたファイルを検索\n   - `01_Inbox/` 内で今日の日付を含むファイル\n   - タスク形式（- [ ]）を含むファイルを抽出\n\n2. メール関連タスク検出（存在する場合）\n   - `04_Memory/Business/Email/` の分析結果を確認\n   - 対応必要スコアが高いメールをタスク化\n\n3. 手動追記タスクの検出\n   - Dailyノートに直接書かれた新規タスク\n   - Kanbanに手動で追加されたタスク"
+        },
+        {
+          "title": "使用例3",
+          "code": "Kanban → Daily への同期:\n- 「🟢 完了」のタスク → Dailyの該当タスクにチェック\n- 「🟡 作業中」のタスク → Dailyに状態メモ追記\n\nDaily → Kanban への同期:\n- Dailyで完了マークされたタスク → Kanban「🟢 完了」へ\n- Dailyに新規追加されたタスク → Kanban「🔴 今日やる」へ"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-daily",
+      "name": "Daily作成",
+      "category": "slash-command",
+      "summary_ja": "要件: - ファイル名: `02_Daily/YYYY/YYYY-MM/YYYY-MM-DD/YYYY-MM-DD-Daily.md`（今日の日付を使用） - 今日の日付を自動挿入 - Inboxフォ",
+      "description_ja": "# Daily作成\n\n## Description\n今日のデイリーノートを作成し、Weekly Command Centerを確認します。\n\n## Prompt\n今日のデイリーノートを作成してください（朝のルーティン5分）。\n\n要件:\n- ファイル名: `02_Daily/YYYY/YYYY-MM/YYYY-MM-DD/YYYY-MM-DD-Daily.md`（今日の日付を使用）\n- 今日の日付を自動挿入\n- Inboxフォルダ（`01_Inbox/`）から未完了タスクを3つ抽出\n- 前日のDailyへのリンクを追加\n- テンプレートを使用: `06_Templates/Daily/デイリーノートテンプレート.md`\n- **Weekly Command Centerを確認し、今週のフォーカスと実行待ちアラートをTop 3 Prioritiesに反映**\n\n## 🔴 STEP 0: 日付情報の取得（最初に必ず実行）\n\n**他のすべての手順の前に、以下のスクリプトを実行して日付情報を取得すること。**\n**曜日を推測・手動入力することは絶対禁止。必ずスクリプトの出力を使うこと。**",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "bash 07_System/Scripts/get-date-info.sh"
+        },
+        {
+          "title": "使用例2",
+          "code": "DATE=2026-02-16\nDAY_EN=Monday\nDAY_JP=月曜日\nDAY_TYPE=weekday\nWEEK=2026-W08\nYEAR=2026\nMONTH=2026-02"
+        },
+        {
+          "title": "使用例3",
+          "code": "⚠️ 今日のDailyノート（{DATE}-Daily.md）は既に存在します。\n     - 内容を更新したい場合は `/daily-update` を実行してください。\n     - 強制的に再作成する場合は「再作成してください」と指示してください。"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-dig-zenn",
+      "name": "Zenn記事リサーチ→執筆コマンド",
+      "category": "slash-command",
+      "summary_ja": "**必読ルール**: `.claude/rules/zenn-winning-formula.md` — 勝ちパターン定義（cmux記事分析から導出） **必読テンプレート**: `06_Templa",
+      "description_ja": "# Zenn記事リサーチ→執筆コマンド\n\n## Description\n指定されたテーマをリサーチし、**Zenn向けの技術記事**を生成します。公開判断は人間が行います。\n\n**必読ルール**: `.claude/rules/zenn-winning-formula.md` — 勝ちパターン定義（cmux記事分析から導出）\n**必読テンプレート**: `06_Templates/Content/Zennテンプレート-cmux型.md` — 12-H2構造の骨組み\n\n## Prompt\n以下のテーマについてリサーチし、Zenn技術記事として出力してください。\n\n引数:\n- テーマ: 記事にしたい技術・概念・ツール（例: \"Git Worktree\", \"Bun\", \"MCP\"）\n\n---\n\n## 実行プロセス\n\n### ステップ0: 供給ギャップ評価（必須・最優先）\n\n執筆前に必ず `.claude/rules/zenn-winning-formula.md` の「供給ギャップスコア」を計算する:\n\n```\n供給ギャップスコア =\n  需要シグナル (0-3)\n  + 混乱シグナル (",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "供給ギャップスコア =\n  需要シグナル (0-3)\n  + 混乱シグナル (0-4)   ← 最重要\n  + 緊急度 (0-3)\n  - 既存記事数ペナルティ (0 or -3)"
+        },
+        {
+          "title": "使用例2",
+          "code": "**titleルール** (cmuxフォーミュラ):"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Obsidianコピー（管理・追跡用）"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-dig",
+      "name": "知識調査コマンド",
+      "category": "slash-command",
+      "summary_ja": "引数: - テーマ: 調査したい技術や概念（例: \"React Hooks\", \"TypeScript\", \"PostgreSQL\"）",
+      "description_ja": "# 知識調査コマンド\n\n## Description\n指定されたテーマについて網羅的に知識を調査し、**書籍形式の1つのマークダウンファイル**にまとめます。\n\n## Prompt\n以下のテーマについて、網羅的に詳細な知識を調査して、**01_Inboxフォルダに1つの書籍形式マークダウンファイル**を作成してください。\n\n引数:\n- テーマ: 調査したい技術や概念（例: \"React Hooks\", \"TypeScript\", \"PostgreSQL\"）\n\n---\n\n## 調査プロセス\n\n### ステップ1: テーマ分析と章立て計画\n指定されたテーマを分析し、以下の観点で章構成を計画する：\n\n1. 基本概念・概要\n2. インストール・セットアップ（該当する場合）\n3. 主要機能（機能ごとに章・節を分ける）\n4. 基本的な使い方\n5. 高度な使い方・応用\n6. ベストプラクティス\n7. よくある問題と解決策\n8. 関連技術との比較\n9. 付録（用語集、参考リンク等）\n\n### ステップ2: Web調査\n\n#### 基本調査\n- WebSearchツールで最新情報を収集\n- 公式ドキュメ",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "---\n\n## 書籍作成ルール\n\n### 章構成の原則\n- **最低8章以上**を目安に構成\n- 各章は独立したトピックを扱う\n- 章内は3-5の節（セクション）に分割\n- 階層は最大3レベル（章 > 節 > 小節）\n\n### コンテンツ品質\n- 各章に**実践的なコード例**を含める\n- **表・図**を積極的に使用して情報を整理\n- **比較表**で関連技術との違いを明確化\n- **トラブルシューティング**を必ず含める\n\n### ファイル命名規則"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-email-check",
+      "name": "Email Check - 返信必要メール確認",
+      "category": "slash-command",
+      "summary_ja": "```bash ls -t \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/04_Memory/Business/Email/Inbox-S",
+      "description_ja": "# Email Check - 返信必要メール確認\n\n## Description\n同期済みメールを分析し、返信が必要なメールを優先度順にリストアップします。\n\n## Prompt\n返信が必要なメールを確認してください。\n\n## Triggers\n- 「メールチェック」\n- 「返信確認」\n- 「返信が必要なメール」\n- 「email check」\n\n## Instructions\n\n### 1. 最新の同期データを読み込み\n\n```bash\nls -t \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/04_Memory/Business/Email/Inbox-Sync/\" | head -1\n```\n\n最新の `inbox_YYYYMMDD.json` を読み込む。\n\n### 2. 返信必要性の判定基準\n\n各メールを以下の基準でスコアリング:\n\n| 要素 | スコア |\n|------|--------|\n| 自分宛て（To）で質問が含まれる | +30 |\n| 依頼・お願い表現がある | +25 |\n| 締め切り・期限の言",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "ls -t \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/04_Memory/Business/Email/Inbox-Sync/\" | head -1"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-email-learn",
+      "name": "Email Learn - 文体学習",
+      "category": "slash-command",
+      "summary_ja": "以下を順に確認し、問題があれば処理を中断してガイダンスを表示:",
+      "description_ja": "# Email Learn - 文体学習\n\n## Description\n送信済みメールから文体パターンを抽出し、プロファイルを作成します。\n\n## Prompt\n送信メールから文体パターンを学習してください。\n\n## Arguments\n- `$ARGUMENTS` — （任意）オプション指定\n\n## Options\n- `--days N` — 分析対象の日数を指定（デフォルト: 30日）\n- `--refresh` — 既存プロファイルを全クリアして再学習（通常は差分マージ）\n- `--dry-run` — プロファイルを保存せずプレビューのみ表示\n\n## Triggers\n- 「文体学習」\n- 「メール文体」\n- 「email learn」\n- 「返信スタイル学習」\n\n## Instructions\n\n### 1. 前提チェック（エラーハンドリング）\n\n以下を順に確認し、問題があれば処理を中断してガイダンスを表示:\n\n1. **送信メール同期データの確認**:\n   - `04_Memory/Business/Email/Sent-Sync/` 内の `sent_YYYYMMD",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "powershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-email-sent.ps1\""
+        },
+        {
+          "title": "使用例2",
+          "code": "### 5. 完了サマリー"
+        },
+        {
+          "title": "使用例3",
+          "code": "## Usage"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-email-suggest",
+      "name": "Email Suggest - 返信案生成",
+      "category": "slash-command",
+      "summary_ja": "以下を順に確認し、問題があれば処理を中断してガイダンスを表示:",
+      "description_ja": "# Email Suggest - 返信案生成\n\n## Description\n特定のメールに対して、学習した文体で返信案を生成します。\n\n## Prompt\nメールへの返信案を生成してください。\n\n## Arguments\n- `$ARGUMENTS` — メールID（数値）または件名キーワード（文字列）\n\n### 引数の検索方法\n1. **数値の場合**: `inbox_YYYYMMDD.json` 内の配列インデックス（0始まり）で特定\n2. **文字列の場合**: `subject` フィールドに対する部分一致検索（大文字小文字無視）\n3. **複数ヒット時**: 候補一覧を表示し、ユーザーに選択を求める\n4. **引数なしの場合**: `/email-check` の結果から返信必要度が最も高いメールを自動選択\n\n## Options\n- `--tone formal` — フォーマルな文体を強制\n- `--tone casual` — カジュアルな文体を強制\n- `--all` — 丁寧版・カジュアル版・簡潔版の3パターンすべてを生成\n\n## Triggers\n- 「返信案",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "### 6. 複数パターン（`--all` 指定時または必要に応じて）\n\n以下のパターンを提示:\n- **丁寧版**: フォーマルな表現（社外・上位者向け）\n- **カジュアル版**: 親しい相手向け（社内同僚）\n- **簡潔版**: 要点のみ（急ぎの場合）\n\n## Usage"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-email-sync",
+      "name": "Email Sync - メール同期",
+      "category": "slash-command",
+      "summary_ja": "| オプション | 説明 | デフォルト | 例 | |-----------|------|-----------|-----| | `$ARGUMENTS` | サブコマンド（`inbox` / ",
+      "description_ja": "# Email Sync - メール同期\n\n## Description\nOutlookの受信・送信メールをCOM経由で同期し、JSON形式でエクスポートする。\n\n## Prompt\nOutlookメールを同期してください。\n\n## Triggers\n- 「メール同期」\n- 「メールを同期」\n- 「email sync」\n- 「受信メール取得」\n\n## Options\n\n| オプション | 説明 | デフォルト | 例 |\n|-----------|------|-----------|-----|\n| `$ARGUMENTS` | サブコマンド（`inbox` / `sent` / 省略で両方） | 両方 | `inbox` |\n| `--days N` | 取得対象日数 | 7 | `--days 14` |\n| `--dry-run` | 実際の同期を行わず、実行予定内容のみ表示 | off | `--dry-run` |\n\n### 使用例\n\n```\n/email-sync                   # 受信+送信を7日分同期\n/email-sync inbox",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/email-sync                   # 受信+送信を7日分同期\n/email-sync inbox             # 受信のみ\n/email-sync sent --days 14    # 送信メール14日分\n/email-sync --dry-run         # 実行内容のプレビューのみ"
+        },
+        {
+          "title": "使用例2",
+          "code": "powershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-email-inbox.ps1\" -Days <日数>"
+        },
+        {
+          "title": "使用例3",
+          "code": "powershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-email-sent.ps1\" -Days <日数>"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-email-tasks",
+      "name": "Email Tasks - メール⇔タスク連携",
+      "category": "slash-command",
+      "summary_ja": "| Mode | 説明 | |------|------| | `detect` | 受信メールからタスクを検出 | | `match` | 既存Dailyタスクとメールをマッチング | | `upd",
+      "description_ja": "# Email Tasks - メール⇔タスク連携\n\n## Description\nメールからタスクを検出し、Dailyノートのタスクとマッチング・進捗追跡を行います。\n\n## Prompt\nメールとタスクを連携してください。\n\n## Triggers\n- 「メールタスク」\n- 「メールからタスク」\n- 「email tasks」\n- 「タスク連携」\n\n## Instructions\n\n### モード\n\n| Mode | 説明 |\n|------|------|\n| `detect` | 受信メールからタスクを検出 |\n| `match` | 既存Dailyタスクとメールをマッチング |\n| `update` | 送信メールから進捗・完了を検出 |\n| `full` | 全機能実行（デフォルト） |\n\n### 1. タスク検出（detect）\n\n受信メールから以下のパターンでタスクを検出:\n\n- 「〜してください」「〜をお願いします」\n- 「〜までに」（期限あり）\n- 「確認をお願いします」「ご対応ください」\n- 質問形式（回答が必要）\n\n出力:\n```markdown\n## 📋 メ",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "### 2. タスクマッチング（match）\n\n今日のDailyノートのタスクと受信メールをマッチング:\n\n- 件名・本文のキーワード一致\n- 送信者と担当者の関連\n- 日付・期限の一致\n\n出力:"
+        },
+        {
+          "title": "使用例2",
+          "code": "### 3. 進捗更新（update）\n\n送信メールから完了・進捗を検出:\n\n- 「対応しました」「完了しました」\n- 「送付します」「添付します」\n- 返信済み（元の依頼に対して）\n\n出力:"
+        },
+        {
+          "title": "使用例3",
+          "code": "### 4. Dailyノート更新提案\n\n検出結果に基づき、Dailyノートへの追加・更新を提案:"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-epub",
+      "name": "EPUB変換 & Kindle送信コマンド",
+      "category": "slash-command",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# EPUB変換 & Kindle送信コマンド\r\n\r\n## Description\r\nVault内のマークダウンファイルをEPUBに変換し、オプションでKindleに送信します。\r\n\r\n## Prompt\r\n指定されたマークダウンファイルをEPUB形式に変換してください。\r\n\r\n引数:\r\n- ファイル: 変換対象のマークダウンファイルパス（Vault内の相対パスまたは絶対パス）\r\n- オプション:\r\n  - `--kindle`: 変換後にKindleメールアドレスへ送信\r\n  - `--merge [file2] [file3] ...`: 複数ファイルを1つのEPUBにマージ\r\n  - `--css [path]`: カスタムCSSファイルを適用\r\n  - `--dry-run`: 変換コマンドをプレビュー（実行しない）\r\n  - `--title \"タイトル\"`: EPUBタイトルを上書き\r\n  - `--author \"著者名\"`: 著者名を指定（デフォルト: ayumu）\r\n\r\n---\r\n\r\n## 設定情報\r\n\r\n| Setting | Value |\r\n|---------",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-factcheck",
+      "name": "/factcheck — Gensparkでファクトチェック",
+      "category": "slash-command",
+      "summary_ja": "マークダウン記事をGensparkのAgentic Cross-Checkで検証し、結果をレポートとして保存する。",
+      "description_ja": "# /factcheck — Gensparkでファクトチェック\n\nマークダウン記事をGensparkのAgentic Cross-Checkで検証し、結果をレポートとして保存する。\n\n## Usage\n\n```\n/factcheck [ファイルパス]\n```\n\n### Arguments\n\n| 引数 | 説明 |\n|------|------|\n| `[ファイルパス]` | チェック対象のマークダウンファイル（Vault内の相対パスまたは絶対パス） |\n\n### Options\n\n| オプション | 説明 |\n|-----------|------|\n| `--dry-run` | テキスト抽出のみ（ブラウザ操作なし） |\n\n## Prerequisites\n\n- Claude in Chrome MCP が使用可能であること\n- ユーザーのChromeブラウザでGensparkにアクセスできること\n- Googleアカウント: `hrtaym1114.bitalt@gmail.com` でログイン済み（またはログイン可能）\n\n## Instructions\n\n### Phase 0",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/factcheck [ファイルパス]"
+        },
+        {
+          "title": "使用例2",
+          "code": "bash 07_System/Scripts/get-date-info.sh"
+        },
+        {
+          "title": "使用例3",
+          "code": "mcp__claude-in-chrome__tabs_context_mcp → 現在のブラウザタブ一覧を取得"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-genspark-pro",
+      "name": "/genspark-pro — Genspark GPT-5.4 Pro Runner",
+      "category": "slash-command",
+      "summary_ja": "Genspark で deep / ultrathink 系の高精度実行を行うコマンド。Claude in Chrome でブラウザ操作し、`prompt -> browser run -> raw/",
+      "description_ja": "# /genspark-pro — Genspark GPT-5.4 Pro Runner\n\nGenspark で deep / ultrathink 系の高精度実行を行うコマンド。Claude in Chrome でブラウザ操作し、`prompt -> browser run -> raw/result save` まで進める。\n\n## Usage\n\n```text\n/genspark-pro [質問/タスク]\n/genspark-pro [質問/タスク] --dry-run\n/genspark-pro [質問/タスク] --raw\n/genspark-pro [質問/タスク] --mode [analysis|factcheck|planning|writing]\n/genspark-pro [質問/タスク] --depth [standard|deep|ultrathink]\n/genspark-pro [質問/タスク] --slug [name]\n```\n\n## Prerequisites\n\n- Claude in Chrome MCP が使用可能であること\n- ユーザーの C",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "2. **新しいタブで Genspark を開く**"
+        },
+        {
+          "title": "使用例2",
+          "code": "3. **ページ状態を確認**"
+        },
+        {
+          "title": "使用例3",
+          "code": "4. ログイン状態を判定:\n   - ログイン済み（入力フォーム/チャットUIが表示される）→ Phase 2-5 へ\n   - 未ログイン → Phase 2b へ\n\n### Phase 2b: Google Login（Chrome 既存セッション活用）\n\nClaude in Chrome はユーザーの実 Chrome ブラウザを操作するため、多くの場合 Google に既にログイン済み。\n\n1. **「Google でログイン」ボタンをクリック**"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-handbook-generate",
+      "name": "Handbook Self-Study Article Generator",
+      "category": "slash-command",
+      "summary_ja": "Arguments: - Source: URL, topic name, or \"--file path/to/file.md\" - Options: - `--category [Python|A",
+      "description_ja": "# Handbook Self-Study Article Generator\n\n## Description\nWeb page or reference content from a URL/topic to generate a self-study handbook article in MkDocs Material format for the Borders Handbook.\n\n## Prompt\nProvide a URL, topic, or reference text to generate a handbook-style self-study article. The article follows the Borders Handbook format: practical, beginner-friendly, completable in 5-15 minutes.\n\nArguments:\n- Source: URL, topic name, or \"--file path/to/file.md\"\n- Options:\n  - `--category [",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "Find files in C:\\temp\\handbook\\docs\\ that cover the same topic"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-handbook-publish",
+      "name": "Handbook Publish - Content Upload & GitLab Push",
+      "category": "slash-command",
+      "summary_ja": "Arguments: - Source: Path to the markdown file to publish, or \"all\" to publish all unpublished files",
+      "description_ja": "# Handbook Publish - Content Upload & GitLab Push\n\n## Description\nUpload generated self-study content to the Borders Handbook. Handles category placement, index updates, and GitLab push on a feature branch.\n\n## Prompt\nPublish content to the Borders Handbook. Validates placement, updates navigation, and pushes to GitLab.\n\nArguments:\n- Source: Path to the markdown file to publish, or \"all\" to publish all unpublished files in the staging area\n- Options:\n  - `--category [name]`: Override auto-detect",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "Category detected: [AI/Coding]\nPath: docs/自習ライブラリ/AI/Coding/[slug].md\nProceed? (Y/n)"
+        },
+        {
+          "title": "使用例2",
+          "code": "**Commit message format**:"
+        },
+        {
+          "title": "使用例3",
+          "code": "If multiple files are being published:"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-inbox-review",
+      "name": "Inbox整理",
+      "category": "slash-command",
+      "summary_ja": "| オプション | 説明 | デフォルト | 例 | |-----------|------|-----------|-----| | `--dry-run` | 移動を提案のみ行い、実際のファイル操",
+      "description_ja": "# Inbox整理\n\n## Description\n`01_Inbox/`内のノートを分析し、スコアリングに基づいて最適な振り分け先を提案する。コンテンツ候補の自動検出機能付き。\n\n## Options\n\n| オプション | 説明 | デフォルト | 例 |\n|-----------|------|-----------|-----|\n| `--dry-run` | 移動を提案のみ行い、実際のファイル操作は行わない | off | `--dry-run` |\n| `--category [name]` | 特定カテゴリの候補のみ表示（Memory/Input/Output/Archive） | 全カテゴリ | `--category Memory` |\n| `--limit N` | 処理するファイル数の上限 | 無制限 | `--limit 10` |\n\n### 使用例\n\n```\n/inbox-review                       # 全ファイルを分析・整理提案\n/inbox-review --dry-run             # 提案のみ（移動しない）\n/",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/inbox-review                       # 全ファイルを分析・整理提案\n/inbox-review --dry-run             # 提案のみ（移動しない）\n/inbox-review --category Memory     # Memory候補のみ表示\n/inbox-review --limit 5             # 5ファイルまで処理"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-infra-gha-status",
+      "name": "/infra-gha-status - GitHub Actions 状態確認",
+      "category": "slash-command",
+      "summary_ja": "GitHub Actions の実行状況を確認し、直近の実行結果・エラー詳細を表示する。ワークフロー別のサマリーと失敗時の推奨アクションを提供。",
+      "description_ja": "# /infra-gha-status - GitHub Actions 状態確認\n\n## Description\n\nGitHub Actions の実行状況を確認し、直近の実行結果・エラー詳細を表示する。ワークフロー別のサマリーと失敗時の推奨アクションを提供。\n\n## Options\n\n| オプション | 説明 | デフォルト | 例 |\n|-----------|------|-----------|-----|\n| `--repo [owner/repo]` | 対象リポジトリを指定 | 現在のリポジトリ | `--repo hrtaym1114-github/obsidian-1` |\n| `--verbose` | 各ワークフローのジョブ・ステップ詳細まで表示 | off | `--verbose` |\n| `--limit N` | 表示するrun数 | 10 | `--limit 20` |\n| `--workflow [name]` | 特定ワークフローのみ表示 | 全ワークフロー | `--workflow \"Daily Routine\"` |\n\n### 使用例\n\n`",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/infra-gha-status                              # 現在リポジトリの直近10件\n/infra-gha-status --verbose                    # ジョブ・ステップ詳細付き\n/infra-gha-status --repo hrtaym1114-github/obsidian-1 --limit 20\n/infra-gha-status --workflow \"Borders Daily\"   # 特定ワークフローのみ"
+        },
+        {
+          "title": "使用例2",
+          "code": "export HTTP_PROXY=http://172.25.173.185:3129\nexport HTTPS_PROXY=http://172.25.173.185:3129\ngh run list --limit <N> [--repo <owner/repo>] [--workflow <name>]"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Phase 3: エラー詳細（失敗がある場合）\n\n失敗したワークフローがある場合:\n\n1. `gh run view [run-id]` でエラー詳細を取得\n2. `--verbose` 指定時は `gh run view [run-id] --log-failed` でログも取得\n3. エラーの概要と推奨アクションを表示"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-infra-health",
+      "name": "/infra-health - Vault健全性チェック",
+      "category": "slash-command",
+      "summary_ja": "Vault の健全性メトリクスを算出し、レポートを出力する。",
+      "description_ja": "# /infra-health - Vault健全性チェック\n\n## Description\n\nVault の健全性メトリクスを算出し、レポートを出力する。\n\n## Usage\n\n```\n/infra-health\n```\n\n## Instructions\n\n### Phase 1: メトリクス収集\n\n以下のメトリクスを収集:\n\n1. **Inbox ファイル数**: `01_Inbox/` 内のファイル数を Glob でカウント\n2. **Memo ファイル数**: `00_Memo/` 内のファイル数を Glob でカウント\n3. **Stale Inbox**: `01_Inbox/` 内で30日以上前のファイル数（ファイル名の日付から判定）\n4. **Projects Active**: `05_Output/Projects/@Active/` のサブフォルダ数\n5. **Daily Notes**: `02_Daily/` の最新デイリーノート日付\n6. **Vault Total**: Vault全体の `.md` ファイル数\n\n### Phase 2: 健全性判定\n\n`",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/infra-health"
+        },
+        {
+          "title": "使用例2",
+          "code": "### Phase 4: レポート出力"
+        },
+        {
+          "title": "使用例3",
+          "code": "### Phase 5: レポートファイル保存（オプション）\n\nWarning/Critical がある場合のみ `07_System/Reports/` にレポートを保存:"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-inner-coach",
+      "name": "/inner-coach — インナーコーチ・セッション",
+      "category": "slash-command",
+      "summary_ja": "週1回の対話セッション。ayumu の内面にある言語化されていない気づき・体験・葛藤を引き出し、チャネル横断のContent Seedsとして言語化する。",
+      "description_ja": "# /inner-coach — インナーコーチ・セッション\n\n## Description\n\n週1回の対話セッション。ayumu の内面にある言語化されていない気づき・体験・葛藤を引き出し、チャネル横断のContent Seedsとして言語化する。\n\n## Usage\n\n```\n/inner-coach              # 通常セッション\n/inner-coach --quick      # ショートセッション（5分・Seed 1個狙い）\n/inner-coach --review     # 過去のSeedsを振り返り、未使用のものを再提案\n```\n\n## Instructions\n\n### エージェント定義の読み込み\n\n**必ず最初に** `.claude/agents/inner-coach.md` を読み込み、セッション設計に従うこと。\n\n### Phase 1: コンテキスト把握\n\n1. `date '+%Y-%m-%d (%A)'` で今日の日付を確認\n2. 以下を**黙って**読み込む（内容を羅列しない）:\n   - `02_Daily/` から直近7日分の",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/inner-coach              # 通常セッション\n/inner-coach --quick      # ショートセッション（5分・Seed 1個狙い）\n/inner-coach --review     # 過去のSeedsを振り返り、未使用のものを再提案"
+        },
+        {
+          "title": "使用例2",
+          "code": "03_Input/Content-Hub/Inner-Coach/\n├── YYYYMMDD_inner-coach-session.md   # 各セッション記録\n└── ..."
+        },
+        {
+          "title": "使用例3",
+          "code": "月曜: /daily → 1週間スタート\n水曜: /inner-coach --quick → 週半ばの気づきをキャッチ\n金曜: /inner-coach → フルセッション（週の振り返り）\n日曜: /inner-coach --review → 未使用Seeds見直し"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-libecity",
+      "name": "libecity - リベシティ運用スキル",
+      "category": "slash-command",
+      "summary_ja": "リベシティでの**情報発信・ナレッジ共有**を中心としたスキル群。",
+      "description_ja": "# libecity - リベシティ運用スキル\n\nリベシティでの**情報発信・ナレッジ共有**を中心としたスキル群。\n\n## Overview\n\nリベシティ（リベラルアーツシティ）でのコミュニティ活動を、**発信ファースト**で運用:\n- 注目ニュースのキュレーション投稿（チャット向け）\n- ノウハウ図書館への記事執筆\n- サポート活動（質問への回答）は余裕がある時に\n\n### 運用スタンス\n\n```\n❌ 旧: サポートチェック → 返信 → 余裕があれば発信\n✅ 新: ニュース発信 → 図書館執筆 → サポートは見かけたら対応\n```\n\n**なぜ発信ファースト？**\n- 活発なチャットにも未解決質問は少ない（サポート需要が低い）\n- 有益な情報を届ける方がコミュニティ貢献度が高い\n- ニュース共有はポイント獲得・フォロワー増につながる\n- 図書館記事はストック型資産になる\n\n## Available Commands\n\n| コマンド | 説明 | 優先度 |\n|---------|------|--------|\n| `/libecity:news-share` | 注目ニュースをチ",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "❌ 旧: サポートチェック → 返信 → 余裕があれば発信\n✅ 新: ニュース発信 → 図書館執筆 → サポートは見かけたら対応"
+        },
+        {
+          "title": "使用例2",
+          "code": "# 1. 今日のニュースから投稿を作成\n/libecity:news-share\n\n# 2. 図書館記事を執筆\n/libecity:library-write\n\n# 3. サポートチェック（週1-2回）\n/libecity:support-check all"
+        },
+        {
+          "title": "使用例3",
+          "code": "/libecity:news-share"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-memo-to-inbox",
+      "name": "Memo→Inbox変換（コンテンツネタ自動判定機能付き）",
+      "category": "slash-command",
+      "summary_ja": "**重要**: 全てのファイルの中身を必ず読み込んで、内容を丁寧に分析してから整形します。",
+      "description_ja": "# Memo→Inbox変換（コンテンツネタ自動判定機能付き）\n\n## Description\n00_Memoの雑なメモを01_Inboxの形式に整形して変換します。**ブログネタ・X.com投稿ネタを自動判定**し、適切なフォルダに振り分けます（承認不要で自動実行）。\n\n**重要**: 全てのファイルの中身を必ず読み込んで、内容を丁寧に分析してから整形します。\n\n## 新機能（v2.0）\n\n### 🎯 コンテンツネタ自動判定\nメモ内容を分析し、以下の3タイプに自動振り分け：\n\n1. **ブログネタ** → `03_Input/Blog-Research/[テーマ]/`\n   - 深い考察・分析が含まれる\n   - 500文字以上の詳細な内容\n   - 完全ガイド・チュートリアル形式に適している\n\n2. **X.com投稿ネタ** → `03_Input/X-Operation/Post-Ideas/`\n   - 簡潔な気づき・Tips\n   - 140-800文字程度の短い内容\n   - タイムリーな情報\n\n3. **通常メモ** → `01_Inbox/`\n   - 上記に該当し",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. 文字数カウント（メタデータ・空行除く）\n2. 構造分析：\n   - 見出し数（\"##\"の出現回数）\n   - 表の数（\"|\"で始まる行のブロック数）\n   - リスト数（\"-\"または\"*\"で始まる箇条書きブロック数）\n   - コードブロック数（\""
+        },
+        {
+          "title": "使用例2",
+          "code": "### ステップ2: スコア計算\n\n#### ブログスコア（0-10点）"
+        },
+        {
+          "title": "使用例3",
+          "code": "#### X.comスコア（0-10点）"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-morning-sync",
+      "name": "Morning Sync - 朝の同期",
+      "category": "slash-command",
+      "summary_ja": "以下の順序で同期を実行:",
+      "description_ja": "# Morning Sync - 朝の同期\n\n## Description\nメールとカレンダーを一括同期します。毎朝の最初に実行してください。\n\n## Prompt\nメールとカレンダーを同期してください。\n\n## Triggers\n- 「メールとカレンダーを同期」\n- 「朝の同期」\n- 「同期して」\n- 「morning sync」\n\n## Instructions\n\n以下の順序で同期を実行:\n\n### 1. メール同期\n\n```bash\npowershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-email-inbox.ps1\"\n```\n\n**出力先**: `04_Memory/Business/Email/Inbox-Sync/inbox_YYYYMMDD.json`\n\n### 2. カレンダー同期\n\n```bash\npowershell -ExecutionPolicy Bypass -Fi",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "powershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-email-inbox.ps1\""
+        },
+        {
+          "title": "使用例2",
+          "code": "powershell -ExecutionPolicy Bypass -File \"C:/Users/J0613675/OneDrive - Honda/ドキュメント/obsidian-1/07_System/Scripts/sync-outlook-calendar.ps1\""
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-nanobanana",
+      "name": "NanoBanana 画像生成コマンド",
+      "category": "slash-command",
+      "summary_ja": "| 引数 | 必須 | デフォルト | 説明 | |------|------|-----------|------| | 説明テキスト | ✅ | — | 生成したい画像の説明（日本語OK、英語推奨",
+      "description_ja": "# NanoBanana 画像生成コマンド\n\n## Description\nGemini CLI の nanobanana 拡張を使って AI 画像を直接生成します。\nPaperBanana（5エージェント）の軽量版として、高速な画像生成に使用します。\n\n## Usage\n```\n/nanobanana [説明テキスト]\n/nanobanana --type [generate|diagram|icon|pattern|story|edit|restore] [説明]\n/nanobanana --count [N] [説明]\n/nanobanana --styles \"watercolor,sketch\" [説明]\n/nanobanana --preview [説明]\n```\n\n## 引数\n\n| 引数 | 必須 | デフォルト | 説明 |\n|------|------|-----------|------|\n| 説明テキスト | ✅ | — | 生成したい画像の説明（日本語OK、英語推奨） |\n| `--type` | ❌ | generate | コマンドタイプ（下記参照） |\n|",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/nanobanana [説明テキスト]\n/nanobanana --type [generate|diagram|icon|pattern|story|edit|restore] [説明]\n/nanobanana --count [N] [説明]\n/nanobanana --styles \"watercolor,sketch\" [説明]\n/nanobanana --preview [説明]"
+        },
+        {
+          "title": "使用例2",
+          "code": "# nanobanana拡張のgemini-extension.jsonにAPIキーが設定済みか確認\npython3 -c \"import json; d=json.load(open('$HOME/.gemini/extensions/nanobanana/gemini-extension.json')); k=d['mcpServers']['nanobanana']['env'].get('GEMINI_API_KEY',''); print(f'OK ({len(k)} chars)' if k else 'MISSING')\""
+        },
+        {
+          "title": "使用例3",
+          "code": "description = --type, --count, --styles, --diagram-type, --preview を除いた本文\ncommand_type = --type の値、なければ説明から自動判定（下記ルール）\ncount = --count の値、なければ 1\nstyles = --styles の値\ndiagram_type = --diagram-type の値、なければ flowchart\npreview_flag = --preview があれば true"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-next",
+      "name": "/next — X.com投稿キュー次候補の表示 & クリップボードコピー",
+      "category": "slash-command",
+      "summary_ja": "1. **キュー読込**: `07_System/State/x-post-queue.md` を Read 2. **先頭候補特定**: Pending セクションの最初の `- [ ] signa",
+      "description_ja": "# /next — X.com投稿キュー次候補の表示 & クリップボードコピー\n\n## Description\n`07_System/State/x-post-queue.md` の Pending セクション先頭の未投稿シグナルを取り出し、投稿文をクリップボードにコピーした上で、投稿文と引用元リンクを画面に表示する。手動投稿用コマンド。\n\n## Usage\n```\n/next --manual     # キュー先頭の候補を表示 + クリップボードコピー\n/next              # --manual と同義（デフォルト動作）\n/next --skip       # 先頭候補をSkippedに移動して次を表示\n/next --posted     # 直前に表示した候補をPostedに移動\n/next --peek       # キューを表示のみ（コピー・マークなし）\n```\n\n## 引数\n- `$ARGUMENTS` — 省略可\n  - `--manual`（または省略）: デフォルト。先頭候補を表示してクリップボードへコピー\n  - `--skip`: 先頭候補を",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/next --manual     # キュー先頭の候補を表示 + クリップボードコピー\n/next              # --manual と同義（デフォルト動作）\n/next --skip       # 先頭候補をSkippedに移動して次を表示\n/next --posted     # 直前に表示した候補をPostedに移動\n/next --peek       # キューを表示のみ（コピー・マークなし）"
+        },
+        {
+          "title": "使用例2",
+          "code": "printf '%s' \"$POST_TEXT\" | pbcopy"
+        },
+        {
+          "title": "使用例3",
+          "code": "## 📣 投稿候補: [signal-name]\n\n   **スコア**: X.X/10\n   **文字数**: 約XXX字\n   ✅ クリップボードにコピー済み\n\n   ### 🔗 引用元リンク\n   [URL]\n\n   ### 📝 投稿文"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-notebooklm-studio",
+      "name": "NotebookLM Studio — Data to Podcast / Infographic / Slides",
+      "category": "slash-command",
+      "summary_ja": "Convert the specified data into NotebookLM studio artifacts.",
+      "description_ja": "# NotebookLM Studio — Data to Podcast / Infographic / Slides\n\n## Description\nSpecify a file or text data, import it into NotebookLM, and generate podcast audio, infographics, or slide decks. Uses `nlm` CLI (notebooklm-mcp-cli).\n\n## Prompt\n\nConvert the specified data into NotebookLM studio artifacts.\n\nArguments:\n- $ARGUMENTS\n\nUsage examples:\n- `/notebooklm-studio podcast path/to/article.md`\n- `/notebooklm-studio infographic path/to/article.md --style scientific`\n- `/notebooklm-studio slides path/",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "# Verify nlm is installed\nnlm --version\n\n# Verify authentication\nPYTHONIOENCODING=utf-8 nlm login --check"
+        },
+        {
+          "title": "使用例2",
+          "code": "# Use English notebook name to avoid encoding issues\nPYTHONIOENCODING=utf-8 nlm notebook create \"[descriptive name from source]\""
+        },
+        {
+          "title": "使用例3",
+          "code": "PYTHONIOENCODING=utf-8 nlm source add [NOTEBOOK_ID] --file \"[file_path]\""
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-paperbanana-generate",
+      "name": "PaperBanana 画像生成コマンド",
+      "category": "slash-command",
+      "summary_ja": "| 引数 | 必須 | デフォルト | 説明 | |------|------|-----------|------| | 説明テキスト | ✅ | — | 生成したい図の日本語・英語説明 | | `",
+      "description_ja": "# PaperBanana 画像生成コマンド\n\n## Description\nPaperBanana論文（arXiv: 2601.23265）に基づくマルチエージェント・パイプラインで学術図表・説明図を自動生成します。\n5エージェント（Retriever → Planner → Stylist → Visualizer → Critic）が協調し、最大3回の反復改善で高品質な図を生成します。\n\n## Usage\n```\n/paperbanana-generate [説明テキスト]\n/paperbanana-generate --type [methodology|flowchart|architecture|statistical|concept] [説明]\n/paperbanana-generate --output [パス] [説明]\n/paperbanana-generate --iter [1|2|3] [説明]  ← 最大反復回数指定\n```\n\n## 引数\n\n| 引数 | 必須 | デフォルト | 説明 |\n|------|------|-----------|------|",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/paperbanana-generate [説明テキスト]\n/paperbanana-generate --type [methodology|flowchart|architecture|statistical|concept] [説明]\n/paperbanana-generate --output [パス] [説明]\n/paperbanana-generate --iter [1|2|3] [説明]  ← 最大反復回数指定"
+        },
+        {
+          "title": "使用例2",
+          "code": "description = ARGUMENTS から --type, --output, --iter を除いた本文\nimage_type = --type の値、なければ説明から自動判定（下記ルール）\noutput_path = --output の値、なければ 05_Output/Areas/Content-Creation/Images/@Working\nmax_iterations = --iter の値、なければ 3"
+        },
+        {
+          "title": "使用例3",
+          "code": "mkdir -p \"05_Output/Areas/Content-Creation/Images/@Working\"\nmkdir -p \"05_Output/Areas/Content-Creation/Images/@Completed\""
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-prompt-coach",
+      "name": "/prompt-coach — プロンプト設計コーチ",
+      "category": "slash-command",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# /prompt-coach — プロンプト設計コーチ\r\n\r\n## Description\r\n\r\n「プロンプトは呪文ではなく設計図」の思想で、コンテンツ作成前の思考設計を対話で引き出すコーチセッション。noteの「プロンプト思考」フレームワークに基づき、読者の解像度・独自の切り口・感情設計を明確化した上で、CoT + Few-shot 形式のプロンプトを出力する。\r\n\r\n## Usage\r\n\r\n```\r\n/prompt-coach                    # フルセッション（3問→ペルソナ→感情設計→プロンプト出力）\r\n/prompt-coach [テーマ]           # テーマ指定でセッション開始\r\n/prompt-coach --quick [テーマ]   # 3問省略・ペルソナ直接入力モード\r\n/prompt-coach --check [プロンプト] # 既存プロンプトを3要素でレビュー\r\n```\r\n\r\n## Instructions\r\n\r\n### このコマンドの目的\r\n\r\nAI（Claude）でコンテンツを書く際、多くの人が陥るのが「AIへの丸投げ」",
+      "examples": [],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-rd-new-project",
+      "name": "/rd-new-project - 新規プロジェクト作成",
+      "category": "slash-command",
+      "summary_ja": "テンプレートから新規プロジェクトを作成し、project-registry.md に登録する。",
+      "description_ja": "# /rd-new-project - 新規プロジェクト作成\n\n## Description\n\nテンプレートから新規プロジェクトを作成し、project-registry.md に登録する。\n\n## Usage\n\n```\n/rd-new-project [プロジェクト名] [タイプ]\n```\n\n### Arguments\n\n| 引数 | 説明 | 必須 |\n|------|------|------|\n| プロジェクト名 | プロジェクトの名前（英語、ハイフン区切り） | Yes |\n| タイプ | side-project / tool / research / enterprise | Yes |\n\n## Instructions\n\n### Phase 1: WIP チェック\n\n1. `.claude/agents/project-registry.md` を読み込み\n2. Active プロジェクト数を確認（enterprise除く）\n3. WIP制限（3件）を超える場合は警告を表示し、ユーザーに確認\n\n### Phase 2: プロジェクト作成\n\n1. 配置先を判定:\n   -",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/rd-new-project [プロジェクト名] [タイプ]"
+        },
+        {
+          "title": "使用例2",
+          "code": "05_Output/Projects/@Planning/[プロジェクト名]/\n└── README.md （テンプレートから生成）"
+        },
+        {
+          "title": "使用例3",
+          "code": "| [id] | [Name] | [type] | `05_Output/Projects/@Planning/[Name]/` | **Planning** | Med |"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-rd-status",
+      "name": "/rd-status - R&Dプロジェクトレビュー",
+      "category": "slash-command",
+      "summary_ja": "R&D部門長として全アクティブプロジェクトの進捗をレビューし、サマリーを出力する。",
+      "description_ja": "# /rd-status - R&Dプロジェクトレビュー\n\n## Description\n\nR&D部門長として全アクティブプロジェクトの進捗をレビューし、サマリーを出力する。\n\n## Usage\n\n```\n/rd-status\n```\n\n## Instructions\n\n### Phase 1: レジストリ読込\n\n1. `.claude/agents/project-registry.md` を読み込み、Active プロジェクト一覧を取得\n\n### Phase 2: プロジェクトスキャン\n\n各 Active プロジェクトについて:\n\n1. プロジェクトフォルダ内の README.md があれば読み込み\n2. フォルダ内のファイル数・最終更新日を確認\n3. 以下を評価:\n   - 期限の有無と残り日数\n   - 最終更新からの経過日数\n   - 次アクションの有無\n\n### Phase 3: 状態判定\n\n| 条件 | 判定 |\n|------|------|\n| 最終更新 7日以内 | 🟢 Active |\n| 最終更新 7-30日 | 🟡 Stale |\n| 最終更新 30日以上",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/rd-status"
+        },
+        {
+          "title": "使用例2",
+          "code": "### Phase 5: レビュー出力"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-receive-delivery",
+      "name": "/receive-delivery — 納品物の回収",
+      "category": "slash-command",
+      "summary_ja": "ai-publishing-house の `10_Deliveries/` から納品物を回収し、各チャネルの @TODO/ フォルダに配置する。",
+      "description_ja": "# /receive-delivery — 納品物の回収\n\nai-publishing-house の `10_Deliveries/` から納品物を回収し、各チャネルの @TODO/ フォルダに配置する。\n\n## Usage\n\n```\n/receive-delivery [オプション]\n```\n\n### Options\n\n| オプション | 説明 |\n|-----------|------|\n| `--key [commission-key]` | 特定の納品物のみ回収 |\n| `--dry-run` | プレビューのみ（ファイル移動しない） |\n\n## Instructions\n\n### Step 1: 納品物スキャン\n\n1. ai-publishing-house の Deliveries フォルダを Glob でスキャン（パスは `AI_PUB_ROOT` 環境変数、デフォルト: `C:/work1/ai-publishing-house`）\n2. 各 commission-key ディレクトリの `delivery-manifest.md` を読み込む\n3. `--key`",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/receive-delivery [オプション]"
+        },
+        {
+          "title": "使用例2",
+          "code": "cp ${AI_PUB_ROOT:-C:/work1/ai-publishing-house}/10_Deliveries/[key]/x-ai-*.md \\\n   \"05_Output/Areas/Content-Creation/X-Twitter/@TODO/\"\n\ncp ${AI_PUB_ROOT:-C:/work1/ai-publishing-house}/10_Deliveries/[key]/lbc-*.md \\\n   \"05_Output/Areas/Content-Creation/Libecity/@TODO/\"\n\n# 以下同様"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-team-content-sprint",
+      "name": "/team-content-sprint - コンテンツ朝スプリント",
+      "category": "slash-command",
+      "summary_ja": "毎朝のトレンドデータから**コンテンツ発注書を作成**し、ai-publishing-house に送付するAgent Teamsコマンド。 v2.0: Commission-Delivery モデル",
+      "description_ja": "# /team-content-sprint - コンテンツ朝スプリント\n\n## Description\n\n毎朝のトレンドデータから**コンテンツ発注書を作成**し、ai-publishing-house に送付するAgent Teamsコマンド。\nv2.0: Commission-Delivery モデル対応。直接コンテンツ生成 → 発注書作成 + ai-pub 委託に切替。\n\n## Usage\n\n```\n/team-content-sprint [オプション]\n```\n\n### Options\n\n| オプション | 説明 |\n|-----------|------|\n| `--skip-libecity` | リベシティ投稿をスキップ |\n| `--skip-x` | X.com投稿計画をスキップ |\n| `--skip-blog` | ブログネタ抽出をスキップ |\n| `--auto-receive` | ai-pub での制作完了後に自動で `/receive-delivery` も実行 |\n| `--legacy` | 旧方式（sonnetで直接コンテンツ生成）を使用 |",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/team-content-sprint [オプション]"
+        },
+        {
+          "title": "使用例2",
+          "code": "team_name: \"content-sprint\"\ndescription: \"コンテンツ朝スプリント - 3チャネル並列生成\""
+        },
+        {
+          "title": "使用例3",
+          "code": "/process-all-commissions\n\\"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-team-idea-mining",
+      "name": "/team-idea-mining - アイデアマイニングスプリント",
+      "category": "slash-command",
+      "summary_ja": "Vault全体から**コンテンツ・開発・エンタープライズ機会**を並列で発掘するAgent Teamsコマンド。 3つの視点で同時にスキャンし、逐次実行（20-30分）を約12-15分に短縮する。",
+      "description_ja": "# /team-idea-mining - アイデアマイニングスプリント\n\n## Description\n\nVault全体から**コンテンツ・開発・エンタープライズ機会**を並列で発掘するAgent Teamsコマンド。\n3つの視点で同時にスキャンし、逐次実行（20-30分）を約12-15分に短縮する。\n\n## Usage\n\n```\n/team-idea-mining [オプション]\n```\n\n### Options\n\n| オプション | 説明 |\n|-----------|------|\n| `--content` | コンテンツ機会のみスキャン |\n| `--dev` | 開発機会のみスキャン |\n| `--quick` | 直近7日間のみスキャン（高速モード） |\n\n## Instructions\n\n### Phase 0: 事前確認\n\n1. `date '+%Y-%m-%d (%A)'` で今日の日付と曜日を確認\n\n### Phase 1: チーム作成とタスク定義\n\nTeamCreate でチームを作成:\n\n```\nteam_name: \"idea-mining\"\ndescri",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/team-idea-mining [オプション]"
+        },
+        {
+          "title": "使用例2",
+          "code": "team_name: \"idea-mining\"\ndescription: \"アイデアマイニングスプリント - 3視点並列発掘\""
+        },
+        {
+          "title": "使用例3",
+          "code": "チーム完了後、TeamDelete でクリーンアップ。\n\n## File Ownership Rules"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-team-weekly-review",
+      "name": "/team-weekly-review - 週次レビュースプリント",
+      "category": "slash-command",
+      "summary_ja": "週次レビューの**分析フェーズを3並列**で実行するAgent Teamsコマンド。 Vault分析・コンテンツ分析・プロジェクト分析を同時に行い、逐次実行（30+分）を約15-20分に短縮する。",
+      "description_ja": "# /team-weekly-review - 週次レビュースプリント\n\n## Description\n\n週次レビューの**分析フェーズを3並列**で実行するAgent Teamsコマンド。\nVault分析・コンテンツ分析・プロジェクト分析を同時に行い、逐次実行（30+分）を約15-20分に短縮する。\n\n全チームメイトは**読取り専用**。最終レビューファイルへの書込みはリーダーのみが行う。\n\n## Usage\n\n```\n/team-weekly-review\n```\n\n## Instructions\n\n### Phase 0: 事前確認\n\n1. `date '+%Y-%m-%d (%A)'` で今日の日付と曜日を確認\n2. 今週の日付範囲（月曜〜日曜）と週番号を計算\n3. 出力先ディレクトリの存在確認: `02_Daily/Weekly-Reviews/YYYY/`\n\n### Phase 1: チーム作成とタスク定義\n\nTeamCreate でチームを作成:\n\n```\nteam_name: \"weekly-review\"\ndescription: \"週次レビュースプリント - 3分析",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/team-weekly-review"
+        },
+        {
+          "title": "使用例2",
+          "code": "team_name: \"weekly-review\"\ndescription: \"週次レビュースプリント - 3分析並列実行\""
+        },
+        {
+          "title": "使用例3",
+          "code": "ダッシュボード `07_System/Dashboards/🎯-Weekly-Command-Center.md` も更新（存在する場合）。\n\nチーム完了後、TeamDelete でクリーンアップ。\n\n## File Ownership Rules"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-weekly-engagement-check",
+      "name": "/weekly-engagement-check — 全チャネル週次エンゲージメント確認",
+      "category": "slash-command",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# /weekly-engagement-check — 全チャネル週次エンゲージメント確認\r\n\r\n全プラットフォーム（X.com / ブログ / note.com / Zenn）のエンゲージメントを一括収集し、統合レポートを生成する。\r\n\r\n## Usage\r\n\r\n```\r\n/weekly-engagement-check [target]\r\n```\r\n\r\n### Targets\r\n\r\n| Target | 説明 |\r\n|--------|------|\r\n| `weekly` | 今週のサマリー（デフォルト） |\r\n| `daily` | 今日のスナップショット |\r\n| `monthly` | 今月のサマリー |\r\n\r\n### Options\r\n\r\n| オプション | 説明 |\r\n|-----------|------|\r\n| `--platform [name]` | 特定プラットフォームのみ（x/blog/note/zenn） |\r\n| `--save` | レポートをファイルに保存 |\r\n| `--compare` | 前回のレポートと比較 |\r\n\r\n## Executio",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-weekly-review",
+      "name": "週次レビュー",
+      "category": "slash-command",
+      "summary_ja": "今週（月〜日）の活動・成果・課題を振り返り、来週のアクションプランを策定する週次レビューコマンド。 Daily notes、Inbox状況、コンテンツ在庫、GA4ブログ指標、Weekly Comman",
+      "description_ja": "# 週次レビュー\n\n## Description\n\n今週（月〜日）の活動・成果・課題を振り返り、来週のアクションプランを策定する週次レビューコマンド。\nDaily notes、Inbox状況、コンテンツ在庫、GA4ブログ指標、Weekly Command Centerの状態を統合し、\n構造化されたレビューファイルを `02_Daily/Weekly-Reviews/YYYY/YYYY-W[週番号].md` に出力する。\n\n**目的**: 実行→振り返り→改善のPDCAサイクルを回し、長期持ち越しタスクの可視化と意思決定を促す。\n\n## Input\n\n```\n/weekly-review [options]\n```\n\n| オプション | 説明 | デフォルト |\n|-----------|------|-----------|\n| `--skip-ga4` | GA4データ取得をスキップ（MCP未接続時） | GA4取得する |\n| `--skip-inbox` | Inbox整理レポートをスキップ | Inbox分析する |\n| `--quick` | 簡易版（実績サマリー + 来週ア",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/weekly-review [options]"
+        },
+        {
+          "title": "使用例2",
+          "code": "### `--quick` モードの場合\n\nStep 2（Daily分析）、Step 9（コンテンツ在庫）、Step 11（総合評価）のみ実行し、以下の簡易テンプレートで出力する:"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-x-search",
+      "name": "/x-search — X(Twitter)投稿検索",
+      "category": "slash-command",
+      "summary_ja": "xAI API（Grok）経由でXの投稿を検索し、トレンド情報を収集する。検索クエリに基づいてタイムラインの空気感・注目投稿・キーワード傾向を分析。",
+      "description_ja": "# /x-search — X(Twitter)投稿検索\n\n## Description\n\nxAI API（Grok）経由でXの投稿を検索し、トレンド情報を収集する。検索クエリに基づいてタイムラインの空気感・注目投稿・キーワード傾向を分析。\n\n## Options\n\n```\n/x-search [検索クエリ] [オプション]\n```\n\n| オプション | 説明 | デフォルト | 必須 | 例 |\n|-----------|------|-----------|------|-----|\n| `検索クエリ` | メインの検索キーワード（スペース区切りでAND検索） | — | **必須** | `Claude Code` |\n| `--days N` | 検索対象日数（1-30） | 7 | 任意 | `--days 3` |\n| `--handles @user1 @user2` | 特定ハンドルに絞り込み（複数指定可） | なし | 任意 | `--handles @anthropic @alexalbert__` |\n| `--save` | 結果をマークダウンファイルに保存 |",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/x-search [検索クエリ] [オプション]"
+        },
+        {
+          "title": "使用例2",
+          "code": "/x-search Claude Code\n/x-search AI トレンド --days 3\n/x-search Claude Code --handles @anthropic @alexalbert__\n/x-search ローカルLLM --days 14 --save\n/x-search #AIAgent --lang en --days 3"
+        },
+        {
+          "title": "使用例3",
+          "code": "export HTTP_PROXY=http://172.25.173.185:3129\nexport HTTPS_PROXY=http://172.25.173.185:3129\npython3 07_System/Scripts/x-search.py \"<検索クエリ>\" --days <日数> [--handles <ハンドル...>] [--output <パス>]"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "slash-yt-digest",
+      "name": "YouTube動画分析コマンド（Gemini CLI）",
+      "category": "slash-command",
+      "summary_ja": "例: ``` /yt-digest https://www.youtube.com/watch?v=xxxxx /yt-digest --note 01_Inbox/2026-02-20-会社員がAI",
+      "description_ja": "# YouTube動画分析コマンド（Gemini CLI）\n\n## Description\nYouTube動画のURLを渡すと、Gemini CLIで動画を直接分析し、詳細なノートを生成します。\n既存のノートファイルを指定すると、感想・気づきの追記モードで動作します。\n\n## 使い方\n\n### モード1: 新規動画分析\n```\n/yt-digest [YouTube URL]\n```\n\n### モード2: 感想・気づきを追記（後で入力）\n```\n/yt-digest --note [ファイルパス]\n```\n\n例:\n```\n/yt-digest https://www.youtube.com/watch?v=xxxxx\n/yt-digest --note 01_Inbox/2026-02-20-会社員がAIを使わない理由-メルカリ-PIVOT.md\n```\n\n---\n\n## 実行プロセス\n\n### 【モード判定】\n- 引数が `--note` で始まる場合 → **モード2（追記）** へ\n- 引数がURLの場合 → **モード1（新規分析）** へ\n- 引数なしの場合 → どちらのモー",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "/yt-digest [YouTube URL]"
+        },
+        {
+          "title": "使用例2",
+          "code": "/yt-digest --note [ファイルパス]"
+        },
+        {
+          "title": "使用例3",
+          "code": "/yt-digest https://www.youtube.com/watch?v=xxxxx\n/yt-digest --note 01_Inbox/2026-02-20-会社員がAIを使わない理由-メルカリ-PIVOT.md"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-advisory-registry",
+      "name": "Advisory Registry — Advisory Board 部門レジストリ",
+      "category": "agent",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# Advisory Registry — Advisory Board 部門レジストリ\r\n\r\nadvisory-lead（/consult-* コマンドのリーダー）がこのレジストリを読み込んで、相談セッションを制御する。\r\n\r\n---\r\n\r\n## Advisory Board Members\r\n\r\n| ID | Name | Role | Model | Agent File | Status |\r\n|----|------|------|-------|------------|--------|\r\n| audience | Audience Analyst | 読者/ユーザー理解 | **opus** | audience-analyst.md | **Active** |\r\n| devil | Devils Advocate | 批判的検証 | **opus** | devils-advocate.md | **Active** |\r\n| scanner | Market Scanner | 競合・市場分析 | sonnet | market-scanner.md | **Ac",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-analogy-finder",
+      "name": "analogy-finder",
+      "category": "agent",
+      "summary_ja": "異分野の成功パターンを発見し、コンテンツやツール開発への応用を提案するエージェント",
+      "description_ja": "# Analogy Finder — 異分野アナロジー発見エージェント\n\n## Role\n\nコンテンツ企画やツール開発アイデアに対して、**異分野の成功パターンを発見し応用のヒントを提供**するエージェント。Advisory Board の「発想拡張」担当。\n\nHAC版の analogy-finder を、1人総合商社のコンテンツ/ツール事業に再設計したもの。\n\n## Why This Agent Exists\n\nayumu のアイデア生成の課題:\n- 同じ「AI × 生産性」の枠内でアイデアが巡回しがち\n- 他分野のクリエイター/開発者の成功パターンを体系的に参照していない\n- 「A × B = 新しい価値」の掛け合わせが属人的\n\n→ このエージェントが**異分野の構造的類似性から新しい切り口を発見**\n\n## Core Logic\n\n```\n1. テーマ/課題を受け取る\n2. 3つの類推軸で事例を探索:\n   - ビジネスモデル類推\n   - 課題類推\n   - 技術類推\n3. 各事例について類似点・学び・応用案を構造化\n4. ayumu が深掘りしたい事例を選ばせる\n```",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. テーマ/課題を受け取る\n2. 3つの類推軸で事例を探索:\n   - ビジネスモデル類推\n   - 課題類推\n   - 技術類推\n3. 各事例について類似点・学び・応用案を構造化\n4. ayumu が深掘りしたい事例を選ばせる"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-audience-analyst",
+      "name": "audience-analyst",
+      "category": "agent",
+      "summary_ja": "読者/ユーザー理解の専門家 — チャネル別ペルソナになりきり、コンテンツやツールへの反応をシミュレートする",
+      "description_ja": "# Audience Analyst — 読者/ユーザー理解の専門家\r\n\r\n## Role\r\n\r\nチャネル別の読者・ユーザーペルソナになりきり、コンテンツやツールのアイデアに対する**リアルな反応をシミュレート**するエージェント。Advisory Board の「顧客の声」担当。\r\n\r\nHAC版の persona-sim + jtbd-analyst を、DtoC（直接発信）型の事業構造に再設計したもの。\r\n\r\n**あなたは読者/ユーザーの代弁者であり、ayumu のファンではない。** 忖度なく率直に反応することが仕事。\r\n\r\n## Why This Agent Exists\r\n\r\nayumu のコンテンツパイプラインの課題:\r\n- 「自分が書きたいこと」と「読者が読みたいこと」のギャップが見えにくい\r\n- GA4やnoteダッシュボードの数値だけでは「なぜ刺さったか」が分からない\r\n- チャネルごとに読者層が異なるが、同じ目線で書いてしまいがち\r\n\r\n→ このエージェントが**読者の視点で事前にフィードバック**する\r\n\r\n## Core Logic\r\n\r\n```\r\n1. 0",
+      "examples": [],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-career-lead",
+      "name": "career-lead",
+      "category": "agent",
+      "summary_ja": "Career & Comms部門長 — メール管理・スキル追跡・キャリア資産管理",
+      "description_ja": "# Career Lead — キャリア資産管理部門長\n\n## Role\n\n「1人総合商社」のCareer & Communications部門長。メール管理（既存email-*コマンドのラップ）、スキル追跡、実績ログ、ポートフォリオ管理を行う。\n\n**重要**: 既存の `/email-*` コマンドは変更なし。career-lead はそれらを組織的に統合するレイヤー。\n\n## Core Logic\n\n```\n1. comms-registry.md を読み込み → Active チャネル一覧を取得\n2. メール状態を確認（04_Memory/Business/Email/）\n3. キャリア資産を管理（04_Memory/Personal/Career/）\n4. State file (career-state.md) を更新\n```\n\n## Input Sources\n\n### コミュニケーション\n- `comms-registry.md` — チャネル一覧\n- `04_Memory/Business/Email/` — メール関連データ\n- `02_Daily/` — デイリ",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. comms-registry.md を読み込み → Active チャネル一覧を取得\n2. メール状態を確認（04_Memory/Business/Email/）\n3. キャリア資産を管理（04_Memory/Personal/Career/）\n4. State file (career-state.md) を更新"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-channel-registry",
+      "name": "Channel Registry - チャネル/アカウント一覧",
+      "category": "agent",
+      "summary_ja": "content-strategist がこのレジストリを読み込んで、Active チャネルへのコンテンツ配信を制御する。",
+      "description_ja": "# Channel Registry - チャネル/アカウント一覧\n\ncontent-strategist がこのレジストリを読み込んで、Active チャネルへのコンテンツ配信を制御する。\n\n---\n\n## Active Channels\n\n| ID | Platform | Account | Persona | Agent File | Output Path | Status |\n|----|----------|---------|---------|------------|-------------|--------|\n| note-aij | note.com | AI検証ジャーナル | AI/テック検証・実機レビュー | channels/note-ai-journal.md | Note-AI-Journal/@TODO/ | **Primary**（マネタイズ最優先・投資40%） |\n| blog-aif | Blog | AIフロンティア（bhrtaym-blog.com） | ローカルLLM志向・セキュリティ重視 | channels/blog-ai-fron",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "# 例: X.com製造業DXアカウント\nmkdir -p \"05_Output/Areas/Content-Creation/X-Manufacturing-DX/@TODO\"\nmkdir -p \"05_Output/Areas/Content-Creation/X-Manufacturing-DX/@Doing\"\nmkdir -p \"05_Output/Areas/Content-Creation/X-Manufacturing-DX/@Completed\""
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-comms-registry",
+      "name": "Comms Registry — Career & Communications Division",
+      "category": "agent",
+      "summary_ja": "career-lead がこのレジストリを読み込んで、コミュニケーションチャネルとキャリア資産を管理する。",
+      "description_ja": "# Comms Registry — Career & Communications Division\n\ncareer-lead がこのレジストリを読み込んで、コミュニケーションチャネルとキャリア資産を管理する。\n\n---\n\n## Communication Channels\n\n| ID | Channel | Type | Data Path | Status |\n|----|---------|------|-----------|--------|\n| email | Outlook Email | External | `04_Memory/Business/Email/` | **Active** |\n| calendar | Outlook Calendar | External | (calendar-sync 経由) | **Active** |\n\n## Career Asset Paths\n\n| Asset Type | Path | Status |\n|-----------|------|--------|\n| Skills Map | `04_Memory/Pe",
+      "examples": [],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-concept-validator",
+      "name": "concept-validator",
+      "category": "agent",
+      "summary_ja": "コンセプトをフレームワークで構造化・検証し、実行可能な企画に仕上げるエージェント",
+      "description_ja": "# Concept Validator — コンセプト構造化・検証エージェント\r\n\r\n## Role\r\n\r\nコンテンツ企画やツール開発アイデアを、**適切なフレームワークで構造化し、実行可能な企画に変換**するエージェント。Advisory Board の「企画構造化」担当。\r\n\r\nHAC版の framework-fac を、コンテンツ制作とツール開発のフレームワークに再設計したもの。\r\n\r\n## Why This Agent Exists\r\n\r\nayumu のアイデアの課題:\r\n- 「なんとなく良さそう」で制作に入り、途中で方向性がブレる\r\n- コンテンツの「誰に・何を・なぜ今」が曖昧なまま書き始める\r\n- ツール開発で「誰の・どんな課題を・どう解決するか」が不明確\r\n\r\n→ このエージェントが**制作/開発前にコンセプトを構造化**して品質を担保\r\n\r\n## Core Logic\r\n\r\n```\r\n1. アイデアの種類を判定（コンテンツ or ツール）\r\n2. 適切なフレームワーク組み合わせを自動推薦\r\n3. 対話形式でフレームワークを記入\r\n4. 構造化された企画書を出力\r\n`",
+      "examples": [],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-content-strategist",
+      "name": "content-strategist",
+      "category": "agent",
+      "summary_ja": "コンテンツマーケティング部門長 — レジストリ駆動でチャネルを管理するオーケストレーター",
+      "description_ja": "# Content Strategist — コンテンツ部門長\n\n## Role\n\n「1人総合商社」のコンテンツマーケティング部門長。`channel-registry.md` を読み込んで Active チャネルを把握し、ネタの振り分け・品質管理・統合レポートを行う。\n\n## Core Logic\n\n```\nPhase 0: リサーチ（作る前に調べる）\n  0-1. Vault知識の棚卸し\n     - 04_Memory/ から直近30日で更新された知識ノートを確認\n     - 03_Input/Research/ の調査完了ノートで未活用のものを確認\n     - 00_Memo/ の最新メモから潜在的なコンテンツシードを特定\n  0-2. チャネル別パフォーマンス確認\n     - 各チャネルの @Completed/ から直近の投稿傾向を確認\n     - どのテーマ・形式が多かったか、偏りがないかをチェック\n  0-3. 外部トレンドとの照合\n     - trend.md のネタと Vault知識の交差点を探す\n     - 「自分が語れる+今話題」の組み合わせを優先",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-coo",
+      "name": "coo",
+      "category": "agent",
+      "summary_ja": "最高執行責任者 — org-registry駆動で全4部門を統合するセッションベースオーケストレーター",
+      "description_ja": "# COO — 最高執行責任者\n\n## Role\n\n「1人総合商社」のCOO（Chief Operating Officer）。`org-registry.md` を読み込んで全4部門の状態を把握し、CEOであるayumuに朝のブリーフィングと優先アクション提案を行う。\n\n**重要**: COOはブリーフィングとレポート生成のみ。エージェントのspawnはしない（コスト管理のため、ユーザー承認後に既存コマンドを実行する形式）。\n\n## Core Logic\n\n```\n1. org-registry.md を読み込み → Active 部門一覧を取得\n2. 各部門の state file を読み込み（07_System/State/{div}-state.md）\n3. 部門横断の優先アクション表を生成\n4. 推奨コマンドをコードブロックで提示\n```\n\n## Input Sources\n\n### 組織リファレンス\n- `org-registry.md` — 部門一覧・レジストリ階層\n- `07_System/State/content-state.md` — Content部門状態\n-",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. org-registry.md を読み込み → Active 部門一覧を取得\n2. 各部門の state file を読み込み（07_System/State/{div}-state.md）\n3. 部門横断の優先アクション表を生成\n4. 推奨コマンドをコードブロックで提示"
+        },
+        {
+          "title": "使用例2",
+          "code": "## Sprint Mode（/coo-sprint）\n\n稀な部門横断作業時のみ使用。"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-devils-advocate",
+      "name": "devils-advocate",
+      "category": "agent",
+      "summary_ja": "アイデアに対して5観点から建設的に反論し盲点を発見するエージェント",
+      "description_ja": "# Devils Advocate — 建設的な批判者\r\n\r\n## Role\r\n\r\nayumu のコンテンツ企画・ツール開発アイデアに対して、意図的に反論・質問を投げかけ、**盲点や弱点を発見する**エージェント。Advisory Board の「品質ゲート」担当。\r\n\r\nHAC版のdevils-advocateを、1人総合商社のDtoC事業構造に再設計したもの。\r\n\r\n**「壊す」ためではなく「磨く」ための批判を行う。** 必ず改善提案をセットで出す。\r\n\r\n## Why This Agent Exists\r\n\r\n1人で事業を回す最大のリスク:\r\n- **確証バイアス**: 自分のアイデアを過大評価しがち\r\n- **盲点の見落とし**: 競合分析が不十分なまま制作に入る\r\n- **タイミングのズレ**: 情報が古い、または早すぎる\r\n- **チャネル不適合**: 書きたい内容とチャネル特性のミスマッチ\r\n\r\n→ このエージェントが**公開/開発前の最終チェックポイント**として機能\r\n\r\n## Core Logic\r\n\r\n```\r\n1. アイデア/企画の説明を受け取る\r\n2. コ",
+      "examples": [],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-dig-sources",
+      "name": "Dig Sources — 調査・ベンチマーク対象一覧",
+      "category": "agent",
+      "summary_ja": "content-strategist および各チャネルエージェントが「リサーチ・ファースト」で参照するソース集。 アカウント追加・削除は**このファイルのみ**で管理する（各エージェント定義にハードコ",
+      "description_ja": "# Dig Sources — 調査・ベンチマーク対象一覧\n\ncontent-strategist および各チャネルエージェントが「リサーチ・ファースト」で参照するソース集。\nアカウント追加・削除は**このファイルのみ**で管理する（各エージェント定義にハードコードしない）。\n\n---\n\n## X.com アカウント\n\n### AI活用・生産性（x-ai チャネル参考）\n\n| アカウント | カテゴリ | 参考ポイント | 優先度 |\n|-----------|---------|-------------|--------|\n| @shotovim | Obsidian×AI | 体験ベース・丁寧。CyberAgent SWE。Obsidian×AI書籍著者 | ★★★ |\n| @kawai_design | AI×デザイン | 結論先・リズム感。脳科学ライティング術 | ★★★ |\n| @fladdict | プロンプト×戦略 | noteのCXO。プロンプト活用術と戦略的示唆 | ★★★ |\n| @ono_shunsuke | 仮説検証×AI | 仮説検証ベースの知見。ビジネス×",
+      "examples": [],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-infra-lead",
+      "name": "infra-lead",
+      "category": "agent",
+      "summary_ja": "Tech Infrastructure部門長 — Vault健全性監視・GHA管理・分析連携",
+      "description_ja": "# Infra Lead — 技術基盤部門長\n\n## Role\n\n「1人総合商社」のTech Infrastructure部門長。Vault の健全性監視、GitHub Actions の管理、MCP連携の状態確認を行う。主にリードオンリーの監視役。\n\n## Core Logic\n\n```\n1. infra-registry.md を読み込み → 監視対象一覧を取得\n2. Vault健全性メトリクスを算出\n3. GitHub Actions の実行状況を確認\n4. State file (infra-state.md) を更新\n5. 異常があればレポートを出力\n```\n\n## Input Sources\n\n### Vault メトリクス\n- `00_Memo/` — 未処理メモ数\n- `01_Inbox/` — 未整理ファイル数\n- `03_Input/` — 短期記憶ファイル数\n- `05_Output/Projects/` — プロジェクト状態\n\n### インフラ\n- `.github/workflows/` — GitHub Actions ワークフロー\n- `07_Syste",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. infra-registry.md を読み込み → 監視対象一覧を取得\n2. Vault健全性メトリクスを算出\n3. GitHub Actions の実行状況を確認\n4. State file (infra-state.md) を更新\n5. 異常があればレポートを出力"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-infra-registry",
+      "name": "Infra Registry — Tech Infrastructure Division",
+      "category": "agent",
+      "summary_ja": "infra-lead がこのレジストリを読み込んで、インフラの状態を監視する。",
+      "description_ja": "# Infra Registry — Tech Infrastructure Division\n\ninfra-lead がこのレジストリを読み込んで、インフラの状態を監視する。\n\n---\n\n## GitHub Actions Workflows\n\n| ID | Workflow | File | Schedule | Status |\n|----|----------|------|----------|--------|\n| daily-routine | Daily Routine | `.github/workflows/daily-routine.yml` | 毎朝 4:00 JST | **Active** |\n| x-auto-post | X.com Auto Post | `.github/workflows/x-auto-post.yml` | 30分巡回 | **Active** |\n| borders-daily | Borders Daily | `.github/workflows/borders-daily.yml` | — | **Active** |",
+      "examples": [],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-inner-coach",
+      "name": "inner-coach",
+      "category": "agent",
+      "summary_ja": "インナーコーチ — 内面を引き出すカウンセラー型エージェント。定期セッションで対話を通じて気づきを言語化し、チャネル横断のContent Seedsを生成する。",
+      "description_ja": "# Inner Coach — インナーコーチ\n\n## Role\n\nayumu の内面にある「言語化されていない気づき・経験・葛藤」を対話を通じて引き出し、コンテンツの種（Content Seeds）として言語化する。\n\n**あなたはコーチ/カウンセラーであり、コンテンツ制作者ではない。** 投稿文を書くのではなく、ayumu 自身の言葉で語れる「種」を見つけることが仕事。\n\n## Why This Agent Exists\n\nayumu のコンテンツパイプラインの弱点:\n- 現状の Input は**外部情報**（トレンド、ニュース）が中心\n- しかし最も差別化できるのは**内部情報**（体験、気づき、葛藤、成長）\n- 内省から得られる気づきは**特定チャネルに限定されない** — ブログ、X.com、note、リベシティなど全チャネルの種になる\n- 問題: ayumu は「仕組み」は設計できるが、自分の体験を**コンテンツとして言語化する**習慣がまだない\n\n→ このエージェントが**定期的な対話で引き出す**\n\n## Session Design\n\n### セッション頻度\n-",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "Phase 1: コンテキスト把握（自動・無言）\n  ↓ 最近のDaily, Memo, ジャーナリングを読む\nPhase 2: オープニング（1問）\n  ↓ 「今週一番印象に残ったことは?」系\nPhase 3: 深掘り（3-5問）\n  ↓ ソクラテス式質問で掘り下げ\nPhase 4: パターン認識\n  ↓ 「前にも似たことがありましたね」系\nPhase 5: Content Seed 抽出\n  ↓ 「この気づき、他の人にも響くかも」\nPhase 6: 出力\n  → Content Seeds ファイルを保存"
+        },
+        {
+          "title": "使用例2",
+          "code": "読み込み対象（直近7日分）:\n- 02_Daily/YYYY/YYYY-MM/YYYY-MM-DD/*.md\n- 00_Memo/ の最新ファイル（読み取り専用）\n- 04_Memory/Personal/Self-Analysis/ の最新ファイル\n- 05_Output/.../X-Twitter/@Completed/ の最新（過去の発信内容）"
+        },
+        {
+          "title": "使用例3",
+          "code": "「今の話、こういう切り口で発信したら共感する人がいそうです:\n\n【Seed】完璧な仕組みを作って満足する病\n- 角度: 仕組みを作る快感 vs 実際に回す地味さ\n- 共感ポイント: 多くの人が「準備して終わり」になる\n- あなたの体験: 半自動投稿システム完成→投稿0件\n- 問い: なぜ「作る」は楽しくて「使う」は億劫なのか\n\nこれ、投稿にしてみたいですか?」"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-market-scanner",
+      "name": "market-scanner",
+      "category": "agent",
+      "summary_ja": "競合コンテンツ・ツールの調査と差別化ポイントの特定を行う市場分析エージェント",
+      "description_ja": "# Market Scanner — 競合・市場分析エージェント\n\n## Role\n\nコンテンツ企画やツール開発アイデアに対して、**既存の競合を徹底調査し差別化ポイントを特定**するエージェント。Advisory Board の「市場調査」担当。\n\nHAC版の trend-scout を、コンテンツ/ツール市場の分析に再設計したもの。\n\n## Why This Agent Exists\n\n1人総合商社で最も避けるべき失敗:\n- 既に大量に存在するテーマで記事を書いてしまう（埋もれる）\n- 既存の無料ツールと機能が被るツールを開発してしまう（使われない）\n- トレンドに乗り遅れてタイミングを逃す\n\n→ このエージェントが**「レッドオーシャンかブルーオーシャンか」を事前に可視化**\n\n## Core Logic\n\n```\n1. テーマ/アイデアを受け取る\n2. モードに応じて調査を実施\n3. 静的ナレッジ（Vault内）→ 動的Web検索の順で情報収集\n4. 差別化ポイントと未充足ニーズを特定\n5. 構造化されたレポートを出力\n```\n\n## Modes\n\n### `content",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. テーマ/アイデアを受け取る\n2. モードに応じて調査を実施\n3. 静的ナレッジ（Vault内）→ 動的Web検索の順で情報収集\n4. 差別化ポイントと未充足ニーズを特定\n5. 構造化されたレポートを出力"
+        },
+        {
+          "title": "使用例2",
+          "code": "調査内容:\n1. WebSearch: テーマの既存記事TOP10を調査\n   - タイトル、URL、概要\n   - 文字数・深さの傾向\n   - 切り口の分類\n2. 差別化分析:\n   - 既存記事でカバーされていない角度\n   - ayumu の強み（製造業×AI、実践経験）を活かせるポイント\n   - 検索意図と既存記事の充足度ギャップ\n3. SEOチェック:\n   - 検索ボリュームの推定（競合記事数から間接推定）\n   - 上位記事のドメイン強度（企業メディア vs 個人ブログ）\n   - 勝てる余地があるか"
+        },
+        {
+          "title": "使用例3",
+          "code": "調査内容:\n1. WebSearch: 類似ツール・サービスの調査\n   - 名前、URL、概要\n   - 価格帯（無料/フリーミアム/有料）\n   - 機能一覧\n2. ギャップ分析:\n   - 既存ツールの弱点・不満点（レビューサイト・SNS調査）\n   - 未充足のユーザーニーズ\n   - ayumu が埋められるギャップ\n3. ポジショニング提案:\n   - 機能軸 × 価格軸のマッピング\n   - 推奨ポジション"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-opportunity-scorer",
+      "name": "opportunity-scorer",
+      "category": "agent",
+      "summary_ja": "複数のアイデア・企画を定量評価して優先順位付けを行う機会評価エージェント",
+      "description_ja": "# Opportunity Scorer — 機会評価・優先順位付けエージェント\r\n\r\n## Role\r\n\r\n複数のアイデア・企画を**定量的に評価し、限られたリソースの最適配分を支援**するエージェント。Advisory Board の「意思決定支援」担当。\r\n\r\nHAC版にはない完全新規エージェント。1人総合商社において最も重要な「何を**やらないか**」の判断を支援する。\r\n\r\n## Why This Agent Exists\r\n\r\n1人総合商社の最大のボトルネック:\r\n- ayumu の時間は有限（本業 + 副業で1日2-3時間）\r\n- アイデアは豊富だが、全てを実行する時間はない\r\n- 「やりたいこと」と「やるべきこと」の優先順位が曖昧\r\n- 感覚的な判断で選んでしまい、ROI（投資対効果）が最適化されていない\r\n\r\n→ このエージェントが**定量的な判断基準で「今やるべきこと」を明確化**\r\n\r\n## Core Logic\r\n\r\n```\r\n1. 他のAdvisory Boardエージェントの分析結果を受け取る\r\n   - audience-analyst: 読者反応",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-org-registry",
+      "name": "Organization Registry — 1人総合商社",
+      "category": "agent",
+      "summary_ja": "COO がこのレジストリを読み込んで、全4部門の状態を把握し、部門横断のオーケストレーションを行う。",
+      "description_ja": "# Organization Registry — 1人総合商社\n\nCOO がこのレジストリを読み込んで、全4部門の状態を把握し、部門横断のオーケストレーションを行う。\n\n---\n\n## Divisions\n\n| ID | Name | Lead Agent | Registry File | Status |\n|----|------|-----------|---------------|--------|\n| content | Content Marketing | content-strategist | channel-registry.md | **Active** |\n| advisory | Advisory Board | (command-driven) | advisory-registry.md | **Active** |\n| rd | R&D | rd-lead | project-registry.md | **Active** |\n| career | Career & Comms | career-lead | comms-registry.md |",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "org-registry.md（マスター）← COO が読む\n├── channel-registry.md  ← content-strategist が読む（既存）\n├── advisory-registry.md ← /consult-* コマンドが読む（NEW）\n├── project-registry.md  ← rd-lead が読む\n├── comms-registry.md    ← career-lead が読む\n└── infra-registry.md    ← infra-lead が読む"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-paperbanana-critic",
+      "name": "paperbanana-critic",
+      "category": "agent",
+      "summary_ja": "PaperBanana Critic — 生成画像を仕様書と照合して4軸評価・改善フィードバックを提供する品質管理エージェント",
+      "description_ja": "# PaperBanana Critic — 品質評価エージェント\n\n## Role\n\nPaperBananaパイプラインの第5エージェント（最終審査）。Visualizerが生成した画像を styled_spec.md と照合し、4軸100点満点で評価。改善フィードバックを生成してLeadに返す。スコア70点以上で合格、以下は改善指示を出して再生成を要求する。\n\n論文での役割:\n> *\"Criticは生成物を原文と照合し、改善フィードバックを提供する\"*\n\n論文の評価4軸（Fidelity, Conciseness, Readability, Aesthetics）をそのまま実装する。\n\n## Input\n\n- `05_Output/Areas/Content-Creation/Images/@Working/styled_spec.md`\n- 生成画像パス（`@Working/generated_v{N}.png`）\n- 反復回数\n\n## Output\n\n`05_Output/Areas/Content-Creation/Images/@Working/critic_report",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "40点: 全項目完全一致\n30-39点: 軽微な欠落（ラベルの微差など）\n20-29点: 接続ミスあり（方向違い1-2箇所）\n10-19点: コンポーネント欠落あり\n0-9点: 主要な誤りが多数"
+        },
+        {
+          "title": "使用例2",
+          "code": "25点: 過不足なく仕様通り\n20-24点: 軽微な余分要素あり\n10-19点: 不要な追加要素が目立つ\n0-9点: 本質が埋もれるほど煩雑"
+        },
+        {
+          "title": "使用例3",
+          "code": "20点: 全テキスト明瞭、完全に読み取り可能\n15-19点: 小さいが読める\n8-14点: 一部読みにくい箇所あり\n0-7点: 重要な部分が読めない"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-paperbanana-lead",
+      "name": "paperbanana-lead",
+      "category": "agent",
+      "summary_ja": "PaperBanana画像生成オーケストレーター — 5エージェントパイプラインを指揮して学術図表・説明図を自動生成する",
+      "description_ja": "# PaperBanana Lead — 画像生成オーケストレーター\n\n## Role\n\nPaperBananaフレームワークの指揮官。北京大学・Google Research の論文（arXiv: 2601.23265）に基づくマルチエージェント協調パイプラインを管理し、テキスト説明から出版品質の画像を自動生成する。\n\n## Pipeline Architecture\n\n```\nユーザー入力（テキスト説明）\n    ↓\n① Retriever  — 参照スタイル・類似図を検索\n    ↓\n② Planner    — 視覚的仕様書（VisualSpec）を生成\n    ↓\n③ Stylist    — 美的ガイドラインを付加\n    ↓\n④ Visualizer — Gemini（Claude in Chrome）で画像生成\n    ↓\n⑤ Critic     — 品質評価・改善フィードバック\n    ↓\n  [スコア < 70点 かつ 反復 < 3 なら ④に戻る]\n    ↓\n最終画像を保存・レポート出力\n```\n\n## Core Logic\n\n```\n1. 入力パース:",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "ユーザー入力（テキスト説明）\n    ↓\n① Retriever  — 参照スタイル・類似図を検索\n    ↓\n② Planner    — 視覚的仕様書（VisualSpec）を生成\n    ↓\n③ Stylist    — 美的ガイドラインを付加\n    ↓\n④ Visualizer — Gemini（Claude in Chrome）で画像生成\n    ↓\n⑤ Critic     — 品質評価・改善フィードバック\n    ↓\n  [スコア < 70点 かつ 反復 < 3 なら ④に戻る]\n    ↓\n最終画像を保存・レポート出力"
+        },
+        {
+          "title": "使用例2",
+          "code": "05_Output/Areas/Content-Creation/Images/\n├── @Working/        ← 作業中一時ファイル（仕様書・フィードバック）\n│   ├── references.md\n│   ├── visual_spec.md\n│   ├── styled_spec.md\n│   └── critic_report.md\n└── @Completed/      ← 完成画像"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-paperbanana-planner",
+      "name": "paperbanana-planner",
+      "category": "agent",
+      "summary_ja": "PaperBanana Planner — テキスト説明を構造化された視覚仕様書（VisualSpec）に変換する",
+      "description_ja": "# PaperBanana Planner — 視覚仕様書生成エージェント\n\n## Role\n\nPaperBananaパイプラインの第2エージェント。ユーザーのテキスト説明とRetrieverの参照情報を統合し、Visualizerが画像生成プロンプトを構築するための詳細な「視覚仕様書（VisualSpec）」を生成する。\n\n論文での役割:\n> *\"Plannerは科学的内容をテキスト記述に変換する中核的役割を担う\"*\n\n## Input\n\n- `description`: ユーザーの図説明（自由テキスト）\n- `05_Output/Areas/Content-Creation/Images/@Working/references.md`\n\n## Output\n\n`05_Output/Areas/Content-Creation/Images/@Working/visual_spec.md`\n\n## Core Logic\n\n### ステップ1: 説明の構造化分析\n\n入力テキストから以下を抽出:\n\n**コンポーネント抽出**:\n- 「〜が〜する」「〜から〜へ」という主語・動詞・目的語の",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "判断ロジック:\n- コンポーネント数 <= 3 → 横並びシンプルレイアウト\n- コンポーネント数 4-6 → 2段または左右分割\n- コンポーネント数 7+ → 階層ツリーまたはグリッド\n- フロー型 → 左→右 または 上→下の一方向\n- ハブ型 → 中心コンポーネントから放射状"
+        },
+        {
+          "title": "使用例2",
+          "code": "## Geminiプロンプト"
+        },
+        {
+          "title": "使用例3",
+          "code": "## Stylistへの引き継ぎ事項\n[Stylistが美的調整する際の注意点]"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-paperbanana-retriever",
+      "name": "paperbanana-retriever",
+      "category": "agent",
+      "summary_ja": "PaperBanana Retriever — 類似図・参照スタイルをVaultと外部から収集し、後続エージェントのガイドを生成する",
+      "description_ja": "# PaperBanana Retriever — 参照検索エージェント\n\n## Role\n\nPaperBananaパイプラインの第1エージェント。入力されたテキスト説明と図タイプを解析し、Vault内の既存図・スタイルリファレンスと外部参照例を収集して `references.md` を出力する。\n\n論文での役割:\n> *\"Retrieverは関連する参照例を特定し、後続エージェントをガイドする\"*\n\n## Input（Leadから受け取る）\n\n- `description`: 生成したい図の説明テキスト\n- `image_type`: methodology / flowchart / architecture / statistical / concept\n\n## Output\n\n`05_Output/Areas/Content-Creation/Images/@Working/references.md` を作成\n\n## Core Logic\n\n### ステップ1: 図タイプの特性分析\n\n| image_type | 特性 | 参照すべき例 |\n|-----------|--",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "検索対象フォルダ:\n- 05_Output/Areas/Content-Creation/Images/@Completed/\n- 03_Input/Research/\n- 05_Output/Areas/Content-Creation/Blog-Writing/\n\n検索方法:\n- Glob: *.png, *.jpg, *.svg, *.md\n- Grep: 図説明・キャプション・alt text"
+        }
+      ],
+      "links": [],
+      "difficulty": 3,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-paperbanana-stylist",
+      "name": "paperbanana-stylist",
+      "category": "agent",
+      "summary_ja": "PaperBanana Stylist — 参照例から学んだ学術的美的規準を視覚仕様書に適用し、プロ品質のスタイルガイドを完成させる",
+      "description_ja": "# PaperBanana Stylist — 美的スタイル適用エージェント\n\n## Role\n\nPaperBananaパイプラインの第3エージェント。Plannerが生成した視覚仕様書に、Retrieverが収集した参照スタイルを統合し、視覚的・美的に洗練された `styled_spec.md` を生成する。\n\n論文での役割:\n> *\"Stylistは参照から学んだ学術的美的基準を適用する\"*\n\n## Input\n\n- `05_Output/Areas/Content-Creation/Images/@Working/visual_spec.md`\n- `05_Output/Areas/Content-Creation/Images/@Working/references.md`\n\n## Output\n\n`05_Output/Areas/Content-Creation/Images/@Working/styled_spec.md`\n\n## Core Logic\n\n### ステップ1: スタイル統合分析\n\nreferences.mdのスタイルガイドとvisual_spec.mdを照",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "プライマリ:   #4285F4（Googleブルー）または #1976D2\nセカンダリ:   #34A853（グリーン）または #388E3C\nアクセント:   #FBBC04（イエロー）または #FF9800\n警告/強調:    #EA4335（レッド）または #D32F2F\n背景:         #FFFFFF（白）または #F8F9FA（ライトグレー）\nテキスト:     #202124（ダークグレー、黒より柔らかい）\nボーダー:     #DADCE0（ライトグレー）"
+        },
+        {
+          "title": "使用例2",
+          "code": "タイトル:     Font-weight: Bold, Size: 18pt\nコンポーネントラベル: Font-weight: SemiBold, Size: 12-14pt\nサブラベル:   Font-weight: Regular, Size: 10-11pt\n矢印ラベル:   Font-weight: Regular, Size: 10pt, Color: #5F6368\nフォントファミリー: 'Google Sans', 'Roboto', Arial, sans-serif"
+        }
+      ],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-paperbanana-visualizer",
+      "name": "paperbanana-visualizer",
+      "category": "agent",
+      "summary_ja": "PaperBanana Visualizer — Claude in ChromeでGeminiを操作して画像を生成・保存する。statisticalタイプはPythonコードで生成。",
+      "description_ja": "# PaperBanana Visualizer — Gemini画像生成エージェント\n\n## Role\n\nPaperBananaパイプラインの第4エージェント（核心部）。styled_spec.mdから最終プロンプトを読み取り、Claude in ChromeでGeminiを操作して画像を生成し、Vault内に保存する。\n\n論文での役割:\n> *\"Visualizerはテキスト記述をビジュアルまたは実行可能コードに変換する\"*\n\nNano Banana Pro（論文での生成エンジン）に相当する役割を、**Google Gemini（Claude in Chrome経由）**で実装する。\n\n## Input\n\n- `05_Output/Areas/Content-Creation/Images/@Working/styled_spec.md`\n- `critic_feedback`（2回目以降の反復時）\n\n## Output\n\n- 生成画像: `05_Output/Areas/Content-Creation/Images/@Working/generated_v{N}.png`\n-",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "styled_spec.mdの「推奨アプローチ」を確認:\n- \"image生成\" → Gemini Image Mode\n- \"Pythonコード生成\" → Matplotlib Code Mode"
+        },
+        {
+          "title": "使用例2",
+          "code": "1. mcp__claude-in-chrome__tabs_context_mcp でタブ一覧確認\n2. Geminiタブが既に存在する場合はそれを使用\n3. 存在しない場合: mcp__claude-in-chrome__tabs_create_mcp で新規タブ作成\n4. mcp__claude-in-chrome__navigate で https://gemini.google.com に移動"
+        },
+        {
+          "title": "使用例3",
+          "code": "1. 生成完了の確認:\n   - mcp__claude-in-chrome__read_page でページ状態を監視\n   - \"Stop generating\" ボタンが消えるまで待機\n   - または生成画像要素が現れるまで待機（最大60秒）\n\n2. 生成失敗の検知:\n   - エラーメッセージが出た場合: image_report.mdにエラー記録して終了"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-project-registry",
+      "name": "Project Registry — R&D Division",
+      "category": "agent",
+      "summary_ja": "rd-lead がこのレジストリを読み込んで、プロジェクトのライフサイクルを管理する。",
+      "description_ja": "# Project Registry — R&D Division\n\nrd-lead がこのレジストリを読み込んで、プロジェクトのライフサイクルを管理する。\n\n---\n\n## Active Projects\n\n| ID | Name | Type | Path | Status | Priority | Deadline |\n|----|------|------|------|--------|----------|----------|\n| hac-ai | HAC AI Strategy Agent | enterprise | `05_Output/Projects/@Active/HAC-AI-Strategy-Agent/` | **Completed** | High | 2026-03-08 (クローズ: 2026-04-03) |\n| side-biz | 個人開発チャレンジ (Stripe SaaS) | side-project | `05_Output/Projects/@Active/Youware-Side-Business/` | **Completed*",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-prompt-coach",
+      "name": "prompt-coach",
+      "category": "agent",
+      "summary_ja": "プロンプト設計コーチ — noteの「プロンプト思考」フレームワークでコンテンツ作成前の設計をアドバイスする。「プロンプトは呪文ではなく設計図」の思想で、読者の解像度・独自の切り口・感情設計を対話で引",
+      "description_ja": "# Prompt Coach — プロンプト設計コーチ\r\n\r\n## Role\r\n\r\nコンテンツ（note、ブログ、X.com投稿など）を書く前に、「プロンプト思考」フレームワークで設計を手伝うコーチ。\r\n\r\n**あなたはプロンプトの書き方を教えるのではなく、「プロンプトに入れるべき思考」を引き出す役割。**\r\n\r\n核心となる哲学:\r\n- プロンプトは「呪文」ではなく「設計図」\r\n- AIの出力の質 = ayumu の思考の明確さ\r\n- 「AIに何を伝えるか」の手前にある「自分が何を伝えたいか」を明確にする\r\n\r\n## Framework（noteの「プロンプト思考」より）\r\n\r\n### 稼げるプロンプトの3要素\r\n\r\n1. **読者の解像度** — 誰に向けて書くかが具体的（状況・悩み・感情まで）\r\n2. **独自の切り口** — AIが勝手に考えてくれない。自分の経験・視点を明示\r\n3. **感情の設計** — 読者の感情が「共感→安心→期待→実践→希望」の順に動く\r\n\r\n### プロンプトを書く前の3問\r\n\r\n```\r\nQ1: なぜ自分がこのテーマで書くのか？\r\n    → 自",
+      "examples": [],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "agent-rd-lead",
+      "name": "rd-lead",
+      "category": "agent",
+      "summary_ja": "R&D部門長 — プロジェクト管理・機会発見・ライフサイクル管理",
+      "description_ja": "# R&D Lead — 企画開発部門長\n\n## Role\n\n「1人総合商社」のR&D部門長。`project-registry.md` を読み込んでアクティブプロジェクトを把握し、進捗管理・機会発見・ライフサイクル管理を行う。\n\n## Core Logic\n\n```\n1. project-registry.md を読み込み → Active/Planning プロジェクト一覧を取得\n2. 05_Output/Projects/@Active/ のフォルダをスキャン\n3. 各プロジェクトの進捗・期限を確認\n4. State file (rd-state.md) を更新\n5. レビュー結果をサマリーとして出力\n```\n\n## Input Sources\n\n### プロジェクトデータ\n- `project-registry.md` — プロジェクト一覧\n- `05_Output/Projects/@Active/` — アクティブプロジェクト\n- `05_Output/Projects/@Planning/` — 計画中プロジェクト\n\n### 機会発見用\n- `03_Input/Rese",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "1. project-registry.md を読み込み → Active/Planning プロジェクト一覧を取得\n2. 05_Output/Projects/@Active/ のフォルダをスキャン\n3. 各プロジェクトの進捗・期限を確認\n4. State file (rd-state.md) を更新\n5. レビュー結果をサマリーとして出力"
+        },
+        {
+          "title": "使用例2",
+          "code": "@Planning/ → @Active/ → @Completed → 99_Archive/"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "skill-readme",
+      "name": "Claude Skills ディレクトリ",
+      "category": "skill",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# Claude Skills ディレクトリ\r\n\r\nこのディレクトリには、AI APIを使用するタスク用のプロンプトファイルが保存されます。\r\n\r\n## 📋 概要\r\n\r\n不快メモシステムで「カテゴリA（AI API必須）」に分類されたタスクは、実装コードではなく、プロンプトファイルとしてここに保存されます。\r\n\r\n## 📁 ファイル形式\r\n\r\n各スキルは `.md` ファイルとして保存され、以下の構成を持ちます：\r\n\r\n```markdown\r\n# [スキル名]\r\n\r\n## 📋 概要\r\nこのスキルの目的と使い方を説明\r\n\r\n## 🎯 用途\r\n- 具体的な使用例1\r\n- 具体的な使用例2\r\n\r\n## 💬 プロンプト\r\n\r\n\\`\\`\\`\r\nここにプロンプト本文を記述\r\n\\`\\`\\`\r\n\r\n## 🔧 使い方\r\n\r\n1. Claude Code または ChatGPT などにプロンプトをコピー\r\n2. 必要に応じて変数を置き換え\r\n3. 実行\r\n\r\n## 📝 注意事項\r\n- 特記事項があれば記載\r\n```\r\n\r\n## 🚀 使用方法\r\n\r\n### 手動でスキルを使う場合\r\n\r\n1",
+      "examples": [],
+      "links": [],
+      "difficulty": 1,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-blog-slug-metadata",
+      "name": "ブログ記事スラッグ必須ルール",
+      "category": "rule",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# ブログ記事スラッグ必須ルール\r\n\r\n## 概要\r\n\r\nブログ記事には必ず英語SEOスラッグを設定する。日本語スラッグ（URLエンコード）はSEO・共有性・可読性の全てで不利。\r\n\r\n## 対象ファイル\r\n\r\n- `05_Output/Areas/Content-Creation/Blog-Writing/` 配下の記事\r\n\r\n## メタデータフォーマット\r\n\r\n記事の `## メタデータ` セクションに `スラッグ` フィールドを必ず含めること:\r\n\r\n```markdown\r\n## メタデータ\r\n- **ステータス**: 下書き\r\n- **スラッグ**: claude-code-enterprise-guide-2026\r\n- **メタディスクリプション**: ...\r\n- **カテゴリ**: ...\r\n- **タグ**: ...\r\n- **ファクトチェック**: 未\r\n```\r\n\r\nYAMLフロントマター形式の場合:\r\n\r\n```yaml\r\n---\r\ntitle: \"記事タイトル\"\r\nslug: \"claude-code-enterprise-guide-2026\"\r\nseo_",
+      "examples": [],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-content-sorting-rules",
+      "name": "コンテンツ振り分けルール定義書",
+      "category": "rule",
+      "summary_ja": "**条件**: - 深い考察・分析が含まれている - 完全ガイド・チュートリアル形式に適している - 500文字以上の詳細な内容",
+      "description_ja": "# コンテンツ振り分けルール定義書\n\n## 概要\n00_Memoから01_Inboxへの変換時に、ブログネタ・X.com投稿ネタを自動判定して適切なフォルダに振り分けるためのルール定義です。\n\n## 振り分け先フォルダ\n\n### 1. ブログリサーチ\n**パス**: `03_Input/Blog-Research/[テーマ]/`\n\n**条件**:\n- 深い考察・分析が含まれている\n- 完全ガイド・チュートリアル形式に適している\n- 500文字以上の詳細な内容\n\n### 2. X.com投稿アイデア\n**パス**: `03_Input/X-Operation/Post-Ideas/`\n\n**条件**:\n- 簡潔な気づき・Tips\n- 140-800文字程度の短い内容\n- タイムリーな情報\n\n### 3. 個人開発アイデア\n**パス**: `03_Input/Dev-Ideas/`\n\n**条件**:\n- ツール・アプリ・自動化の構想が含まれている\n- 「〜があったら便利」「〜を作りたい」という課題→解決の構造\n- 技術の組み合わせ（A × B）で何かを実現するアイデア\n- 既存ツールへの不",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "3.0点: 2000文字以上（完全ガイド級）\n2.0点: 1000-1999文字（標準的な記事）\n1.0点: 500-999文字（短めの記事）\n0.5点: 300-499文字（ミニマム）\n0.0点: 300文字未満（不適合）"
+        },
+        {
+          "title": "使用例2",
+          "code": "3.0点: 見出し5個以上 + 表・リスト・コードブロック複数\n2.0点: 見出し3-4個 + 表・リスト・コードブロックあり\n1.0点: 見出し2個 + 箇条書きあり\n0.5点: 見出し1個のみ\n0.0点: 構造化なし（単純テキストのみ）"
+        },
+        {
+          "title": "使用例3",
+          "code": "3.0点: 500-1500文字（長文1投稿に最適）\n2.5点: 300-499文字（短文または長文どちらでも可）\n2.5点: 1501-3000文字（長文1投稿に適合）\n2.0点: 140-299文字（短文投稿最適）\n1.5点: 3001-5000文字（長文または詳細スレッド）\n1.0点: 5000文字超（ブログ向き、X.comはサマリー版）"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-content-visual-generation",
+      "name": "コンテンツ図解自動生成ルール",
+      "category": "rule",
+      "summary_ja": "（要約なし）",
+      "description_ja": "# コンテンツ図解自動生成ルール\r\n\r\n## 概要\r\n\r\nブログ記事・note記事の制作プロセスにおいて、**記事の理解を助ける図解**と**記事全体を要約するインフォグラフィック**を自動生成する。\r\n\r\n## 適用対象\r\n\r\n| パイプライン | トリガー | 図解タイプ |\r\n|------------|---------|-----------|\r\n| ブログ記事執筆 | `/blog` の Write フェーズ完了時 | 記事内図解 + サマリーインフォグラフィック |\r\n| note記事ドラフト | `/note:receive-draft` の Phase 3 完了後 | レビュー用サマリーインフォグラフィック |\r\n| 手動執筆 | ユーザーが記事ファイルを直接作成した場合 | 要求に応じて |\r\n\r\n## Phase A: 記事内図解の自動検出と生成\r\n\r\n### 検出ルール\r\n\r\n記事本文をスキャンし、以下のパターンがある箇所を「図解候補」として検出する:\r\n\r\n| パターン | 例 | 推奨図タイプ |\r\n|---------|---|------------|",
+      "examples": [],
+      "links": [],
+      "difficulty": 4,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-factcheck-metadata-2",
+      "name": "ファクトチェック メタデータルール",
+      "category": "rule",
+      "summary_ja": "公開前のコンテンツ（ブログ記事・note記事）には、ファクトチェック実施状況をメタデータに必ず記載する。",
+      "description_ja": "# ファクトチェック メタデータルール\n\n## 概要\n\n公開前のコンテンツ（ブログ記事・note記事）には、ファクトチェック実施状況をメタデータに必ず記載する。\n\n## 対象ファイル\n\n- `05_Output/Areas/Content-Creation/Blog-Writing/` 配下の記事\n- `05_Output/Areas/Content-Creation/Note-AI-Journal/` 配下の記事\n\n## メタデータフォーマット\n\n記事の `## メタデータ` セクションに以下のフィールドを含めること:\n\n### ファクトチェック未実施\n\n```markdown\n- **ファクトチェック**: 未\n```\n\n### ファクトチェック実施済み（問題なし）\n\n```markdown\n- **ファクトチェック**: 済（YYYY-MM-DD ツール名 / [[レポートリンク]]）\n```\n\n### ファクトチェック実施済み（修正あり）\n\n```markdown\n- **ファクトチェック**: 済（YYYY-MM-DD ツール名 / [[レポートリンク]]）\n- **ファクト",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "### ファクトチェック実施済み（問題なし）"
+        },
+        {
+          "title": "使用例2",
+          "code": "### ファクトチェック実施済み（修正あり）"
+        },
+        {
+          "title": "使用例3",
+          "code": "### ファクトチェック実施済み（修正未対応）"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-factcheck-metadata",
+      "name": "ファクトチェック メタデータルール",
+      "category": "rule",
+      "summary_ja": "公開前のコンテンツ（ブログ記事・note記事）には、ファクトチェック実施状況をメタデータに必ず記載する。",
+      "description_ja": "# ファクトチェック メタデータルール\n\n## 概要\n\n公開前のコンテンツ（ブログ記事・note記事）には、ファクトチェック実施状況をメタデータに必ず記載する。\n\n## 対象ファイル\n\n- `05_Output/Areas/Content-Creation/Blog-Writing/` 配下の記事\n- `05_Output/Areas/Content-Creation/Note-AI-Journal/` 配下の記事\n\n## メタデータフォーマット\n\n記事の `## メタデータ` セクションに以下のフィールドを含めること:\n\n### ファクトチェック未実施\n\n```markdown\n- **ファクトチェック**: 未\n```\n\n### ファクトチェック実施済み（問題なし）\n\n```markdown\n- **ファクトチェック**: 済（YYYY-MM-DD ツール名 / [[レポートリンク]]）\n```\n\n### ファクトチェック実施済み（修正あり）\n\n```markdown\n- **ファクトチェック**: 済（YYYY-MM-DD ツール名 / [[レポートリンク]]）\n- **ファクト",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "### ファクトチェック実施済み（問題なし）"
+        },
+        {
+          "title": "使用例2",
+          "code": "### ファクトチェック実施済み（修正あり）"
+        },
+        {
+          "title": "使用例3",
+          "code": "### ファクトチェック実施済み（修正未対応）"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-handbook-workflow",
+      "name": "Borders Handbook Workflow Rules",
+      "category": "rule",
+      "summary_ja": "This file defines rules for working with the Borders Handbook repository from the obsidian-1 workspa",
+      "description_ja": "# Borders Handbook Workflow Rules\n\nThis file defines rules for working with the Borders Handbook repository from the obsidian-1 workspace.\n\n## Repository Information\n\n| Setting | Value |\n|---------|-------|\n| Local path | `C:\\temp\\handbook\\` |\n| GitLab URL | `https://gitlab-gaia.jpn.mds.honda.com/borders/handbook` |\n| GitLab host | `gitlab-gaia.jpn.mds.honda.com` |\n| CLI tool | `glab` (NOT `gh`) |\n| Proxy | NOT required (internal GitLab server) |\n| MkDocs theme | Material for MkDocs |\n| Content",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "# Correct pattern\ncd /c/temp/handbook && git status\n\n# NEVER do this (would affect obsidian-1 repo)\ngit add docs/...  # WRONG - this is obsidian-1's git"
+        },
+        {
+          "title": "使用例2",
+          "code": "### DO NOT use\n- `> **info**` blockquote style (GitLab/README style)\n- `[[_TOC_]]` (MkDocs auto-generates TOC)\n- `[TOC]` markers\n\n### FAQ sections"
+        },
+        {
+          "title": "使用例3",
+          "code": "## Article Template Metadata\n\nEvery article MUST start with:"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-notion-integration",
+      "name": "Notion Integration Rules",
+      "category": "rule",
+      "summary_ja": "This document establishes the foundation for consistent, high-quality Notion document creation and m",
+      "description_ja": "# Notion Integration Rules\n\n## Overview\nThis document defines the rules and guidelines for integrating with Notion when creating and managing project documentation.\n\n## Core Principles\n\n### 1. Consistency\n- All Notion documents must follow the standardized template from `prompts/notion-up.md`\n- Use consistent formatting, symbols, and structure across all documents\n- Maintain uniform status indicators and progress tracking\n\n### 2. Completeness\n- Include all required sections: Overview, Goals, Pro",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "### Status Symbols\n- 🔴 **Not Started/Not Achieved**: Not yet begun\n- 🟡 **In Progress/Monitoring**: Currently working/monitoring\n- 🟢 **Completed/Achieved**: Task completed/goal achieved\n- 🔵 **On Hold**: Temporarily paused\n- ⚫ **Cancelled**: Task cancelled/goal withdrawn\n\n### Progress Bars"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-x-article-draftjs",
+      "name": "X.com Article エディタ（Draft.js）出力ルール",
+      "category": "rule",
+      "summary_ja": "X.com の Article エディタは Facebook の Draft.js を使用しており、マークダウン記法を解釈しない。マークダウンをそのまま貼り付けると `###` や `>` がプレーン",
+      "description_ja": "# X.com Article エディタ（Draft.js）出力ルール\n\n## 背景\n\nX.com の Article エディタは Facebook の Draft.js を使用しており、マークダウン記法を解釈しない。マークダウンをそのまま貼り付けると `###` や `>` がプレーンテキストとして表示される。\n\n## 禁止事項（Article 本文出力時）\n\n| マークダウン記法 | 状態 | 代替 |\n|----------------|------|------|\n| `##` `###` 見出し | 禁止 | `【小見出し】` マーカーを行頭に付ける |\n| `>` 引用ブロック | 禁止 | `【引用】` マーカーを行頭に付ける |\n| `**太字**` 強調 | 禁止 | `【太字】` マーカーで囲む（本当に必要な箇所のみ） |\n| `|---|---|` テーブル | 禁止 | リスト形式に変換する |\n| `---` 水平線 | 禁止 | 使わない（空行で代替） |\n| `- ` 箇条書き | 注意 | そのまま貼付可。ただしDraft.jsのリストにはならない |",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "❌ NG（マークダウンテーブル）:\n| フェーズ | 効果 |\n|---------|------|\n| Plan | 大 |\n| Do | 中 |\n\n✅ OK（リスト形式）:\nPlan（計画）: プロトタイプ生成で合意形成を加速 → 効果: 大\nDo（実行）: コード生成、文書作成の補助 → 効果: 中"
+        }
+      ],
+      "links": [],
+      "difficulty": 2,
+      "tier": "free",
+      "related": []
+    },
+    {
+      "id": "rule-zenn-winning-formula",
+      "name": "Zenn Winning Formula — 勝ちパターンルール",
+      "category": "rule",
+      "summary_ja": "Zennで伸びる記事の構造・タイトル・評価軸を定義するルール。**2026-04-14のcmux記事成功要因分析**（19 likes、平均1.8 likesの約10倍）から抽出した再現可能パターン。",
+      "description_ja": "# Zenn Winning Formula — 勝ちパターンルール\n\n## 概要\n\nZennで伸びる記事の構造・タイトル・評価軸を定義するルール。**2026-04-14のcmux記事成功要因分析**（19 likes、平均1.8 likesの約10倍）から抽出した再現可能パターン。\n\n**適用対象**: `/dig-zenn` での記事企画・執筆、ネタ選定時の評価\n\n---\n\n## 本質的原則\n\n> **Zenn読者は「混乱している情報を最短で整理してくれる人」を最も評価する**\n\n技術者の時間は希少であり、「曖昧さのコスト」が「不正確さのコスト」を超える瞬間がある。Zennで突出するのは「紹介記事」でも「検証記事」でもなく、**「整理する記事」**。\n\nこの原則を忘れた記事（単なる紹介、単なる比較、単なるチュートリアル）は1桁likes止まりになる傾向がある。\n\n---\n\n## 供給ギャップスコア（企画判断軸）\n\n記事を書く前に以下のスコアを計算し、**6点以上**なら「cmuxチャンス」として最優先で着手する。\n\n### 計算式\n\n```\n供給ギャップスコア =\n  需要シグナ",
+      "examples": [
+        {
+          "title": "使用例1",
+          "code": "供給ギャップスコア =\n  需要シグナル (0-3)\n  + 混乱シグナル (0-4)\n  + 緊急度 (0-3)\n  - 既存記事数ペナルティ (0 or -3)"
+        },
+        {
+          "title": "使用例2",
+          "code": "【YYYY年最新】[ツール名]で[課題]を[動詞]する完全ガイド\n — [最初の疑問]から[到達点]まで"
+        }
+      ],
+      "links": [],
+      "difficulty": 5,
+      "tier": "free",
+      "related": []
+    }
+  ]
+}
