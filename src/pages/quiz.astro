@@ -83,7 +83,7 @@ const categories = [...new Set(features.map((f: any) => f.category))] as string[
         <ul class="space-y-1 text-sm" id="r-incorrect-ul"></ul>
       </div>
 
-      <div class="grid grid-cols-2 gap-2">
+      <div class="grid grid-cols-2 gap-2 mb-3">
         <button id="btn-retry" class="bg-blue-500 text-white rounded-lg py-2.5 font-semibold hover:bg-blue-600 active:scale-95 transition">
           🔁 もう一度
         </button>
@@ -91,6 +91,9 @@ const categories = [...new Set(features.map((f: any) => f.category))] as string[
           📤 シェア
         </button>
       </div>
+      <a href="/support" class="block text-center text-sm text-pink-600 hover:underline">
+        ❤️ Codey Daily が役に立ったら応援してください
+      </a>
     </section>
   </main>
 
@@ -234,6 +237,14 @@ const categories = [...new Set(features.map((f: any) => f.category))] as string[
     function showResult() {
       quizPanel.classList.add('hidden');
       resultPanel.classList.remove('hidden');
+
+      // 集計に通知
+      try {
+        fetch('/api/quiz/complete', {
+          method: 'POST',
+          headers: { 'X-Anon-Id': anonId, 'Content-Type': 'application/json' },
+        });
+      } catch (_) {}
 
       const total = questions.length;
       const pct = Math.round((correct / total) * 100);

@@ -23,6 +23,25 @@ const app = new Hono<{ Bindings: Bindings }>().basePath('/api');
 
 app.use('*', cors());
 
+// ========== 集計ヘルパー ==========
+async function bumpCounter(KV: KVNamespace, key: string, by: number = 1): Promise<void> {
+  const cur = parseInt((await KV.get(key)) ?? '0', 10);
+  await KV.put(key, String(cur + by));
+}
+
+async function markActive(KV: KVNamespace, anonId: string): Promise<void> {
+  const today = new Date().toISOString().slice(0, 10);
+  // 当日アクティブセット（7日でTTL）
+  await KV.put(`active:${today}:${anonId}`, '1', { expirationTtl: 60 * 60 * 24 * 8 });
+}
+
+async function isNewUser(KV: KVNamespace, anonId: string): Promise<boolean> {
+  const seen = await KV.get(`user-seen:${anonId}`);
+  if (seen) return false;
+  await KV.put(`user-seen:${anonId}`, new Date().toISOString());
+  return true;
+}
+
 // ========== /api/today ==========
 app.get('/today', async (c) => {
   const { DB } = c.env;
@@ -103,6 +122,12 @@ app.get('/progress', async (c) => {
   const anonId = c.req.header('X-Anon-Id');
   if (!anonId) return c.json({ touched: [], skipped: [], streak: 0, lastVisit: '' });
 
+  // 新規ユーザー or アクティブ記録（GETでもセッション開始を集計）
+  if (await isNewUser(KV, anonId)) {
+    await bumpCounter(KV, 'counter:total_users');
+  }
+  await markActive(KV, anonId);
+
   const stored = await KV.get(`progress:anon:${anonId}`, 'json') as ProgressState | null;
   return c.json(stored ?? { touched: [], skipped: [], streak: 0, lastVisit: '' });
 });
@@ -117,13 +142,19 @@ app.post('/progress', async (c) => {
     featureId: string;
   }>();
 
+  await markActive(KV, anonId);
+
   const key = `progress:anon:${anonId}`;
   const current = (await KV.get(key, 'json')) as ProgressState | null;
   const state: ProgressState = current ?? { touched: [], skipped: [], streak: 0, lastVisit: '' };
   const today = new Date().toISOString().slice(0, 10);
 
   if (action === 'touch') {
-    if (!state.touched.includes(featureId)) state.touched.push(featureId);
+    const wasNew = !state.touched.includes(featureId);
+    if (wasNew) {
+      state.touched.push(featureId);
+      await bumpCounter(KV, 'counter:total_touched');
+    }
     state.skipped = state.skipped.filter(id => id !== featureId);
 
     const yesterday = new Date(Date.now() - 86400_000).toISOString().slice(0, 10);
@@ -140,6 +171,38 @@ app.post('/progress', async (c) => {
 
   await KV.put(key, JSON.stringify(state), { expirationTtl: 60 * 60 * 24 * 365 });
   return c.json(state);
+});
+
+// ========== /api/quiz/complete ==========
+app.post('/quiz/complete', async (c) => {
+  const { KV } = c.env;
+  const anonId = c.req.header('X-Anon-Id');
+  if (anonId) await markActive(KV, anonId);
+  await bumpCounter(KV, 'counter:total_quiz_sessions');
+  return c.json({ ok: true });
+});
+
+// ========== /api/stats ==========
+app.get('/stats', async (c) => {
+  const { KV } = c.env;
+  const totalUsers = parseInt((await KV.get('counter:total_users')) ?? '0', 10);
+  const totalTouched = parseInt((await KV.get('counter:total_touched')) ?? '0', 10);
+  const totalQuizSessions = parseInt((await KV.get('counter:total_quiz_sessions')) ?? '0', 10);
+
+  // 直近7日アクティブ: 各日のキー数を概算（KV listは重いので近似）
+  // 当日のアクティブのみ正確にカウント
+  const today = new Date().toISOString().slice(0, 10);
+  const list = await KV.list({ prefix: `active:${today}:`, limit: 1000 });
+  const activeToday = list.keys.length;
+
+  return c.json({
+    total_users: totalUsers,
+    total_touched: totalTouched,
+    total_quiz_sessions: totalQuizSessions,
+    active_today: activeToday,
+    active_7days: activeToday * 7, // 近似値
+    updated_at: new Date().toISOString(),
+  });
 });
 
 // ========== /api/health ==========

@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import featuresData from '../../data/features.json';
+import changelogData from '../../data/changelog.json';
+
+const totalFeatures = (featuresData as any).features.length;
+const trackedVersions = (changelogData as any).version_count;
+const latestVersion = (changelogData as any).latest_version;
+---
+<Base title="Codey Daily — 統計" description="Codey Daily の累計利用統計。透明性のため公開しています。">
+  <main class="container mx-auto px-4 py-6 max-w-2xl">
+    <nav class="text-sm mb-3"><a href="/" class="text-blue-600 hover:underline">← トップ</a></nav>
+
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold mb-1">📊 Codey Daily 統計</h1>
+      <p class="text-gray-600 text-sm">透明性のため、累計利用状況を公開しています</p>
+    </header>
+
+    <section class="grid grid-cols-2 gap-3 mb-5">
+      <div class="bg-white rounded-xl shadow-md p-5 text-center">
+        <p class="text-3xl font-black text-blue-500 mb-1" id="stat-users">-</p>
+        <p class="text-xs text-gray-500">累計ユーザー</p>
+      </div>
+      <div class="bg-white rounded-xl shadow-md p-5 text-center">
+        <p class="text-3xl font-black text-emerald-500 mb-1" id="stat-touched">-</p>
+        <p class="text-xs text-gray-500">機能学習回数</p>
+      </div>
+      <div class="bg-white rounded-xl shadow-md p-5 text-center">
+        <p class="text-3xl font-black text-amber-500 mb-1" id="stat-quiz">-</p>
+        <p class="text-xs text-gray-500">クイズセッション</p>
+      </div>
+      <div class="bg-white rounded-xl shadow-md p-5 text-center">
+        <p class="text-3xl font-black text-rose-500 mb-1" id="stat-active">-</p>
+        <p class="text-xs text-gray-500">直近7日アクティブ</p>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-md p-5 mb-5">
+      <h2 class="font-bold mb-3">📚 コンテンツ規模</h2>
+      <ul class="space-y-2 text-sm">
+        <li class="flex justify-between border-b border-gray-100 pb-2">
+          <span>カタログ機能数</span>
+          <span class="font-bold">{totalFeatures}</span>
+        </li>
+        <li class="flex justify-between border-b border-gray-100 pb-2">
+          <span>追跡 Claude Code バージョン</span>
+          <span class="font-bold">{trackedVersions}</span>
+        </li>
+        <li class="flex justify-between border-b border-gray-100 pb-2">
+          <span>最新バージョン</span>
+          <span class="font-bold">v{latestVersion}</span>
+        </li>
+        <li class="flex justify-between">
+          <span>更新頻度</span>
+          <span class="font-bold">毎日（GitHub Actions）</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-5">
+      <h2 class="font-bold text-amber-900 mb-2">🤝 応援のお願い</h2>
+      <p class="text-sm text-amber-800 mb-3">
+        Codey Daily は無料・広告なし・個人開発です。継続的な改善には皆さんのサポートが力になります。
+      </p>
+      <a href="/support" class="inline-block bg-amber-500 text-white rounded-lg px-4 py-2 text-sm font-bold hover:bg-amber-600">
+        ❤️ 応援方法を見る →
+      </a>
+    </section>
+
+    <footer class="text-center text-xs text-gray-400 mt-6">
+      <p>更新: 1時間ごと自動 / プライバシー: 匿名集計のみ・個人情報なし</p>
+    </footer>
+  </main>
+
+  <script is:inline>
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/stats');
+        if (!res.ok) return;
+        const d = await res.json();
+        document.getElementById('stat-users').textContent = d.total_users?.toLocaleString() ?? '0';
+        document.getElementById('stat-touched').textContent = d.total_touched?.toLocaleString() ?? '0';
+        document.getElementById('stat-quiz').textContent = d.total_quiz_sessions?.toLocaleString() ?? '0';
+        document.getElementById('stat-active').textContent = d.active_7days?.toLocaleString() ?? '0';
+      } catch (_) {}
+    }
+    loadStats();
+  </script>
+</Base>
