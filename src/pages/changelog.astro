@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import changelogData from '../../data/changelog.json';
+import gapsData from '../../data/feature-gaps.json';
+
+const cl = changelogData as any;
+const gaps = gapsData as any;
+
+const versions = cl.versions ?? [];
+const recentVersions = versions.slice(0, 15);
+
+// 全バージョンから「added/security」だけ抽出（新機能ハイライト用）
+const recentHighlights: any[] = [];
+for (const v of versions.slice(0, 30)) {
+  for (const e of (v.entries ?? [])) {
+    if (e.category === 'added' || e.category === 'security') {
+      recentHighlights.push({ ...e, version: v.version });
+    }
+  }
+}
+const topHighlights = recentHighlights.slice(0, 12);
+
+const missingTop = (gaps.missing_slash_commands ?? []).slice(0, 8);
+const missingSubcmds = (gaps.missing_claude_subcommands ?? []).slice(0, 5);
+
+const catColors: Record<string, string> = {
+  added: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  fixed: 'bg-gray-50 text-gray-600 border-gray-200',
+  security: 'bg-rose-50 text-rose-700 border-rose-200',
+  improved: 'bg-blue-50 text-blue-700 border-blue-200',
+  removed: 'bg-amber-50 text-amber-700 border-amber-200',
+  changed: 'bg-purple-50 text-purple-700 border-purple-200',
+  other: 'bg-gray-50 text-gray-500 border-gray-200',
+};
+const catLabel: Record<string, string> = {
+  added: '🆕 追加',
+  fixed: '🐛 修正',
+  security: '🔒 セキュリティ',
+  improved: '✨ 改善',
+  removed: '🗑 削除',
+  changed: '🔄 変更',
+  other: '📝',
+};
+---
+<Base title="Claude Code 変更履歴 — Codey Daily" description={`Claude Code の最新バージョン v${cl.latest_version ?? '?'} までの変更を時系列で表示。新機能を見逃さない。`}>
+  <main class="container mx-auto px-4 py-6 max-w-3xl">
+    <nav class="text-sm mb-3"><a href="/" class="text-blue-600 hover:underline">← トップ</a></nav>
+
+    <header class="mb-5">
+      <h1 class="text-2xl font-bold mb-1">📜 Claude Code 変更履歴</h1>
+      <p class="text-sm text-gray-600">
+        最新 <strong>v{cl.latest_version ?? '?'}</strong> まで {cl.version_count} バージョンを追跡 /
+        <a href={cl.docs_url} target="_blank" rel="noopener" class="text-blue-600 hover:underline">公式ページ ↗</a>
+      </p>
+    </header>
+
+    {missingTop.length > 0 && (
+      <section class="bg-amber-50 border-l-4 border-amber-400 rounded-r-xl p-4 mb-6">
+        <h2 class="font-bold text-amber-900 mb-2">🚨 Codey Daily に未追加の機能</h2>
+        <p class="text-xs text-amber-800 mb-3">CHANGELOG で言及されているが、まだカタログに無い機能</p>
+        <ul class="space-y-1.5 text-sm">
+          {missingTop.map((c: any) => (
+            <li class="flex justify-between">
+              <code class="font-mono text-amber-900 font-semibold">{c.name}</code>
+              <span class="text-xs text-amber-700">
+                {c.mentions}回言及 (初出 v{c.first_seen})
+              </span>
+            </li>
+          ))}
+          {missingSubcmds.map((c: any) => (
+            <li class="flex justify-between">
+              <code class="font-mono text-amber-900 font-semibold">{c.name}</code>
+              <span class="text-xs text-amber-700">
+                {c.mentions}回言及 (初出 v{c.first_seen})
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p class="text-xs text-amber-700 mt-3">
+          → 検討して追加すべき機能。GitHub Actions で自動検出 + 開発者レビュー予定。
+        </p>
+      </section>
+    )}
+
+    {topHighlights.length > 0 && (
+      <section class="mb-6 bg-white rounded-xl shadow-md p-5">
+        <h2 class="font-bold mb-3">🆕 直近の新機能ハイライト（30バージョン）</h2>
+        <ul class="space-y-2">
+          {topHighlights.map((h: any) => (
+            <li class="text-sm">
+              <span class="inline-block bg-emerald-100 text-emerald-700 text-xs font-mono px-2 py-0.5 rounded mr-2">
+                v{h.version}
+              </span>
+              <span class="text-gray-800">{h.text}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section>
+      <h2 class="font-bold mb-3">📋 直近 15 バージョン</h2>
+      {recentVersions.map((v: any) => (
+        <article class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-3">
+          <header class="flex justify-between items-baseline mb-2 pb-2 border-b border-gray-100">
+            <h3 class="font-bold text-lg">v{v.version}</h3>
+            <span class="text-xs text-gray-500">
+              {v.stats.added > 0 && <span class="mr-2">🆕 {v.stats.added}</span>}
+              {v.stats.improved > 0 && <span class="mr-2">✨ {v.stats.improved}</span>}
+              {v.stats.fixed > 0 && <span class="mr-2">🐛 {v.stats.fixed}</span>}
+              {v.stats.security > 0 && <span class="mr-2">🔒 {v.stats.security}</span>}
+              全{v.stats.total}件
+            </span>
+          </header>
+          <ul class="space-y-1.5 text-sm">
+            {v.entries.slice(0, 8).map((e: any) => (
+              <li class="flex gap-2 items-start">
+                <span class={`text-xs px-1.5 py-0.5 rounded border shrink-0 ${catColors[e.category] ?? catColors.other}`}>
+                  {catLabel[e.category] ?? '📝'}
+                </span>
+                <span class="text-gray-700">{e.text}</span>
+              </li>
+            ))}
+            {v.entries.length > 8 && (
+              <li class="text-xs text-gray-400">…他 {v.entries.length - 8} 件</li>
+            )}
+          </ul>
+        </article>
+      ))}
+    </section>
+
+    <footer class="text-center text-xs text-gray-400 mt-6 mb-4">
+      <p>取得: {cl.fetched_at?.split('T')[0]} / 公式 CHANGELOG.md より自動生成</p>
+      <p class="mt-1">
+        <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+          GitHub source ↗
+        </a>
+      </p>
+    </footer>
+  </main>
+</Base>
