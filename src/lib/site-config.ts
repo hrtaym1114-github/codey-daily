@@ -28,3 +28,8 @@ export const SPONSOR_URL = `https://github.com/sponsors/${GITHUB_USER}`;
 // ========== Social ==========
 export const X_HANDLE = 'Amu_Lab__';
 export const X_PROFILE_URL = `https://x.com/${X_HANDLE}`;
+
+// ========== Google OAuth ==========
+// Client Secret は Wrangler secret として登録済み
+// (npx wrangler secret put GOOGLE_CLIENT_SECRET)
+export const GOOGLE_CLIENT_ID = '663283652105-60u84p1bult7k2g164iq2t68etkc2tdu.apps.googleusercontent.com';
