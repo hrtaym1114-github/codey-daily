@@ -65,6 +65,7 @@ const labels: Record<string, string> = {
         <p class="text-xs uppercase tracking-wider text-gray-500 mb-3" id="feature-category"></p>
         <p class="text-gray-700 mb-4" id="feature-summary"></p>
         <div id="feature-examples" class="mb-4"></div>
+        <div id="feature-links" class="mb-3"></div>
         <div class="flex gap-2 mb-3">
           <button id="btn-touch" class="flex-1 bg-blue-500 text-white rounded-lg py-2 font-semibold hover:bg-blue-600 active:scale-95 transition">
             ✅ 触った
@@ -128,6 +129,13 @@ const labels: Record<string, string> = {
           f.examples.map((ex: { title: string; code: string }) =>
             `<pre class="bg-gray-50 border border-gray-200 rounded p-3 text-xs overflow-x-auto"><code>${ex.code.replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]!))}</code></pre>`
           ).join('');
+      }
+
+      // 公式ドキュメントリンク
+      const linksContainer = document.getElementById('feature-links') as HTMLElement;
+      const officialLink = (f.links ?? []).find((l: any) => l.label?.includes('公式'));
+      if (officialLink) {
+        linksContainer.innerHTML = `<a href="${officialLink.url}" target="_blank" rel="noopener" class="block text-center bg-amber-50 border border-amber-200 text-amber-800 rounded-lg py-2 text-sm font-semibold hover:bg-amber-100 transition mb-2">${officialLink.label} ↗</a>`;
       }
 
       document.getElementById('today-loading')!.style.display = 'none';

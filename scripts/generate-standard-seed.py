@@ -9,6 +9,65 @@ import sys
 from pathlib import Path
 
 # ============================================================
+# 公式ドキュメントURL（カテゴリ→URL）
+# ※ 2026-05 時点で確認済: code.claude.com/docs/en/
+# ============================================================
+DOCS_BASE = "https://code.claude.com/docs/en"
+CATEGORY_DOCS_URL = {
+    "slash-command": f"{DOCS_BASE}/commands",
+    "tool": f"{DOCS_BASE}/tools-reference",
+    "hook": f"{DOCS_BASE}/hooks",
+    "agent": f"{DOCS_BASE}/sub-agents",
+    "skill": f"{DOCS_BASE}/skills",
+    "mcp": f"{DOCS_BASE}/mcp",
+    "mode": f"{DOCS_BASE}/permission-modes",
+    "file": f"{DOCS_BASE}/memory",
+    "cli": f"{DOCS_BASE}/cli-reference",
+    "setting": f"{DOCS_BASE}/settings",
+}
+
+# 個別オーバーライド（より具体的なページがある場合）
+FEATURE_DOCS_URL = {
+    "file-claude-md": f"{DOCS_BASE}/memory",
+    "file-agents-md": f"{DOCS_BASE}/memory",
+    "file-onboarding-md": f"{DOCS_BASE}/memory",
+    "file-settings-json": f"{DOCS_BASE}/settings",
+    "file-settings-local-json": f"{DOCS_BASE}/settings",
+    "file-mcp-json": f"{DOCS_BASE}/mcp",
+    "file-memory": f"{DOCS_BASE}/memory",
+    "file-mention": f"{DOCS_BASE}/memory",
+    "mode-plan": f"{DOCS_BASE}/permission-modes",
+    "mode-permission": f"{DOCS_BASE}/permission-modes",
+    "mode-output-style": f"{DOCS_BASE}/output-styles",
+    "mode-headless": f"{DOCS_BASE}/cli-reference",
+    "misc-statusline": f"{DOCS_BASE}/statusline",
+    "misc-keybindings": f"{DOCS_BASE}/settings",
+    "misc-ide-vscode": f"{DOCS_BASE}/vs-code",
+    "misc-ide-jetbrains": f"{DOCS_BASE}/jetbrains",
+    "misc-fast-mode": f"{DOCS_BASE}/cli-reference",
+    "skill-overview": f"{DOCS_BASE}/skills",
+    "skill-structure": f"{DOCS_BASE}/skills",
+    "skill-marketplace": f"{DOCS_BASE}/discover-plugins",
+    "skill-trigger": f"{DOCS_BASE}/skills",
+    "agent-subagent": f"{DOCS_BASE}/sub-agents",
+    "agent-explore": f"{DOCS_BASE}/sub-agents",
+    "agent-plan": f"{DOCS_BASE}/sub-agents",
+    "agent-general-purpose": f"{DOCS_BASE}/sub-agents",
+    "agent-custom": f"{DOCS_BASE}/sub-agents",
+    "agent-isolation": f"{DOCS_BASE}/agent-teams",
+    "mcp-overview": f"{DOCS_BASE}/mcp",
+    "mcp-stdio": f"{DOCS_BASE}/mcp",
+    "mcp-sse": f"{DOCS_BASE}/mcp",
+    "mcp-http": f"{DOCS_BASE}/mcp",
+}
+
+
+def get_doc_url(feature_id: str, category: str) -> str:
+    """個別オーバーライド優先、なければカテゴリ既定"""
+    return FEATURE_DOCS_URL.get(feature_id, CATEGORY_DOCS_URL.get(category, DOCS_BASE))
+
+
+# ============================================================
 # 標準機能データ
 # ============================================================
 FEATURES = [
@@ -557,10 +616,20 @@ def main():
     sql_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.parent.mkdir(parents=True, exist_ok=True)
 
+    # 公式ドキュメントURLを links 先頭に注入
+    for f in FEATURES:
+        official_url = get_doc_url(f["id"], f["category"])
+        official_link = {"label": "📘 公式ドキュメント", "url": official_url}
+        existing_links = f.get("links", [])
+        # 既に同URLが入っていれば追加しない
+        if not any(l.get("url") == official_url for l in existing_links):
+            f["links"] = [official_link] + existing_links
+
     # JSON 出力
     json_path.write_text(json.dumps({
-        "version": "1.0.0-standard",
-        "updated": "2026-05-01",
+        "version": "1.1.0-standard-with-docs",
+        "updated": "2026-05-02",
+        "docs_base": DOCS_BASE,
         "features": FEATURES,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
