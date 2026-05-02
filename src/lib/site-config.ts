@@ -12,7 +12,7 @@
 //   3. 「Add a site」→「Manual setup」を選択
 //   4. Hostname: codey-daily.hrtaym1114.workers.dev
 //   5. 表示される snippet の data-cf-beacon='{"token": "XXX"}' の XXX を下にペースト
-export const CF_BEACON_TOKEN = '';  // ← ここに token を貼る
+export const CF_BEACON_TOKEN = 'e5603eaaa34b4735887f2ac8af71bd79';
 
 // ========== サイト基本情報 ==========
 export const SITE_URL = 'https://codey-daily.hrtaym1114.workers.dev';
