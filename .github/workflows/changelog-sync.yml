@@ -97,10 +97,13 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # 変更ファイルをコミット（Claude が編集した可能性のあるファイルも含む）
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Claude Code Action 実行後、actions/checkout が設定した認証ヘッダーが失われるため再設定
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git add data/changelog.json data/feature-gaps.json data/features.json scripts/generate-standard-seed.py migrations/003_seed_standard_features.sql
           git commit -m "chore(changelog): sync to v${{ steps.check.outputs.latest }}
 
@@ -124,6 +127,8 @@ jobs:
           BRANCH="changelog-sync-$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Claude Code Action 実行後、actions/checkout が設定した認証ヘッダーが失われるため再設定
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git checkout -b "$BRANCH"
           git add data/ scripts/generate-standard-seed.py migrations/003_seed_standard_features.sql
           git commit -m "chore: changelog sync v${{ steps.check.outputs.latest }} + ${{ steps.check.outputs.gaps }} feature gaps"
