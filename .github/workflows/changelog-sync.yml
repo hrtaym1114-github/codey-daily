@@ -52,7 +52,7 @@ jobs:
           fi
 
       - name: Build & Deploy on Master
-        if: steps.check.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+        if: steps.check.outputs.changed == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'workflow_dispatch'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
