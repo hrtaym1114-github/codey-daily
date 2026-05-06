@@ -215,6 +215,230 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-plugin',
+  '/plugin',
+  'slash-command',
+  'プラグインを管理',
+  'プラグインのインストール・アンインストール・更新・一覧表示・エラー確認を行う。Marketplace からのインストールや --plugin-dir で読み込んだプラグインの管理に使う。',
+  '[{"title": "プラグイン一覧", "code": "/plugin"}, {"title": "プラグイン更新", "code": "/plugin update"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-reload-plugins", "slash-doctor"]',
+  '/plugin プラグインを管理 プラグインのインストール・アンインストール・更新・一覧表示・エラー確認を行う。marketplace からのインストールや --plugin-dir で読み込んだプラグインの管理に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-skills',
+  '/skills',
+  'slash-command',
+  '利用可能なスキルを一覧・検索',
+  'インストール済みのスキルを一覧表示。テキスト入力でフィルタリング可能。スキルを選択するとプロンプトに `/skill-name` が補完される。',
+  '[{"title": "スキル一覧", "code": "/skills"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["skill-overview", "slash-plugin"]',
+  '/skills 利用可能なスキルを一覧・検索 インストール済みのスキルを一覧表示。テキスト入力でフィルタリング可能。スキルを選択するとプロンプトに `/skill-name` が補完される。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-mcp',
+  '/mcp',
+  'slash-command',
+  'MCPサーバーの接続状態を確認',
+  '接続中の MCP サーバー一覧・ツール数・認証状態を表示。0ツールのサーバーはフラグ表示される。重複URLサーバーの警告も表示。',
+  '[{"title": "MCP状態確認", "code": "/mcp"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["mcp-overview", "file-mcp-json"]',
+  '/mcp mcpサーバーの接続状態を確認 接続中の mcp サーバー一覧・ツール数・認証状態を表示。0ツールのサーバーはフラグ表示される。重複urlサーバーの警告も表示。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-doctor',
+  '/doctor',
+  'slash-command',
+  '環境の診断・問題チェック',
+  'MCP サーバーのエラー、無効化されたプラグインの警告、バージョン競合などの問題を診断して表示。トラブルシュートの第一歩。',
+  '[{"title": "診断実行", "code": "/doctor"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-plugin", "slash-mcp"]',
+  '/doctor 環境の診断・問題チェック mcp サーバーのエラー、無効化されたプラグインの警告、バージョン競合などの問題を診断して表示。トラブルシュートの第一歩。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-usage',
+  '/usage',
+  'slash-command',
+  'トークン使用量とコストを確認',
+  '現在セッションおよび過去の API トークン使用量・コストを表示。/cost と /stats のタブも /usage 内から開ける（v2.1.118 で統合）。',
+  '[{"title": "使用量確認", "code": "/usage"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-cost"]',
+  '/usage トークン使用量とコストを確認 現在セッションおよび過去の api トークン使用量・コストを表示。/cost と /stats のタブも /usage 内から開ける（v2.1.118 で統合）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-effort',
+  '/effort',
+  'slash-command',
+  'Thinking の処理強度を調整',
+  'Claude の思考量（effort）を low / normal / high / max / auto から選択。Opus モデルの xhigh も設定可能。速度と精度のトレードオフを制御。',
+  '[{"title": "最大思考量", "code": "/effort max"}, {"title": "自動調整", "code": "/effort auto"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-model"]',
+  '/effort thinking の処理強度を調整 claude の思考量（effort）を low / normal / high / max / auto から選択。opus モデルの xhigh も設定可能。速度と精度のトレードオフを制御。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-rename',
+  '/rename',
+  'slash-command',
+  'セッションに名前をつける',
+  '現在のセッションにわかりやすい名前を付ける。ステータスバーに表示され、/resume での再開時に識別しやすくなる。',
+  '[{"title": "名前を設定", "code": "/rename 認証機能の実装"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-resume"]',
+  '/rename セッションに名前をつける 現在のセッションにわかりやすい名前を付ける。ステータスバーに表示され、/resume での再開時に識別しやすくなる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-login',
+  '/login',
+  'slash-command',
+  'OAuth 認証を再実行',
+  'トークン期限切れ・認証エラー時に OAuth ログインを再実行。CLAUDE_CODE_OAUTH_TOKEN 環境変数が設定されていてもディスク認証に切り替えられる。',
+  '[{"title": "ログイン", "code": "/login"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/login oauth 認証を再実行 トークン期限切れ・認証エラー時に oauth ログインを再実行。claude_code_oauth_token 環境変数が設定されていてもディスク認証に切り替えられる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-permissions',
+  '/permissions',
+  'slash-command',
+  '許可・拒否されたコマンドを管理',
+  'Auto モードで拒否されたコマンドの履歴を確認・リトライ。許可ルールの追加・削除も可能。Recent タブで直近の許可状況を確認。',
+  '[{"title": "許可状態確認", "code": "/permissions"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["mode-permission"]',
+  '/permissions 許可・拒否されたコマンドを管理 auto モードで拒否されたコマンドの履歴を確認・リトライ。許可ルールの追加・削除も可能。recent タブで直近の許可状況を確認。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-add-dir',
+  '/add-dir',
+  'slash-command',
+  '作業ディレクトリを追加',
+  '現在のセッションに追加のディレクトリを読み込む。--remember オプションで永続化可能。複数リポジトリにまたがる作業に便利。',
+  '[{"title": "ディレクトリ追加", "code": "/add-dir ../other-repo"}, {"title": "永続追加", "code": "/add-dir --remember ../shared-lib"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '[]',
+  '/add-dir 作業ディレクトリを追加 現在のセッションに追加のディレクトリを読み込む。--remember オプションで永続化可能。複数リポジトリにまたがる作業に便利。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-branch',
+  '/branch',
+  'slash-command',
+  'セッションをブランチ（分岐）する',
+  '現在のセッションをフォークして別の方向を試す。分岐したセッションは /resume で再開可能。実験的な変更を本流に影響させずに試すのに使う。',
+  '[{"title": "セッション分岐", "code": "/branch"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-resume"]',
+  '/branch セッションをブランチ（分岐）する 現在のセッションをフォークして別の方向を試す。分岐したセッションは /resume で再開可能。実験的な変更を本流に影響させずに試すのに使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-copy',
+  '/copy',
+  'slash-command',
+  '最後の応答をクリップボードにコピー',
+  'Claude の直前の応答をクリップボードにコピー。マークダウン形式で GitHub・Notion・Slack に貼り付けるのに最適。tmux 環境でも動作（/terminal-setup 要設定）。',
+  '[{"title": "全文コピー", "code": "/copy"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-terminal-setup"]',
+  '/copy 最後の応答をクリップボードにコピー claude の直前の応答をクリップボードにコピー。マークダウン形式で github・notion・slack に貼り付けるのに最適。tmux 環境でも動作（/terminal-setup 要設定）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-remote-control',
+  '/remote-control',
+  'slash-command',
+  'ブラウザ・スマホからセッションを継続',
+  'CLI セッションを claude.ai/code に接続し、ブラウザやスマートフォンから作業を引き継げる。Remote Control 接続中はセッションカラーも同期される。',
+  '[{"title": "リモート接続", "code": "/remote-control"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '[]',
+  '/remote-control ブラウザ・スマホからセッションを継続 cli セッションを claude.ai/code に接続し、ブラウザやスマートフォンから作業を引き継げる。remote control 接続中はセッションカラーも同期される。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-terminal-setup',
+  '/terminal-setup',
+  'slash-command',
+  'ターミナル環境を最適化',
+  'Claude Code が最適動作するようターミナルを設定。iTerm2 のクリップボードアクセス許可・スクロール感度調整などを自動設定する。',
+  '[{"title": "ターミナル設定", "code": "/terminal-setup"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-copy"]',
+  '/terminal-setup ターミナル環境を最適化 claude code が最適動作するようターミナルを設定。iterm2 のクリップボードアクセス許可・スクロール感度調整などを自動設定する。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-reload-plugins',
+  '/reload-plugins',
+  'slash-command',
+  'プラグインをリロード',
+  'インストール済みプラグインを再読み込み。プラグインを編集・更新した後に変更を即反映させる。依存パッケージの自動インストールも行う。',
+  '[{"title": "プラグイン再読込", "code": "/reload-plugins"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-plugin"]',
+  '/reload-plugins プラグインをリロード インストール済みプラグインを再読み込み。プラグインを編集・更新した後に変更を即反映させる。依存パッケージの自動インストールも行う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-color',
+  '/color',
+  'slash-command',
+  'セッションのアクセントカラーを設定',
+  '現在のセッションのUI色を変更。引数なしで実行するとランダムに選択。Remote Control 接続時は claude.ai/code にも同期される。',
+  '[{"title": "ランダム色", "code": "/color"}, {"title": "色を指定", "code": "/color blue"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-remote-control"]',
+  '/color セッションのアクセントカラーを設定 現在のセッションのui色を変更。引数なしで実行するとランダムに選択。remote control 接続時は claude.ai/code にも同期される。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

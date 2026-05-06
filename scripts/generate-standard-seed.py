@@ -177,6 +177,154 @@ FEATURES = [
         "examples": [{"title": "セキュリティ確認", "code": "/security-review"}],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-review"],
     },
+    {
+        "id": "slash-plugin", "name": "/plugin", "category": "slash-command",
+        "summary_ja": "プラグインを管理",
+        "description_ja": "プラグインのインストール・アンインストール・更新・一覧表示・エラー確認を行う。Marketplace からのインストールや --plugin-dir で読み込んだプラグインの管理に使う。",
+        "examples": [
+            {"title": "プラグイン一覧", "code": "/plugin"},
+            {"title": "プラグイン更新", "code": "/plugin update"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["slash-reload-plugins", "slash-doctor"],
+    },
+    {
+        "id": "slash-skills", "name": "/skills", "category": "slash-command",
+        "summary_ja": "利用可能なスキルを一覧・検索",
+        "description_ja": "インストール済みのスキルを一覧表示。テキスト入力でフィルタリング可能。スキルを選択するとプロンプトに `/skill-name` が補完される。",
+        "examples": [
+            {"title": "スキル一覧", "code": "/skills"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["skill-overview", "slash-plugin"],
+    },
+    {
+        "id": "slash-mcp", "name": "/mcp", "category": "slash-command",
+        "summary_ja": "MCPサーバーの接続状態を確認",
+        "description_ja": "接続中の MCP サーバー一覧・ツール数・認証状態を表示。0ツールのサーバーはフラグ表示される。重複URLサーバーの警告も表示。",
+        "examples": [
+            {"title": "MCP状態確認", "code": "/mcp"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["mcp-overview", "file-mcp-json"],
+    },
+    {
+        "id": "slash-doctor", "name": "/doctor", "category": "slash-command",
+        "summary_ja": "環境の診断・問題チェック",
+        "description_ja": "MCP サーバーのエラー、無効化されたプラグインの警告、バージョン競合などの問題を診断して表示。トラブルシュートの第一歩。",
+        "examples": [
+            {"title": "診断実行", "code": "/doctor"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-plugin", "slash-mcp"],
+    },
+    {
+        "id": "slash-usage", "name": "/usage", "category": "slash-command",
+        "summary_ja": "トークン使用量とコストを確認",
+        "description_ja": "現在セッションおよび過去の API トークン使用量・コストを表示。/cost と /stats のタブも /usage 内から開ける（v2.1.118 で統合）。",
+        "examples": [
+            {"title": "使用量確認", "code": "/usage"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-cost"],
+    },
+    {
+        "id": "slash-effort", "name": "/effort", "category": "slash-command",
+        "summary_ja": "Thinking の処理強度を調整",
+        "description_ja": "Claude の思考量（effort）を low / normal / high / max / auto から選択。Opus モデルの xhigh も設定可能。速度と精度のトレードオフを制御。",
+        "examples": [
+            {"title": "最大思考量", "code": "/effort max"},
+            {"title": "自動調整", "code": "/effort auto"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-model"],
+    },
+    {
+        "id": "slash-rename", "name": "/rename", "category": "slash-command",
+        "summary_ja": "セッションに名前をつける",
+        "description_ja": "現在のセッションにわかりやすい名前を付ける。ステータスバーに表示され、/resume での再開時に識別しやすくなる。",
+        "examples": [
+            {"title": "名前を設定", "code": "/rename 認証機能の実装"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-resume"],
+    },
+    {
+        "id": "slash-login", "name": "/login", "category": "slash-command",
+        "summary_ja": "OAuth 認証を再実行",
+        "description_ja": "トークン期限切れ・認証エラー時に OAuth ログインを再実行。CLAUDE_CODE_OAUTH_TOKEN 環境変数が設定されていてもディスク認証に切り替えられる。",
+        "examples": [
+            {"title": "ログイン", "code": "/login"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-permissions", "name": "/permissions", "category": "slash-command",
+        "summary_ja": "許可・拒否されたコマンドを管理",
+        "description_ja": "Auto モードで拒否されたコマンドの履歴を確認・リトライ。許可ルールの追加・削除も可能。Recent タブで直近の許可状況を確認。",
+        "examples": [
+            {"title": "許可状態確認", "code": "/permissions"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["mode-permission"],
+    },
+    {
+        "id": "slash-add-dir", "name": "/add-dir", "category": "slash-command",
+        "summary_ja": "作業ディレクトリを追加",
+        "description_ja": "現在のセッションに追加のディレクトリを読み込む。--remember オプションで永続化可能。複数リポジトリにまたがる作業に便利。",
+        "examples": [
+            {"title": "ディレクトリ追加", "code": "/add-dir ../other-repo"},
+            {"title": "永続追加", "code": "/add-dir --remember ../shared-lib"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-branch", "name": "/branch", "category": "slash-command",
+        "summary_ja": "セッションをブランチ（分岐）する",
+        "description_ja": "現在のセッションをフォークして別の方向を試す。分岐したセッションは /resume で再開可能。実験的な変更を本流に影響させずに試すのに使う。",
+        "examples": [
+            {"title": "セッション分岐", "code": "/branch"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["slash-resume"],
+    },
+    {
+        "id": "slash-copy", "name": "/copy", "category": "slash-command",
+        "summary_ja": "最後の応答をクリップボードにコピー",
+        "description_ja": "Claude の直前の応答をクリップボードにコピー。マークダウン形式で GitHub・Notion・Slack に貼り付けるのに最適。tmux 環境でも動作（/terminal-setup 要設定）。",
+        "examples": [
+            {"title": "全文コピー", "code": "/copy"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-terminal-setup"],
+    },
+    {
+        "id": "slash-remote-control", "name": "/remote-control", "category": "slash-command",
+        "summary_ja": "ブラウザ・スマホからセッションを継続",
+        "description_ja": "CLI セッションを claude.ai/code に接続し、ブラウザやスマートフォンから作業を引き継げる。Remote Control 接続中はセッションカラーも同期される。",
+        "examples": [
+            {"title": "リモート接続", "code": "/remote-control"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-terminal-setup", "name": "/terminal-setup", "category": "slash-command",
+        "summary_ja": "ターミナル環境を最適化",
+        "description_ja": "Claude Code が最適動作するようターミナルを設定。iTerm2 のクリップボードアクセス許可・スクロール感度調整などを自動設定する。",
+        "examples": [
+            {"title": "ターミナル設定", "code": "/terminal-setup"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-copy"],
+    },
+    {
+        "id": "slash-reload-plugins", "name": "/reload-plugins", "category": "slash-command",
+        "summary_ja": "プラグインをリロード",
+        "description_ja": "インストール済みプラグインを再読み込み。プラグインを編集・更新した後に変更を即反映させる。依存パッケージの自動インストールも行う。",
+        "examples": [
+            {"title": "プラグイン再読込", "code": "/reload-plugins"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-plugin"],
+    },
+    {
+        "id": "slash-color", "name": "/color", "category": "slash-command",
+        "summary_ja": "セッションのアクセントカラーを設定",
+        "description_ja": "現在のセッションのUI色を変更。引数なしで実行するとランダムに選択。Remote Control 接続時は claude.ai/code にも同期される。",
+        "examples": [
+            {"title": "ランダム色", "code": "/color"},
+            {"title": "色を指定", "code": "/color blue"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-remote-control"],
+    },
 
     # ========== Built-in Tools ==========
     {
