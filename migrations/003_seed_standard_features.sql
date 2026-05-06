@@ -439,6 +439,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-loop',
+  '/loop',
+  'slash-command',
+  'プロンプトを定期実行スケジュール',
+  '指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。/proactive はエイリアス。Bedrock/Vertex でも利用可。',
+  '[{"title": "5分ごとにデプロイ確認", "code": "/loop 5m デプロイ状態を確認して"}, {"title": "スラッシュコマンドを定期実行", "code": "/loop 10m /review"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-compact"]',
+  '/loop プロンプトを定期実行スケジュール 指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。esc でキャンセル可能。/proactive はエイリアス。bedrock/vertex でも利用可。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-theme',
+  '/theme',
+  'slash-command',
+  'UIテーマを切り替え・カスタマイズ',
+  'テーマピッカーを開きビルトインテーマを選択、または ~/.claude/themes/ のJSONファイルで独自テーマを作成。Auto(match terminal)でダーク/ライト自動切替も可。Ctrl+t でシンタックスハイライトをON/OFF。',
+  '[{"title": "テーマ切替", "code": "/theme"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-config"]',
+  '/theme uiテーマを切り替え・カスタマイズ テーマピッカーを開きビルトインテーマを選択、または ~/.claude/themes/ のjsonファイルで独自テーマを作成。auto(match terminal)でダーク/ライト自動切替も可。ctrl+t でシンタックスハイライトをon/off。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-stats',
+  '/stats',
+  'slash-command',
+  'APIトークン使用統計を表示',
+  'お気に入りモデル・使用量グラフ・使用ストリーク等の詳細統計を表示。v2.1.118 以降は /usage の Stats タブへのショートカットとして動作。r キーで Last 7 days / Last 30 days / All time を切替。',
+  '[{"title": "統計表示", "code": "/stats"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-usage", "slash-cost"]',
+  '/stats apiトークン使用統計を表示 お気に入りモデル・使用量グラフ・使用ストリーク等の詳細統計を表示。v2.1.118 以降は /usage の stats タブへのショートカットとして動作。r キーで last 7 days / last 30 days / all time を切替。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-feedback',
+  '/feedback',
+  'slash-command',
+  'フィードバックをAnthropicに送信',
+  'バグ報告・機能要望をAnthropicに直接送信し、GitHub issue URL も生成。認証状態によって利用不可の場合はメニューにその旨が表示される。長い説明文も正しく処理される（v2.1.14 修正済）。',
+  '[{"title": "フィードバック送信", "code": "/feedback"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/feedback フィードバックをanthropicに送信 バグ報告・機能要望をanthropicに直接送信し、github issue url も生成。認証状態によって利用不可の場合はメニューにその旨が表示される。長い説明文も正しく処理される（v2.1.14 修正済）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-voice',
+  '/voice',
+  'slash-command',
+  '音声入力（ボイスモード）を切替',
+  '音声でプロンプトを入力するボイスモードをON/OFF。有効化時に認識言語を表示し、未対応言語は警告。Remote Control セッションでも動作。認証プランによっては非表示になる。',
+  '[{"title": "音声入力ON", "code": "/voice"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '[]',
+  '/voice 音声入力（ボイスモード）を切替 音声でプロンプトを入力するボイスモードをon/off。有効化時に認識言語を表示し、未対応言語は警告。remote control セッションでも動作。認証プランによっては非表示になる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
