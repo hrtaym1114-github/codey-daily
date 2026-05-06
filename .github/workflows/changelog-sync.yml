@@ -52,7 +52,7 @@ jobs:
           fi
 
       - name: Auto-add new features (Claude Code)
-        if: steps.check.outputs.changed == 'true' && steps.check.outputs.gaps != '0' && github.event_name != 'workflow_dispatch'
+        if: steps.check.outputs.changed == 'true' && steps.check.outputs.gaps != '0'
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -124,7 +124,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          git add data/
+          git add data/ scripts/generate-standard-seed.py migrations/003_seed_standard_features.sql
           git commit -m "chore: changelog sync v${{ steps.check.outputs.latest }} + ${{ steps.check.outputs.gaps }} feature gaps"
           git push origin "$BRANCH"
 
