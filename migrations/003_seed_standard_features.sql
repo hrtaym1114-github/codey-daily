@@ -509,6 +509,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-tui',
+  '/tui',
+  'slash-command',
+  'フリッカーフリーなフルスクリーンレンダラーに切替',
+  '/tui fullscreen で代替レンダラーに切り替える。フリッカーなし・低メモリ使用量・マウスサポート・選択時の自動コピーを備える。worktree内セッションでも利用可能。',
+  '[{"title": "フルスクリーン切替", "code": "/tui fullscreen"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '[]',
+  '/tui フリッカーフリーなフルスクリーンレンダラーに切替 /tui fullscreen で代替レンダラーに切り替える。フリッカーなし・低メモリ使用量・マウスサポート・選択時の自動コピーを備える。worktree内セッションでも利用可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-extra-usage',
+  '/extra-usage',
+  'slash-command',
+  '追加API利用を有効化するダイアログを開く',
+  'プランの使用量上限を超えた追加API利用を有効化する。有効化後は /fast が即座に使用可能になる。VS Code および Remote Control（ブラウザ・スマホ）からも利用可能。',
+  '[{"title": "追加利用設定", "code": "/extra-usage"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-usage", "slash-upgrade"]',
+  '/extra-usage 追加api利用を有効化するダイアログを開く プランの使用量上限を超えた追加api利用を有効化する。有効化後は /fast が即座に使用可能になる。vs code および remote control（ブラウザ・スマホ）からも利用可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-rewind',
+  '/rewind',
+  'slash-command',
+  '会話を巻き戻してコード変更を取り消す',
+  'ピッカーで任意のポイントを選択して会話を巻き戻し、コード変更も元に戻せる。/undo はエイリアス。VS Code では Esc×2 でも起動可能。',
+  '[{"title": "巻き戻しピッカー", "code": "/rewind"}, {"title": "エイリアス", "code": "/undo"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '[]',
+  '/rewind 会話を巻き戻してコード変更を取り消す ピッカーで任意のポイントを選択して会話を巻き戻し、コード変更も元に戻せる。/undo はエイリアス。vs code では esc×2 でも起動可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-upgrade',
+  '/upgrade',
+  'slash-command',
+  'Claude Maxプランへスムーズにアップグレード',
+  'Claude Max プランへの切り替えダイアログを開く。現在の認証設定で利用できない場合は自動的に非表示になる。レート制限時にサジェストされる場合がある。',
+  '[{"title": "プランアップグレード", "code": "/upgrade"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-extra-usage"]',
+  '/upgrade claude maxプランへスムーズにアップグレード claude max プランへの切り替えダイアログを開く。現在の認証設定で利用できない場合は自動的に非表示になる。レート制限時にサジェストされる場合がある。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-exit',
+  '/exit',
+  'slash-command',
+  'セッションを終了してアーカイブ',
+  '現在のセッションを終了しアーカイブする。Remote Control（ブラウザ・スマホ）からも実行可能。終了時にセッションが確実に保存される。',
+  '[{"title": "セッション終了", "code": "/exit"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-resume"]',
+  '/exit セッションを終了してアーカイブ 現在のセッションを終了しアーカイブする。remote control（ブラウザ・スマホ）からも実行可能。終了時にセッションが確実に保存される。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
