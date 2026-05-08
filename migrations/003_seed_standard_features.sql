@@ -579,6 +579,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-export',
+  '/export',
+  'slash-command',
+  '会話をファイルにエクスポート',
+  '現在の会話を外部ファイルに書き出す。絶対パスや ~ も指定可能で、完了後にファイルの全パスを表示。会話の共有や記録保存に使う。',
+  '[{"title": "デフォルト出力", "code": "/export"}, {"title": "パス指定", "code": "/export ~/my-session.txt"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-copy", "slash-resume"]',
+  '/export 会話をファイルにエクスポート 現在の会話を外部ファイルに書き出す。絶対パスや ~ も指定可能で、完了後にファイルの全パスを表示。会話の共有や記録保存に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-ultrareview',
+  '/ultrareview',
+  'slash-command',
+  'クラウドで並列マルチエージェントコードレビュー',
+  'クラウド上でマルチエージェントを並列実行し包括的なコードレビューを行う。引数なしで現在ブランチをレビュー、`/ultrareview <PR番号>` でGitHub PRを対象指定。`claude ultrareview` でCIからの非対話実行も可。',
+  '[{"title": "現在ブランチをレビュー", "code": "/ultrareview"}, {"title": "特定PRをレビュー", "code": "/ultrareview 123"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-review", "slash-security-review"]',
+  '/ultrareview クラウドで並列マルチエージェントコードレビュー クラウド上でマルチエージェントを並列実行し包括的なコードレビューを行う。引数なしで現在ブランチをレビュー、`/ultrareview <pr番号>` でgithub prを対象指定。`claude ultrareview` でciからの非対話実行も可。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-plan',
+  '/plan',
+  'slash-command',
+  'プランモードをプロンプトから直接起動',
+  'プランモード（読み取り専用計画モード）をスラッシュコマンドで直接有効化する。説明文を引数に渡すと `/plan 認証バグを修正` のように即座に計画を開始できる。Shift+Tab でも同様に切り替え可能。',
+  '[{"title": "プランモード開始", "code": "/plan"}, {"title": "説明付きで開始", "code": "/plan 認証バグを修正する"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["mode-plan", "agent-plan"]',
+  '/plan プランモードをプロンプトから直接起動 プランモード（読み取り専用計画モード）をスラッシュコマンドで直接有効化する。説明文を引数に渡すと `/plan 認証バグを修正` のように即座に計画を開始できる。shift+tab でも同様に切り替え可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-tasks',
+  '/tasks',
+  'slash-command',
+  'バックグラウンドタスクの状態を管理・確認',
+  'バックグラウンドで実行中のタスクの状態を確認・管理するダイアログを開く。タスクが1つのみの場合は直接タスク詳細に遷移する。remote session URL なども確認できる。',
+  '[{"title": "タスク一覧", "code": "/tasks"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["tool-todowrite", "slash-agents"]',
+  '/tasks バックグラウンドタスクの状態を管理・確認 バックグラウンドで実行中のタスクの状態を確認・管理するダイアログを開く。タスクが1つのみの場合は直接タスク詳細に遷移する。remote session url なども確認できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-btw',
+  '/btw',
+  'slash-command',
+  '応答生成中にサイドクエスチョンを割り込ませる',
+  'Claudeが応答を生成中に `/btw 質問` と入力してサイドの質問を差し込める。貼り付けたテキストも含めて処理され、メインの応答を中断せずに別の問いを解決できる。',
+  '[{"title": "サイドクエスチョン", "code": "/btw この関数の引数の型は？"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '[]',
+  '/btw 応答生成中にサイドクエスチョンを割り込ませる claudeが応答を生成中に `/btw 質問` と入力してサイドの質問を差し込める。貼り付けたテキストも含めて処理され、メインの応答を中断せずに別の問いを解決できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
