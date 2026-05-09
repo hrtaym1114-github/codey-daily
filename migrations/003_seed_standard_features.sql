@@ -649,6 +649,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-insights',
+  '/insights',
+  'slash-command',
+  'セッション履歴からインサイトレポートを生成',
+  '現在のセッション履歴を分析してインサイトレポートを生成し、レポートファイルへのリンクを返す。ツール呼び出し履歴も含めて処理される。セッションの振り返りや記録保存に使う。',
+  '[{"title": "インサイト生成", "code": "/insights"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-stats", "slash-usage"]',
+  '/insights セッション履歴からインサイトレポートを生成 現在のセッション履歴を分析してインサイトレポートを生成し、レポートファイルへのリンクを返す。ツール呼び出し履歴も含めて処理される。セッションの振り返りや記録保存に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-release-notes',
+  '/release-notes',
+  'slash-command',
+  'Claude Codeのリリースノートを確認',
+  'Claude Code の過去バージョンのリリースノートをインタラクティブなバージョンピッカーで閲覧できる（v2.1.92以降）。最新版から任意バージョンを選択して更新内容を確認。',
+  '[{"title": "リリースノート表示", "code": "/release-notes"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/release-notes claude codeのリリースノートを確認 claude code の過去バージョンのリリースノートをインタラクティブなバージョンピッカーで閲覧できる（v2.1.92以降）。最新版から任意バージョンを選択して更新内容を確認。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-keybindings',
+  '/keybindings',
+  'slash-command',
+  'カスタムキーバインド設定を開始',
+  'カスタムキーボードショートカットの設定ガイドを表示。コンテキストごとのキーバインド設定・コードシーケンス作成・~/.claude/keybindings.json の編集方法を案内する（v2.1.18で追加）。',
+  '[{"title": "キーバインド設定開始", "code": "/keybindings"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["misc-keybindings"]',
+  '/keybindings カスタムキーバインド設定を開始 カスタムキーボードショートカットの設定ガイドを表示。コンテキストごとのキーバインド設定・コードシーケンス作成・~/.claude/keybindings.json の編集方法を案内する（v2.1.18で追加）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-sandbox',
+  '/sandbox',
+  'slash-command',
+  'サンドボックス実行環境を管理',
+  'サンドボックス環境の状態を確認するタブ付きダイアログを表示。Dependencies タブで依存関係のインストール状況と手順を確認できる。Tab/矢印キーでタブ切替が可能。',
+  '[{"title": "サンドボックス確認", "code": "/sandbox"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '[]',
+  '/sandbox サンドボックス実行環境を管理 サンドボックス環境の状態を確認するタブ付きダイアログを表示。dependencies タブで依存関係のインストール状況と手順を確認できる。tab/矢印キーでタブ切替が可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-claude-api',
+  '/claude-api',
+  'slash-command',
+  'Claude API開発を支援するスキルを起動',
+  'Claude API・Anthropic SDK を使ったアプリ開発を支援するスキル（v2.1.69で追加）。Managed Agents、エージェント設計パターン、ツール設計・コンテキスト管理・キャッシング戦略のガイダンスを提供。',
+  '[{"title": "スキル起動", "code": "/claude-api"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["skill-overview"]',
+  '/claude-api claude api開発を支援するスキルを起動 claude api・anthropic sdk を使ったアプリ開発を支援するスキル（v2.1.69で追加）。managed agents、エージェント設計パターン、ツール設計・コンテキスト管理・キャッシング戦略のガイダンスを提供。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

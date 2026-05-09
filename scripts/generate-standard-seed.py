@@ -465,6 +465,51 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": [],
     },
+    {
+        "id": "slash-insights", "name": "/insights", "category": "slash-command",
+        "summary_ja": "セッション履歴からインサイトレポートを生成",
+        "description_ja": "現在のセッション履歴を分析してインサイトレポートを生成し、レポートファイルへのリンクを返す。ツール呼び出し履歴も含めて処理される。セッションの振り返りや記録保存に使う。",
+        "examples": [
+            {"title": "インサイト生成", "code": "/insights"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-stats", "slash-usage"],
+    },
+    {
+        "id": "slash-release-notes", "name": "/release-notes", "category": "slash-command",
+        "summary_ja": "Claude Codeのリリースノートを確認",
+        "description_ja": "Claude Code の過去バージョンのリリースノートをインタラクティブなバージョンピッカーで閲覧できる（v2.1.92以降）。最新版から任意バージョンを選択して更新内容を確認。",
+        "examples": [
+            {"title": "リリースノート表示", "code": "/release-notes"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-keybindings", "name": "/keybindings", "category": "slash-command",
+        "summary_ja": "カスタムキーバインド設定を開始",
+        "description_ja": "カスタムキーボードショートカットの設定ガイドを表示。コンテキストごとのキーバインド設定・コードシーケンス作成・~/.claude/keybindings.json の編集方法を案内する（v2.1.18で追加）。",
+        "examples": [
+            {"title": "キーバインド設定開始", "code": "/keybindings"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["misc-keybindings"],
+    },
+    {
+        "id": "slash-sandbox", "name": "/sandbox", "category": "slash-command",
+        "summary_ja": "サンドボックス実行環境を管理",
+        "description_ja": "サンドボックス環境の状態を確認するタブ付きダイアログを表示。Dependencies タブで依存関係のインストール状況と手順を確認できる。Tab/矢印キーでタブ切替が可能。",
+        "examples": [
+            {"title": "サンドボックス確認", "code": "/sandbox"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-claude-api", "name": "/claude-api", "category": "slash-command",
+        "summary_ja": "Claude API開発を支援するスキルを起動",
+        "description_ja": "Claude API・Anthropic SDK を使ったアプリ開発を支援するスキル（v2.1.69で追加）。Managed Agents、エージェント設計パターン、ツール設計・コンテキスト管理・キャッシング戦略のガイダンスを提供。",
+        "examples": [
+            {"title": "スキル起動", "code": "/claude-api"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["skill-overview"],
+    },
 
     # ========== Built-in Tools ==========
     {
