@@ -719,6 +719,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-debug',
+  '/debug',
+  'slash-command',
+  'デバッグログをセッション中に切り替え',
+  '現在のセッションのデバッグログをミッドセッションで切替（v2.1.30追加・v2.1.71更新）。デフォルトでは記録されないデバッグログをオンにしてトラブルシュートに使う。Claudeによるセッション診断にも対応。',
+  '[{"title": "デバッグ切替", "code": "/debug"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-doctor"]',
+  '/debug デバッグログをセッション中に切り替え 現在のセッションのデバッグログをミッドセッションで切替（v2.1.30追加・v2.1.71更新）。デフォルトでは記録されないデバッグログをオンにしてトラブルシュートに使う。claudeによるセッション診断にも対応。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-todos',
+  '/todos',
+  'slash-command',
+  '現在のTODOアイテム一覧を表示',
+  'TodoWriteツールで記録された現在のセッションのTODOアイテムをオーバーレイで一覧表示（v1.0.94で追加）。pending/in_progress/completed の進捗状態を確認できる。',
+  '[{"title": "TODO一覧表示", "code": "/todos"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["tool-todowrite"]',
+  '/todos 現在のtodoアイテム一覧を表示 todowriteツールで記録された現在のセッションのtodoアイテムをオーバーレイで一覧表示（v1.0.94で追加）。pending/in_progress/completed の進捗状態を確認できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-recap',
+  '/recap',
+  'slash-command',
+  'セッション再開時の作業コンテキストを要約',
+  'セッションに戻った際に直前の作業内容のコンテキストを提供するリキャップ機能（v2.1.108追加）。/config で自動表示を設定でき、テレメトリ無効時は CLAUDE_CODE_ENABLE_AWAY_SUMMARY 環境変数で強制有効化可能。',
+  '[{"title": "リキャップ表示", "code": "/recap"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-resume", "slash-compact"]',
+  '/recap セッション再開時の作業コンテキストを要約 セッションに戻った際に直前の作業内容のコンテキストを提供するリキャップ機能（v2.1.108追加）。/config で自動表示を設定でき、テレメトリ無効時は claude_code_enable_away_summary 環境変数で強制有効化可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-less-permission-prompts',
+  '/less-permission-prompts',
+  'slash-command',
+  '許可プロンプト削減の allowlist を自動提案',
+  '過去のトランスクリプトをスキャンして読み取り専用のBash・MCPツール呼び出しパターンを検出し、`.claude/settings.json` の許可リストとして優先順に提案するスキル（v2.1.111で追加）。',
+  '[{"title": "許可リスト提案", "code": "/less-permission-prompts"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-permissions", "file-settings-json"]',
+  '/less-permission-prompts 許可プロンプト削減の allowlist を自動提案 過去のトランスクリプトをスキャンして読み取り専用のbash・mcpツール呼び出しパターンを検出し、`.claude/settings.json` の許可リストとして優先順に提案するスキル（v2.1.111で追加）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-setup-bedrock',
+  '/setup-bedrock',
+  'slash-command',
+  'Amazon Bedrock接続を対話形式でセットアップ',
+  'Amazon Bedrock 経由でClaudeを利用するための設定を対話形式で実施（v2.1.111改善）。CLAUDE_CONFIG_DIR 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1Mコンテキストオプションも提示。/setup-vertex も同様。',
+  '[{"title": "Bedrock設定", "code": "/setup-bedrock"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '[]',
+  '/setup-bedrock amazon bedrock接続を対話形式でセットアップ amazon bedrock 経由でclaudeを利用するための設定を対話形式で実施（v2.1.111改善）。claude_config_dir 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1mコンテキストオプションも提示。/setup-vertex も同様。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

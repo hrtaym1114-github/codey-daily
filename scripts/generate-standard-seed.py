@@ -510,6 +510,51 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["skill-overview"],
     },
+    {
+        "id": "slash-debug", "name": "/debug", "category": "slash-command",
+        "summary_ja": "デバッグログをセッション中に切り替え",
+        "description_ja": "現在のセッションのデバッグログをミッドセッションで切替（v2.1.30追加・v2.1.71更新）。デフォルトでは記録されないデバッグログをオンにしてトラブルシュートに使う。Claudeによるセッション診断にも対応。",
+        "examples": [
+            {"title": "デバッグ切替", "code": "/debug"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-doctor"],
+    },
+    {
+        "id": "slash-todos", "name": "/todos", "category": "slash-command",
+        "summary_ja": "現在のTODOアイテム一覧を表示",
+        "description_ja": "TodoWriteツールで記録された現在のセッションのTODOアイテムをオーバーレイで一覧表示（v1.0.94で追加）。pending/in_progress/completed の進捗状態を確認できる。",
+        "examples": [
+            {"title": "TODO一覧表示", "code": "/todos"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["tool-todowrite"],
+    },
+    {
+        "id": "slash-recap", "name": "/recap", "category": "slash-command",
+        "summary_ja": "セッション再開時の作業コンテキストを要約",
+        "description_ja": "セッションに戻った際に直前の作業内容のコンテキストを提供するリキャップ機能（v2.1.108追加）。/config で自動表示を設定でき、テレメトリ無効時は CLAUDE_CODE_ENABLE_AWAY_SUMMARY 環境変数で強制有効化可能。",
+        "examples": [
+            {"title": "リキャップ表示", "code": "/recap"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-resume", "slash-compact"],
+    },
+    {
+        "id": "slash-less-permission-prompts", "name": "/less-permission-prompts", "category": "slash-command",
+        "summary_ja": "許可プロンプト削減の allowlist を自動提案",
+        "description_ja": "過去のトランスクリプトをスキャンして読み取り専用のBash・MCPツール呼び出しパターンを検出し、`.claude/settings.json` の許可リストとして優先順に提案するスキル（v2.1.111で追加）。",
+        "examples": [
+            {"title": "許可リスト提案", "code": "/less-permission-prompts"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-permissions", "file-settings-json"],
+    },
+    {
+        "id": "slash-setup-bedrock", "name": "/setup-bedrock", "category": "slash-command",
+        "summary_ja": "Amazon Bedrock接続を対話形式でセットアップ",
+        "description_ja": "Amazon Bedrock 経由でClaudeを利用するための設定を対話形式で実施（v2.1.111改善）。CLAUDE_CONFIG_DIR 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1Mコンテキストオプションも提示。/setup-vertex も同様。",
+        "examples": [
+            {"title": "Bedrock設定", "code": "/setup-bedrock"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": [],
+    },
 
     # ========== Built-in Tools ==========
     {
