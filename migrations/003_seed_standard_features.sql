@@ -789,6 +789,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-fast',
+  '/fast',
+  'slash-command',
+  'Opus 4.6の高速応答モードを切り替え',
+  'Claude Opus 4.6 ベースの高速応答モード（Fast Mode）をON/OFFする。サードパーティプロバイダーでは利用不可で「not available」と表示される。/extra-usage 有効化後は即座に使用可能になる（v2.1.37修正）。',
+  '[{"title": "高速モード切替", "code": "/fast"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["misc-fast-mode", "slash-extra-usage"]',
+  '/fast opus 4.6の高速応答モードを切り替え claude opus 4.6 ベースの高速応答モード（fast mode）をon/offする。サードパーティプロバイダーでは利用不可で「not available」と表示される。/extra-usage 有効化後は即座に使用可能になる（v2.1.37修正）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-focus',
+  '/focus',
+  'slash-command',
+  'フルスクリーンTUIのフォーカスビューを切り替え',
+  'フルスクリーンレンダラー（/tui fullscreen）でのフォーカスビューをON/OFFする（v2.1.110追加）。Ctrl+O はノーマル/詳細ビューの切替専用に変更され、フォーカスビューはこのコマンドで制御する。フルスクリーン無効時は有効化方法を案内。',
+  '[{"title": "フォーカス切替", "code": "/focus"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-tui"]',
+  '/focus フルスクリーンtuiのフォーカスビューを切り替え フルスクリーンレンダラー（/tui fullscreen）でのフォーカスビューをon/offする（v2.1.110追加）。ctrl+o はノーマル/詳細ビューの切替専用に変更され、フォーカスビューはこのコマンドで制御する。フルスクリーン無効時は有効化方法を案内。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-team-onboarding',
+  '/team-onboarding',
+  'slash-command',
+  'チームメンバー向けオンボーディングガイドを生成',
+  'ローカルの Claude Code 使用履歴をもとに、チームメンバーのランプアップガイドを自動生成する（v2.1.101追加）。プロジェクト固有のコマンドパターンや慣習をまとめたドキュメントを作成し、新規参加者の立ち上がりを支援する。',
+  '[{"title": "ガイド生成", "code": "/team-onboarding"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["file-claude-md", "file-onboarding-md"]',
+  '/team-onboarding チームメンバー向けオンボーディングガイドを生成 ローカルの claude code 使用履歴をもとに、チームメンバーのランプアップガイドを自動生成する（v2.1.101追加）。プロジェクト固有のコマンドパターンや慣習をまとめたドキュメントを作成し、新規参加者の立ち上がりを支援する。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-install-github-app',
+  '/install-github-app',
+  'slash-command',
+  'GitHub App連携をインストール',
+  'Claude Code と GitHub を連携する GitHub App のインストールを対話形式で実施。エラーハンドリングが強化されており（v1.0.7改善）、Esc でダイアログを閉じられる（v2.1.136修正）。GitHub Actions 連携のセットアップに使う。',
+  '[{"title": "GitHub App設定", "code": "/install-github-app"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '[]',
+  '/install-github-app github app連携をインストール claude code と github を連携する github app のインストールを対話形式で実施。エラーハンドリングが強化されており（v1.0.7改善）、esc でダイアログを閉じられる（v2.1.136修正）。github actions 連携のセットアップに使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-simplify',
+  '/simplify',
+  'slash-command',
+  '変更コードの品質・効率をレビューして修正',
+  'v2.1.63で追加されたバンドル型スラッシュコマンド。変更されたコードを再利用性・品質・効率の観点でレビューし、検出した問題を修正する。コードレビューと実際のリファクタを一括で行う。',
+  '[{"title": "コード簡素化・修正", "code": "/simplify"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-review"]',
+  '/simplify 変更コードの品質・効率をレビューして修正 v2.1.63で追加されたバンドル型スラッシュコマンド。変更されたコードを再利用性・品質・効率の観点でレビューし、検出した問題を修正する。コードレビューと実際のリファクタを一括で行う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
