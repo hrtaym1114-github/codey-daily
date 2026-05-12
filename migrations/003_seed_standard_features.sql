@@ -859,6 +859,62 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-goal',
+  '/goal',
+  'slash-command',
+  '完了条件を設定して複数ターンを自動実行',
+  '完了条件をClaudeに設定し、条件が満たされるまで複数ターンにわたって自動実行する（v2.1.139追加）。インタラクティブ・--print・Remote Control のすべてで動作。実行中は経過時間・ターン数・トークン数をオーバーレイパネルでリアルタイム表示。',
+  '[{"title": "完了条件付き実行", "code": "/goal テストがすべて通るまで修正を続けて"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-loop"]',
+  '/goal 完了条件を設定して複数ターンを自動実行 完了条件をclaudeに設定し、条件が満たされるまで複数ターンにわたって自動実行する（v2.1.139追加）。インタラクティブ・--print・remote control のすべてで動作。実行中は経過時間・ターン数・トークン数をオーバーレイパネルでリアルタイム表示。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-scroll-speed',
+  '/scroll-speed',
+  'slash-command',
+  'マウスホイールのスクロール速度を調整',
+  'マウスホイールのスクロール速度をリアルタイムプレビュー付きで調整するコマンド（v2.1.139追加）。カーソルや VS Code でのスクロール速度問題にも対応しており、トラックパッドとマウスホイールのスクロール量を別々に制御できる。',
+  '[{"title": "スクロール速度調整", "code": "/scroll-speed"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-tui", "slash-terminal-setup"]',
+  '/scroll-speed マウスホイールのスクロール速度を調整 マウスホイールのスクロール速度をリアルタイムプレビュー付きで調整するコマンド（v2.1.139追加）。カーソルや vs code でのスクロール速度問題にも対応しており、トラックパッドとマウスホイールのスクロール量を別々に制御できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-schedule',
+  '/schedule',
+  'slash-command',
+  '定期スケジュールのリモートエージェントを管理',
+  'cron スケジュールで定期実行するリモートエージェント（ルーティン）の作成・一覧・実行を管理する（v2.1.139）。claude.ai 認証が必要で、ANTHROPIC_API_KEY 設定時は Remote Control・claude.ai MCP コネクタと同様に無効化される。',
+  '[{"title": "スケジュール管理", "code": "/schedule"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-loop", "slash-remote-control"]',
+  '/schedule 定期スケジュールのリモートエージェントを管理 cron スケジュールで定期実行するリモートエージェント（ルーティン）の作成・一覧・実行を管理する（v2.1.139）。claude.ai 認証が必要で、anthropic_api_key 設定時は remote control・claude.ai mcp コネクタと同様に無効化される。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-ultraplan',
+  '/ultraplan',
+  'slash-command',
+  'クラウドセッションで計画をリファイン',
+  'プランモードから「Refine with Ultraplan」として起動できるクラウドベースの計画精緻化機能（v2.1.101追加）。デフォルトのクラウド環境を自動生成してリモートセッションURLをトランスクリプトに表示。組織またはAuth設定でクラウドに到達できない場合は非表示になる。',
+  '[{"title": "クラウドで計画精緻化", "code": "/ultraplan"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["mode-plan", "slash-plan"]',
+  '/ultraplan クラウドセッションで計画をリファイン プランモードから「refine with ultraplan」として起動できるクラウドベースの計画精緻化機能（v2.1.101追加）。デフォルトのクラウド環境を自動生成してリモートセッションurlをトランスクリプトに表示。組織またはauth設定でクラウドに到達できない場合は非表示になる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
