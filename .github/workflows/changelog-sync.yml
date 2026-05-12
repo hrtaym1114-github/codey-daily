@@ -92,6 +92,37 @@ jobs:
             最後に、追加した機能のIDと名前のリストをサマリーとして報告してください。
           claude_args: --allowedTools Read,Edit,Write,Bash
 
+      - name: Translate features to English (Claude Code)
+        if: steps.check.outputs.changed == 'true' && steps.check.outputs.gaps != '0'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            data/features.json の機能データを差分翻訳して data/features.en.json を更新してください。
+
+            ## 手順
+            1. data/features.json と data/features.en.json を読み込む
+            2. features.en.json の各エントリには `_hash` フィールドがある想定。
+               同じ id でハッシュが一致するものは翻訳済みなのでスキップ
+            3. 新規 / 更新が必要な項目のみ翻訳。各項目について以下のキーを生成:
+               - summary_en: 20-30 words, concise
+               - description_en: 80-150 words, natural English
+               - examples: 元の examples を流用しつつ title だけ英訳（code は変更不可）
+               - _hash: summary_ja + description_ja + examples を JSON 化した上で sha256 の先頭12桁
+            4. その他のフィールド (id, name, category, links, difficulty, tier, related) は features.json から保持
+            5. 配列の順序は features.json と一致させる
+            6. data/features.en.json を以下の形式で書き出す:
+               { "version": "<features.json と同じ>", "updated": "<features.json と同じ>", "language": "en", "features": [...] }
+
+            ## 厳守事項
+            - 既存の翻訳済みエントリは _hash 一致時は絶対に上書きしない（コスト節約）
+            - JSON は 2スペースインデント、UTF-8、末尾改行
+            - code フィールドは絶対に翻訳しない（コマンドや構文を保持）
+            - **git commit / git push はしない**（後段ステップで一括コミット）
+
+            最後に、新規翻訳した件数とスキップ件数をサマリーとして報告してください。
+          claude_args: --allowedTools Read,Edit,Write,Bash
+
       - name: Build & Deploy on Master
         if: steps.check.outputs.changed == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'workflow_dispatch'
         env:
@@ -104,7 +135,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Claude Code Action 実行後、actions/checkout が設定した認証ヘッダーが失われるため再設定
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
-          git add data/changelog.json data/feature-gaps.json data/features.json scripts/generate-standard-seed.py migrations/003_seed_standard_features.sql
+          git add data/changelog.json data/feature-gaps.json data/features.json data/features.en.json scripts/generate-standard-seed.py migrations/003_seed_standard_features.sql 2>/dev/null || git add data/changelog.json data/feature-gaps.json data/features.json scripts/generate-standard-seed.py migrations/003_seed_standard_features.sql
           git commit -m "chore(changelog): sync to v${{ steps.check.outputs.latest }}
 
           - Latest: v${{ steps.check.outputs.latest }}
