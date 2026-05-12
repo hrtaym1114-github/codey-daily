@@ -1,0 +1,114 @@
+---
+import featuresData from '../../../data/features.json';
+import { SITE_URL } from '../../lib/site-config';
+
+const data = featuresData as any;
+const features = data.features as any[];
+const epoch = new Date('2026-05-01').getTime();
+const dayIdx = Math.floor((Date.now() - epoch) / 86400000) % features.length;
+const f = features[dayIdx];
+
+const labels: Record<string, string> = {
+  'slash-command': 'Slash Commands',
+  'tool': 'Built-in Tools',
+  'hook': 'Hooks',
+  'agent': 'Agents',
+  'skill': 'Skills',
+  'mcp': 'MCP',
+  'mode': 'Modes',
+  'file': 'Files & Memory',
+  'cli': 'CLI Flags',
+  'setting': 'Settings',
+};
+
+const featurePageUrl = `${SITE_URL}/feature/${f.id}/`;
+---
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>今日のClaude Code機能 — Codey Daily Embed</title>
+    <style>
+      :root { color-scheme: light dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 14px/1.5 system-ui, -apple-system, "Hiragino Sans", sans-serif;
+        background: transparent;
+      }
+      .card {
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 12px;
+        padding: 16px;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        max-width: 480px;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #6b7280;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .badge {
+        background: #fff7ed;
+        color: #c2410c;
+        padding: 2px 8px;
+        border-radius: 999px;
+      }
+      .name {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 4px;
+        color: #111827;
+      }
+      .summary {
+        margin: 0 0 12px;
+        color: #374151;
+      }
+      .footer {
+        font-size: 11px;
+        color: #9ca3af;
+        text-align: right;
+      }
+      .footer a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+      .footer a:hover { text-decoration: underline; }
+      a.cta {
+        display: inline-block;
+        font-size: 12px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.cta:hover { text-decoration: underline; }
+      @media (prefers-color-scheme: dark) {
+        .card { background: #1f2937; border-color: rgba(255,255,255,0.1); }
+        .name { color: #f3f4f6; }
+        .summary { color: #d1d5db; }
+        .badge { background: #422006; color: #fdba74; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <span>✨ 今日のClaude Code機能</span>
+        <span class="badge">{labels[f.category] ?? f.category}</span>
+      </div>
+      <h1 class="name">{f.name}</h1>
+      <p class="summary">{f.summary_ja}</p>
+      <a class="cta" href={featurePageUrl} target="_blank" rel="noopener">詳しく見る →</a>
+      <div class="footer">
+        Powered by <a href={SITE_URL} target="_blank" rel="noopener">Codey Daily</a>
+      </div>
+    </div>
+  </body>
+</html>

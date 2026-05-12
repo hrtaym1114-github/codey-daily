@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
@@ -7,8 +8,13 @@ export default defineConfig({
   adapter: cloudflare({
     platformProxy: { enabled: true },
   }),
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/me') && !page.includes('/embed'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://codey-daily.pages.dev',
+  site: 'https://codey.bhrtaym-blog.com',
 });

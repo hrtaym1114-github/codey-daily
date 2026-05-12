@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import featuresJa from '../../../data/features.json';
+import featuresEn from '../../../data/features.en.json';
+
+const enData = featuresEn as any;
+const jaData = featuresJa as any;
+// 英訳が未生成（features.en.json が空）の場合は日本語側の件数で代替表示。
+const features = enData.features.length > 0 ? enData.features : jaData.features;
+const total = features.length;
+
+const labels: Record<string, string> = {
+  'slash-command': 'Slash Commands',
+  'tool': 'Built-in Tools',
+  'hook': 'Hooks',
+  'agent': 'Agents',
+  'skill': 'Skills',
+  'mcp': 'MCP',
+  'mode': 'Modes',
+  'file': 'Files & Memory',
+  'cli': 'CLI Flags',
+  'setting': 'Settings',
+};
+
+const categories = (() => {
+  const seen = new Set<string>();
+  for (const f of features) seen.add(f.category);
+  return Array.from(seen).map((id) => ({
+    id,
+    label: labels[id] ?? id,
+    count: features.filter((f: any) => f.category === id).length,
+  }));
+})();
+
+const title = 'Codey Daily — Discover one Claude Code feature every day';
+const description = `Catch up with Claude Code's ${total} standard features in 5 seconds a day. Auto-synced from the official CHANGELOG.`;
+---
+
+<Base title={title} description={description} lang="en">
+  <main class="container mx-auto px-4 py-6 max-w-2xl">
+    <header class="mb-5">
+      <h1 class="text-3xl font-bold mb-1">Codey Daily</h1>
+      <p class="text-gray-600 text-sm">{total} Claude Code features — one per day, three ways to learn.</p>
+    </header>
+
+    <section class="bg-white rounded-xl shadow-md p-6 mb-5">
+      <p class="text-xs text-gray-500 mb-2">✨ Discover Claude Code, daily</p>
+      <h2 class="text-2xl font-bold mb-2">5 seconds. Every morning. Every feature.</h2>
+      <p class="text-gray-700 mb-4">
+        Claude Code ships fast. Codey Daily turns the CHANGELOG into a daily habit — flashcards, quizzes,
+        and a searchable index of every standard feature. Auto-synced via GitHub Actions + Claude Code Action.
+      </p>
+      <div class="flex gap-2">
+        <a href="/" class="bg-blue-500 text-white rounded-lg px-4 py-2 font-semibold hover:bg-blue-600 transition">
+          Open the app
+        </a>
+        <a href="https://github.com/hrtaym1114-github/codey-daily" target="_blank" rel="noopener" class="bg-white border border-gray-300 text-gray-700 rounded-lg px-4 py-2 font-semibold hover:bg-gray-50 transition">
+          ⭐ Star on GitHub
+        </a>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-2 gap-2 mb-5">
+      {categories.map((c) => (
+        <a href={`/category/${c.id}`} class="bg-white border-2 border-gray-200 rounded-xl p-3 hover:border-blue-400 hover:bg-blue-50 transition">
+          <p class="text-sm font-bold">{c.label}</p>
+          <p class="text-xs text-gray-500">{c.count} features</p>
+        </a>
+      ))}
+    </section>
+
+    <footer class="text-center text-xs text-gray-500 mt-8">
+      <p>
+        Open source · MIT · Built solo on Astro + Cloudflare Workers
+      </p>
+      <p class="mt-2">
+        <a href="/" class="text-blue-600 hover:underline">日本語版 →</a>
+      </p>
+    </footer>
+  </main>
+</Base>
