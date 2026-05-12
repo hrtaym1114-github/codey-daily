@@ -162,5 +162,15 @@ app.use('*', async (c, next) => {
 - [ ] Step 8: コード側を新ドメインに更新（Claude側で対応可）
 - [ ] Step 9: workers.dev リダイレクト追加（Claude側で対応可）
 - [ ] Step 10: Search Console 登録（タスク #4）
+- [ ] **Step 11: Google OAuth クライアント設定を新ドメインに更新** ⚠️ 忘れがち
+  - Google Cloud Console → APIs & Services → 認証情報
+  - OAuth 2.0 クライアント ID（`663283652105-...`）を編集
+  - 承認済みJavaScript生成元に `https://codey.bhrtaym-blog.com` 追加
+  - 承認済みリダイレクトURIに `https://codey.bhrtaym-blog.com/api/auth/google/callback` 追加
+  - 既存の workers.dev エントリは残したまま追加（並存OK）
+  - 反映に最大5分かかる
+- [ ] **Step 12: 他の3rd-party callback URL更新確認**
+  - Stripe / SendGrid / GitHub App など、サードパーティ連携でcallback URLを使うものがあれば全て更新
+  - 該当無ければスキップ
 - [ ] 1週間後: WordPress（既存ブログ）が問題なく動いているか確認
 - [ ] 1週間後: メール送受信が問題ないか確認
