@@ -10,12 +10,20 @@
 //   1. https://dash.cloudflare.com にログイン
 //   2. 左メニュー「Analytics & Logs」→「Web Analytics」
 //   3. 「Add a site」→「Manual setup」を選択
-//   4. Hostname: codey-daily.hrtaym1114.workers.dev
+//   4. Hostname: codey.bhrtaym-blog.com
 //   5. 表示される snippet の data-cf-beacon='{"token": "XXX"}' の XXX を下にペースト
 export const CF_BEACON_TOKEN = 'e5603eaaa34b4735887f2ac8af71bd79';
 
+// ========== Google Analytics 4 (任意) ==========
+// 取得方法:
+//   1. https://analytics.google.com で codey-daily 用のGA4プロパティを作成
+//   2. データストリーム作成 → Web → URL: codey.bhrtaym-blog.com
+//   3. 表示される「測定ID」(G- で始まる) を以下にセット
+//   4. 空文字のままなら GA4 タグは出力されません
+export const GA4_MEASUREMENT_ID = '';
+
 // ========== サイト基本情報 ==========
-export const SITE_URL = 'https://codey-daily.hrtaym1114.workers.dev';
+export const SITE_URL = 'https://codey.bhrtaym-blog.com';
 export const SITE_NAME = 'Codey Daily';
 export const SITE_DESCRIPTION = 'Claude Code を毎日5秒で発見するWebアプリ';
 
