@@ -915,6 +915,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-powerup',
+  '/powerup',
+  'slash-command',
+  'インタラクティブな機能チュートリアルを起動',
+  'Claude Code の各機能をアニメーションデモ付きのインタラクティブなレッスン形式で学べる（v2.1.90追加）。ハンズオン形式で機能の使い方を習得できる。',
+  '[{"title": "チュートリアル起動", "code": "/powerup"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-help"]',
+  '/powerup インタラクティブな機能チュートリアルを起動 claude code の各機能をアニメーションデモ付きのインタラクティブなレッスン形式で学べる（v2.1.90追加）。ハンズオン形式で機能の使い方を習得できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-teleport',
+  '/teleport',
+  'slash-command',
+  'リモートセッションを再開（claude.ai登録者向け）',
+  'claude.ai 登録者向けのリモートセッション再開コマンド（v2.1.0追加）。/remote-env でリモートセッションを設定し、/teleport で再開する。Remote Control との組み合わせで利用可能。',
+  '[{"title": "リモートセッション再開", "code": "/teleport"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-remote-env", "slash-remote-control", "slash-resume"]',
+  '/teleport リモートセッションを再開（claude.ai登録者向け） claude.ai 登録者向けのリモートセッション再開コマンド（v2.1.0追加）。/remote-env でリモートセッションを設定し、/teleport で再開する。remote control との組み合わせで利用可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-remote-env',
+  '/remote-env',
+  'slash-command',
+  'リモートセッション環境を設定（claude.ai登録者向け）',
+  'claude.ai 登録者向けのリモートセッション設定コマンド（v2.1.0追加）。リモート環境のパラメータを設定し、/teleport でセッションを再開する際の接続先を定義する。',
+  '[{"title": "リモート環境設定", "code": "/remote-env"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-teleport", "slash-remote-control"]',
+  '/remote-env リモートセッション環境を設定（claude.ai登録者向け） claude.ai 登録者向けのリモートセッション設定コマンド（v2.1.0追加）。リモート環境のパラメータを設定し、/teleport でセッションを再開する際の接続先を定義する。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-bg',
+  '/bg',
+  'slash-command',
+  'バックグラウンドエージェントを起動',
+  'バックグラウンドエージェントをコマンドまたはキーボードショートカット ←← で起動する。起動時に現在の権限モードを引き継ぐ（v2.1.141）。実行中のタスクは /tasks で確認可能。',
+  '[{"title": "バックグラウンド起動", "code": "/bg"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-tasks", "slash-agents"]',
+  '/bg バックグラウンドエージェントを起動 バックグラウンドエージェントをコマンドまたはキーボードショートカット ←← で起動する。起動時に現在の権限モードを引き継ぐ（v2.1.141）。実行中のタスクは /tasks で確認可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-setup-vertex',
+  '/setup-vertex',
+  'slash-command',
+  'Google Vertex AI接続を対話形式でセットアップ',
+  'Google Cloud Vertex AI 経由でClaudeを利用するための設定を対話形式で実施（v2.1.111改善）。CLAUDE_CONFIG_DIR 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1Mコンテキストオプションも提示。',
+  '[{"title": "Vertex AI設定", "code": "/setup-vertex"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-setup-bedrock"]',
+  '/setup-vertex google vertex ai接続を対話形式でセットアップ google cloud vertex ai 経由でclaudeを利用するための設定を対話形式で実施（v2.1.111改善）。claude_config_dir 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1mコンテキストオプションも提示。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
