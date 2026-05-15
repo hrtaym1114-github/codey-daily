@@ -850,14 +850,14 @@
       "name": "/loop",
       "category": "slash-command",
       "summary_ja": "プロンプトを定期実行スケジュール",
-      "description_ja": "指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。/proactive はエイリアス。Bedrock/Vertex でも利用可。",
+      "description_ja": "指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。`/proactive` はエイリアス（v2.1.105）。Bedrock/Vertex でも利用可。",
       "examples": [
         {
           "title": "Check deploy every 5 minutes",
           "code": "/loop 5m デプロイ状態を確認して"
         },
         {
-          "title": "Run slash command periodically",
+          "title": "Run a slash command on a recurring interval",
           "code": "/loop 10m /review"
         }
       ],
@@ -872,9 +872,9 @@
       "related": [
         "slash-compact"
       ],
-      "summary_en": "Repeatedly execute a prompt or slash command on a fixed time interval; press Esc to stop; /proactive is an alias.",
-      "description_en": "Runs a prompt or slash command repeatedly at a specified interval, for example /loop 5m check the deploy status. Press Esc at any time to cancel the loop. The /proactive command is a full alias with identical behavior. Also works on Amazon Bedrock and Google Vertex AI deployments in addition to the default Anthropic API. Ideal for polling the status of long-running CI/CD processes, running periodic code quality checks, or any recurring task you currently re-trigger manually. The loop respects all permission settings and will still prompt for confirmation on sensitive operations even when running automatically in a loop.",
-      "_hash": "718acc46ec9e"
+      "summary_en": "Run a prompt or slash command on a recurring interval; cancel anytime with Esc. Also available as /proactive.",
+      "description_en": "Repeatedly executes a prompt or slash command at a specified interval. For example, `/loop 5m check deploy status` checks deployment every five minutes. Press Esc at any time to cancel. `/proactive` is an alias introduced in v2.1.105. The command also works on Bedrock and Vertex deployments, making it useful for long-running monitoring or automated review workflows.",
+      "_hash": "b56848e39dd2"
     },
     {
       "id": "slash-theme",
@@ -1917,6 +1917,86 @@
       "summary_en": "Interactively configure Claude access through Google Cloud Vertex AI with guided model selection and context token options.",
       "description_en": "Interactively configures Claude access via Google Cloud Vertex AI through a guided setup flow, improved in v2.1.111. Displays the actual configuration file path when CLAUDE_CONFIG_DIR is set, suggests model candidates based on existing configuration pins, and presents the 1M context token option for models that support it. Use this for enterprise or regulated deployments where Claude API traffic must route through Google Cloud infrastructure rather than Anthropic's endpoints directly. After setup, run /mcp to verify that the Vertex AI connection is active and all expected tools have been registered successfully.",
       "_hash": "8cdcd664ab0d"
+    },
+    {
+      "id": "slash-chrome",
+      "name": "/chrome",
+      "category": "slash-command",
+      "summary_ja": "ブラウザをClaudeから直接操作（Beta）",
+      "description_ja": "Claude in Chrome拡張機能（claude.ai/chrome）と連携し、ブラウザを直接Claude Codeから操作できるベータ機能（v2.0.72追加）。認証設定によっては非表示になる場合がある。",
+      "examples": [
+        {
+          "title": "Chrome integration",
+          "code": "/chrome"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 3,
+      "tier": "free",
+      "related": [],
+      "summary_en": "Control your Chrome browser directly from Claude Code via the Claude in Chrome extension (Beta).",
+      "description_en": "Integrates with the Claude in Chrome extension (claude.ai/chrome) to let you operate your browser directly from Claude Code. This beta feature was added in v2.0.72. The command may be hidden depending on your authentication configuration. Once connected, Claude can interact with browser content, enabling web-based workflows without switching contexts.",
+      "_hash": "6379f9e29679"
+    },
+    {
+      "id": "slash-commit-push-pr",
+      "name": "/commit-push-pr",
+      "category": "slash-command",
+      "summary_ja": "コミット・プッシュ・PR作成を一括実行",
+      "description_ja": "git commit・push・PR作成を一括実行するバンドルスキル。MCP経由でSlackが設定されている場合はPR URLを自動的にSlackチャンネルに投稿する（v2.1.20で変更）。",
+      "examples": [
+        {
+          "title": "Commit, push, and create PR",
+          "code": "/commit-push-pr"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 2,
+      "tier": "free",
+      "related": [
+        "slash-simplify",
+        "slash-review"
+      ],
+      "summary_en": "Run git commit, push, and pull request creation in one bundled command, with optional Slack notification.",
+      "description_en": "A bundled skill that executes git commit, push, and pull request creation in a single step. When Slack is configured via MCP, the PR URL is automatically posted to the designated Slack channel (behavior updated in v2.1.20). This eliminates the need to run multiple commands manually and ensures the PR link is immediately shared with the team upon creation.",
+      "_hash": "3f7e38d241fb"
+    },
+    {
+      "id": "slash-web-setup",
+      "name": "/web-setup",
+      "category": "slash-command",
+      "summary_ja": "GitHub App Web接続をセットアップ",
+      "description_ja": "Claude Code とGitHub AppのWeb接続を設定するダイアログ（v2.1.136追加）。既存の接続を上書きする前に警告を表示する（v2.1.142）。Escキーでダイアログを閉じられる。",
+      "examples": [
+        {
+          "title": "Web connection setup",
+          "code": "/web-setup"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 2,
+      "tier": "free",
+      "related": [
+        "slash-install-github-app"
+      ],
+      "summary_en": "Configure the GitHub App Web connection for Claude Code through an interactive setup dialog.",
+      "description_en": "Opens an interactive dialog to set up the Web connection between Claude Code and the GitHub App, added in v2.1.136. Before overwriting any existing connection, a confirmation warning is displayed to prevent accidental overwrites (v2.1.142). The dialog can be dismissed at any time with the Esc key, leaving existing settings unchanged.",
+      "_hash": "4dca03d3e010"
     },
     {
       "id": "tool-bash",

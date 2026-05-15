@@ -443,13 +443,13 @@ VALUES (
   '/loop',
   'slash-command',
   'プロンプトを定期実行スケジュール',
-  '指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。/proactive はエイリアス。Bedrock/Vertex でも利用可。',
+  '指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。`/proactive` はエイリアス（v2.1.105）。Bedrock/Vertex でも利用可。',
   '[{"title": "5分ごとにデプロイ確認", "code": "/loop 5m デプロイ状態を確認して"}, {"title": "スラッシュコマンドを定期実行", "code": "/loop 10m /review"}]',
   '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
   2,
   'free',
   '["slash-compact"]',
-  '/loop プロンプトを定期実行スケジュール 指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。esc でキャンセル可能。/proactive はエイリアス。bedrock/vertex でも利用可。'
+  '/loop プロンプトを定期実行スケジュール 指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。esc でキャンセル可能。`/proactive` はエイリアス（v2.1.105）。bedrock/vertex でも利用可。'
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
@@ -982,6 +982,48 @@ VALUES (
   'free',
   '["slash-setup-bedrock"]',
   '/setup-vertex google vertex ai接続を対話形式でセットアップ google cloud vertex ai 経由でclaudeを利用するための設定を対話形式で実施（v2.1.111改善）。claude_config_dir 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1mコンテキストオプションも提示。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-chrome',
+  '/chrome',
+  'slash-command',
+  'ブラウザをClaudeから直接操作（Beta）',
+  'Claude in Chrome拡張機能（claude.ai/chrome）と連携し、ブラウザを直接Claude Codeから操作できるベータ機能（v2.0.72追加）。認証設定によっては非表示になる場合がある。',
+  '[{"title": "Chrome連携", "code": "/chrome"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '[]',
+  '/chrome ブラウザをclaudeから直接操作（beta） claude in chrome拡張機能（claude.ai/chrome）と連携し、ブラウザを直接claude codeから操作できるベータ機能（v2.0.72追加）。認証設定によっては非表示になる場合がある。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-commit-push-pr',
+  '/commit-push-pr',
+  'slash-command',
+  'コミット・プッシュ・PR作成を一括実行',
+  'git commit・push・PR作成を一括実行するバンドルスキル。MCP経由でSlackが設定されている場合はPR URLを自動的にSlackチャンネルに投稿する（v2.1.20で変更）。',
+  '[{"title": "コミット+プッシュ+PR作成", "code": "/commit-push-pr"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-simplify", "slash-review"]',
+  '/commit-push-pr コミット・プッシュ・pr作成を一括実行 git commit・push・pr作成を一括実行するバンドルスキル。mcp経由でslackが設定されている場合はpr urlを自動的にslackチャンネルに投稿する（v2.1.20で変更）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-web-setup',
+  '/web-setup',
+  'slash-command',
+  'GitHub App Web接続をセットアップ',
+  'Claude Code とGitHub AppのWeb接続を設定するダイアログ（v2.1.136追加）。既存の接続を上書きする前に警告を表示する（v2.1.142）。Escキーでダイアログを閉じられる。',
+  '[{"title": "Web接続設定", "code": "/web-setup"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-install-github-app"]',
+  '/web-setup github app web接続をセットアップ claude code とgithub appのweb接続を設定するダイアログ（v2.1.136追加）。既存の接続を上書きする前に警告を表示する（v2.1.142）。escキーでダイアログを閉じられる。'
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (

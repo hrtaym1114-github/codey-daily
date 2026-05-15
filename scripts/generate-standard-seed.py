@@ -328,7 +328,7 @@ FEATURES = [
     {
         "id": "slash-loop", "name": "/loop", "category": "slash-command",
         "summary_ja": "プロンプトを定期実行スケジュール",
-        "description_ja": "指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。/proactive はエイリアス。Bedrock/Vertex でも利用可。",
+        "description_ja": "指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行。/loop 5m デプロイ確認 のように使う。Esc でキャンセル可能。`/proactive` はエイリアス（v2.1.105）。Bedrock/Vertex でも利用可。",
         "examples": [
             {"title": "5分ごとにデプロイ確認", "code": "/loop 5m デプロイ状態を確認して"},
             {"title": "スラッシュコマンドを定期実行", "code": "/loop 10m /review"},
@@ -680,6 +680,33 @@ FEATURES = [
             {"title": "Vertex AI設定", "code": "/setup-vertex"},
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["slash-setup-bedrock"],
+    },
+    {
+        "id": "slash-chrome", "name": "/chrome", "category": "slash-command",
+        "summary_ja": "ブラウザをClaudeから直接操作（Beta）",
+        "description_ja": "Claude in Chrome拡張機能（claude.ai/chrome）と連携し、ブラウザを直接Claude Codeから操作できるベータ機能（v2.0.72追加）。認証設定によっては非表示になる場合がある。",
+        "examples": [
+            {"title": "Chrome連携", "code": "/chrome"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-commit-push-pr", "name": "/commit-push-pr", "category": "slash-command",
+        "summary_ja": "コミット・プッシュ・PR作成を一括実行",
+        "description_ja": "git commit・push・PR作成を一括実行するバンドルスキル。MCP経由でSlackが設定されている場合はPR URLを自動的にSlackチャンネルに投稿する（v2.1.20で変更）。",
+        "examples": [
+            {"title": "コミット+プッシュ+PR作成", "code": "/commit-push-pr"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-simplify", "slash-review"],
+    },
+    {
+        "id": "slash-web-setup", "name": "/web-setup", "category": "slash-command",
+        "summary_ja": "GitHub App Web接続をセットアップ",
+        "description_ja": "Claude Code とGitHub AppのWeb接続を設定するダイアログ（v2.1.136追加）。既存の接続を上書きする前に警告を表示する（v2.1.142）。Escキーでダイアログを閉じられる。",
+        "examples": [
+            {"title": "Web接続設定", "code": "/web-setup"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-install-github-app"],
     },
 
     # ========== Built-in Tools ==========
