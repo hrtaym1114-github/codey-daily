@@ -708,6 +708,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-install-github-app"],
     },
+    {
+        "id": "slash-update", "name": "/update", "category": "slash-command",
+        "summary_ja": "Claude Codeをセッション内から最新版に更新",
+        "description_ja": "セッション内から Claude Code を最新バージョンに更新するコマンド。`claude update` CLI サブコマンドと同等の更新を対話セッションから実行可能。worktree 内セッションでも動作（v2.1.116 修正）。`DISABLE_UPDATES` 環境変数で全更新パスを無効化可能。",
+        "examples": [
+            {"title": "更新実行", "code": "/update"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
 
     # ========== Built-in Tools ==========
     {

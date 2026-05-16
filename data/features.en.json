@@ -25,8 +25,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Clear the current session's conversation history to start fresh on a new task while keeping all persistent memory intact.",
-      "description_en": "Clears the conversation history of the current session, resetting the context window to zero turns. Persistent memory — user preferences and project information stored across sessions — is fully retained and remains immediately available after clearing. Use this when you want to reset context during a long session without losing important saved information. It is especially useful when switching to a completely different task within the same working directory and you want Claude to start reasoning from a clean slate, free from accumulated assumptions or earlier discussion threads that are no longer relevant.",
-      "_hash": "208e7cc02aa9"
+      "description_en": "Clears the conversation history of the current session, resetting the context window to zero turns. Persistent memory — information saved across sessions — is preserved and is not affected by this command. Use it when a long session has accumulated too much unrelated context and you want to start clean without ending the session entirely.",
+      "_hash": "1a9afa8f0dc7"
     },
     {
       "id": "slash-help",
@@ -50,8 +50,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Show a quick-reference list of all available built-in Claude Code slash commands, keyboard shortcuts, and common operations.",
-      "description_en": "Shows a comprehensive list of all built-in commands available in Claude Code. When you are unsure what action to take next, run this first for an immediate quick reference. It covers every slash command, available keyboard shortcuts, and common operations supported in the current session. New users should start here before exploring individual commands in depth, as it provides a navigable overview of the full feature set without requiring any external documentation lookup. If you discover a command you want to learn more about, run it with no arguments or consult the official documentation linked from within the help output.",
-      "_hash": "e2f04de0dcbe"
+      "description_en": "Shows a comprehensive list of all built-in commands available in Claude Code. When you are unsure what commands exist or how to invoke a feature, run this first. The output includes slash commands, keyboard shortcuts, and brief descriptions so you can quickly find the right tool without leaving the session.",
+      "_hash": "be2809991434"
     },
     {
       "id": "slash-memory",
@@ -77,8 +77,8 @@
         "file-claude-md"
       ],
       "summary_en": "View and manage the persistent memory system that stores user preferences, project context, and feedback across all sessions.",
-      "description_en": "Manages the persistent memory system that accumulates user preferences, project background information, and feedback across multiple sessions over time. Stored information is automatically referenced in future interactions, so you do not need to re-explain context each session. Use this command to review what Claude currently remembers about you and your projects, add new information, update outdated entries, or delete memories that are no longer relevant. The memory system complements CLAUDE.md by tracking dynamic, evolving preferences rather than static project documentation.",
-      "_hash": "588828707ef9"
+      "description_en": "Manages the persistent memory system that accumulates user preferences, project background information, and session feedback. Stored memories are automatically referenced in future interactions to personalize Claude's responses. Use this command to review what has been saved, add new entries, or remove outdated information that no longer reflects your current workflow.",
+      "_hash": "fee1a203712b"
     },
     {
       "id": "slash-agents",
@@ -105,8 +105,8 @@
         "agent-subagent"
       ],
       "summary_en": "Define, launch, and monitor sub-agents that run tasks in parallel using isolated execution contexts separate from the main session.",
-      "description_en": "Manages sub-agent definitions, launches new agents, and checks their current status. Use this when you need to execute complex tasks in parallel without blocking the main session. Combine with the Task tool to delegate specialized work to dedicated agents such as Explore for code search or Plan for implementation strategy. Sub-agents run in fully separate contexts so they do not consume the main session's context window and can work concurrently, significantly accelerating multi-step workflows like large-scale refactors or repository-wide investigations.",
-      "_hash": "d431f32d957b"
+      "description_en": "Manages sub-agent definitions, launches new agents, and checks their current status. Sub-agents run in isolated execution contexts separate from the main session, making them ideal for parallel or context-sensitive tasks. Combine with the Task tool to delegate complex workloads. This command lets you see which agents are active and inspect their progress without interrupting the main conversation.",
+      "_hash": "3a3c1d2e2c61"
     },
     {
       "id": "slash-context",
@@ -132,8 +132,8 @@
         "slash-compact"
       ],
       "summary_en": "Show the current session's context window usage as a percentage to help you decide when to run /compact.",
-      "description_en": "Shows the context window usage rate for the active session as a percentage of the total available context. Use this to decide when to run /compact to summarize and compress the conversation before hitting the limit. Particularly useful during long sessions on large codebases where conversation naturally grows quickly with many file reads and tool call outputs. Check this periodically so you are not caught off guard when Claude's responses start degrading due to a near-full context window and performance begins to drop.",
-      "_hash": "e1b222e101e1"
+      "description_en": "Shows the context window usage rate for the active session as a percentage of the total available context. Long sessions accumulate conversation turns and file reads that gradually fill the context window. Monitoring this metric helps you decide when to run /compact to summarize and compress older turns before the window fills up and forces an automatic compaction.",
+      "_hash": "ccf345d3e547"
     },
     {
       "id": "slash-hooks",
@@ -160,8 +160,8 @@
         "hook-posttooluse"
       ],
       "summary_en": "Set up shell scripts to run automatically on lifecycle events like PreToolUse, PostToolUse, Stop, and other hook points.",
-      "description_en": "Sets up shell scripts that execute automatically on Claude Code lifecycle events such as PreToolUse, PostToolUse, Stop, SessionStart, and others. Use this to automate tasks like linting, code formatting, desktop notifications, or safety validations that should happen around Claude's tool calls. Hook configurations are stored in settings.json and apply consistently across all sessions. Hooks can inspect, modify, or even block tool invocations before they are carried out, giving you fine-grained programmatic control over Claude's behavior. The hook script receives the tool invocation details as structured JSON on stdin, allowing sophisticated logic based on the tool name, arguments, or output.",
-      "_hash": "b1b58269febf"
+      "description_en": "Sets up shell scripts that execute automatically on Claude Code lifecycle events such as PreToolUse, PostToolUse, Stop, SubagentStop, SessionStart, SessionEnd, UserPromptSubmit, PreCompact, and Notification. Use the interactive interface to add, edit, or remove hook definitions without manually editing settings.json. Hooks are a powerful way to enforce policies, automate formatting, send notifications, or inject context into every interaction.",
+      "_hash": "23716bab3127"
     },
     {
       "id": "slash-init",
@@ -187,8 +187,8 @@
         "file-claude-md"
       ],
       "summary_en": "Analyze the current repository structure and generate a CLAUDE.md project guidance file template to customize for your team.",
-      "description_en": "Analyzes the current repository structure — including directory layout, language, framework, and common patterns — and generates a CLAUDE.md template that Claude automatically reads at the start of every session. The generated template includes placeholders for coding conventions, directory descriptions, build commands, and important project-specific caveats. After generating the initial template, review and edit it to add your team's actual guidelines so that Claude follows them consistently in every future session on this project. Review the generated CLAUDE.md carefully before committing it to version control, as inaccurate instructions can mislead Claude consistently across all future sessions.",
-      "_hash": "556fe27e670f"
+      "description_en": "Analyzes the current repository structure — including directory layout, language, framework, and common patterns — and generates a starter CLAUDE.md file that provides project-specific guidance to Claude. The generated template includes placeholders for coding conventions, important directories, and team-specific notes. Edit the file after generation to add details that Claude will read automatically at the start of every future session.",
+      "_hash": "a1156d27276f"
     },
     {
       "id": "slash-review",
@@ -212,8 +212,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Review the current branch or a specified pull request for code quality, potential bugs, and specific improvement suggestions.",
-      "description_en": "Reviews the current branch or a specified pull request and returns structured feedback covering code quality issues, potential bugs, and concrete improvement suggestions. Useful as a final sanity check before merging changes into the main branch. Without an argument it reviews the current branch's diff against the base; you can also pass a GitHub PR number to target a specific pull request. Pairs well with /security-review for a comprehensive pre-merge quality and security check. The review output includes structured sections covering style, correctness, security, and test coverage so each concern is easy to address individually.",
-      "_hash": "4550fc925467"
+      "description_en": "Reviews the current branch or a specified pull request and returns structured feedback covering code quality, potential bugs, and concrete improvement suggestions. Run it without arguments to review the current branch diff, or pass a PR number or URL to review a specific pull request. The output is formatted to make it easy to act on individual recommendations.",
+      "_hash": "71796b304c18"
     },
     {
       "id": "slash-config",
@@ -239,8 +239,8 @@
         "file-settings-json"
       ],
       "summary_en": "Open the interactive settings interface to view and change the theme, active model, and other user preferences.",
-      "description_en": "Opens the interactive configuration interface where you can change the active theme, model selection, and other user-level settings without manually editing files. Serves as a user-friendly alternative to directly editing settings.json. Changes take effect immediately in the current session without requiring a restart. Use /config for quick, one-off adjustments; for persistent automation, hook definitions, or scripted configuration, edit settings.json or settings.local.json directly for more control. All changes made via /config are written back to the appropriate settings.json file so they persist across sessions and future Claude Code restarts.",
-      "_hash": "7550f4253cd9"
+      "description_en": "Opens the interactive configuration interface where you can change the active theme, model selection, and other user-level preferences stored in settings.json. Use this as a menu-driven alternative to editing the JSON file directly. Changes take effect immediately in the current session without requiring a restart.",
+      "_hash": "8e4fec09920c"
     },
     {
       "id": "slash-model",
@@ -264,8 +264,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Switch the AI model used in the current session to Opus, Sonnet, Haiku, or any other model available on your plan.",
-      "description_en": "Switches the AI model used for the current session. Available options include Claude Opus, Sonnet, Haiku, and other models supported by your subscription plan. The model change applies immediately and affects response quality, depth of reasoning, response speed, and per-token cost for the remainder of the session. Use Opus for complex architectural decisions or difficult debugging, and Haiku for quick, routine tasks where speed and cost efficiency matter more than exhaustive reasoning. If you are on a plan that does not include a specific model, selecting it will show an error with guidance on how to upgrade or change your plan.",
-      "_hash": "87a0cb5cd586"
+      "description_en": "Switches the AI model used for the current session. Available options include Claude Opus, Sonnet, Haiku, and other models depending on your subscription plan. Switching models does not reset the conversation history, so you can change to a faster or more capable model mid-session as your needs change without losing context.",
+      "_hash": "241b38c190bd"
     },
     {
       "id": "slash-status",
@@ -289,8 +289,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Display current session statistics including the active model, working directory path, git branch, and other session metadata.",
-      "description_en": "Shows a summary of the current session's statistics, including the active model, working directory path, current git branch and status, session name, and other relevant metadata. Use this to get a quick situational overview without leaving the Claude Code interface or running separate shell commands. Particularly helpful when context-switching between multiple concurrent sessions and needing to quickly orient yourself about which session you are in and what state it is in. The status display is read-only and has no side effects, making it safe to run at any time during any type of task.",
-      "_hash": "eaf57e7adc41"
+      "description_en": "Shows a summary of the current session's statistics, including the active model, working directory path, git repository and branch, context usage, and other metadata. Run this to get a quick overview of the session environment, confirm which model is active, or verify the working directory is set correctly before starting a complex task.",
+      "_hash": "757bcaaeabda"
     },
     {
       "id": "slash-cost",
@@ -314,8 +314,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Show the total API token usage count and estimated monetary cost incurred so far in the current session.",
-      "description_en": "Shows the total number of API tokens consumed and the estimated monetary cost for the current session so far. Use this to track real-time spending and make informed decisions about context management, model choice, and session length. Helps you stay within budget when working on long or compute-intensive tasks that involve many large file reads or extended agentic workflows. For historical usage statistics across multiple past sessions, use /usage or /stats instead. Token costs shown are estimates based on public pricing and may differ slightly from your actual bill depending on plan discounts or rate changes.",
-      "_hash": "a17043bc310f"
+      "description_en": "Shows the total number of API tokens consumed and the estimated monetary cost for the current session. Use this to keep track of spending during long or intensive sessions. The breakdown includes input and output tokens separately so you can understand what is driving usage. For historical data across multiple sessions, see /usage or /stats.",
+      "_hash": "e7d244ea5d18"
     },
     {
       "id": "slash-compact",
@@ -325,7 +325,7 @@
       "description_ja": "コンテキストが膨らんだとき、過去の会話を要約して圧縮。重要な情報は保持。",
       "examples": [
         {
-          "title": "Run compact",
+          "title": "Run compaction",
           "code": "/compact"
         }
       ],
@@ -342,8 +342,8 @@
         "hook-precompact"
       ],
       "summary_en": "Force-compress the conversation context by summarizing past turns into a condensed form while retaining the most critical information.",
-      "description_en": "Compresses the context window when it has grown large by summarizing past conversation turns into a condensed representation. Critical information — active tasks, key decisions, important file contents — is preserved during compression to maintain task continuity. Use this proactively when /context shows high usage approaching the limit, or reactively when Claude's responses appear to lose track of earlier context. Configure a PreCompact hook to automatically save important state to a file before compression runs. After compaction, Claude resumes the task with the compressed context, continuing where it left off without requiring you to re-explain the current objective.",
-      "_hash": "73f73b8f2f9a"
+      "description_en": "Compresses the context window when it has grown large by summarizing past conversation turns into a condensed form. The most important information — file contents, decisions, and task state — is retained in the summary, while verbose exchange history is removed. Run this proactively when /context shows high usage, or Claude will trigger it automatically when the window approaches its limit.",
+      "_hash": "84e4cf6176eb"
     },
     {
       "id": "slash-resume",
@@ -353,7 +353,7 @@
       "description_ja": "終了したセッションを再開して続きから作業を再開。",
       "examples": [
         {
-          "title": "Resume",
+          "title": "Resume session",
           "code": "/resume"
         }
       ],
@@ -369,8 +369,8 @@
         "cli-resume"
       ],
       "summary_en": "Resume a previously ended session and continue working from exactly where you left off with all context and history restored.",
-      "description_en": "Resumes a previously ended session so you can continue working from exactly where you stopped. The entire conversation history, tool call log, and session metadata are restored. Use this after closing the terminal, after a machine restart, or after working on a different task and wanting to return to a previous session. Without arguments it opens a session picker; use /rename in advance to give sessions recognizable names that make selection easier. If you need to pick a specific session from many options, name your sessions with /rename to make the picker list much easier to navigate.",
-      "_hash": "febdf65a7cbd"
+      "description_en": "Resumes a previously ended session so you can continue working from exactly where you stopped. The entire conversation history and session state are restored. Use this after accidentally closing Claude Code or when you want to return to a task the next day. For the most recent session, the CLI --continue flag is faster. For a specific older session, see also the --resume CLI flag.",
+      "_hash": "3d1f845a0123"
     },
     {
       "id": "slash-security-review",
@@ -396,8 +396,8 @@
         "slash-review"
       ],
       "summary_en": "Run a security-focused code review of the current branch's changes to find vulnerabilities, insecure patterns, and attack vectors.",
-      "description_en": "Performs a dedicated security review of the changes on the current branch, looking specifically for vulnerabilities, insecure coding patterns, and potential attack vectors such as SQL injection, XSS, unvalidated user input, exposed secrets, or broken authentication logic. Use this before merging security-sensitive changes or as a routine quality gate whenever the diff touches authentication, authorization, data validation, or cryptography. Complements /review, which focuses on general code quality. The review follows OWASP-aligned categories and provides actionable, specific recommendations rather than generic warnings, making it easy to act on the findings immediately.",
-      "_hash": "4710971d5e92"
+      "description_en": "Performs a dedicated security review of the changes on the current branch, looking specifically for vulnerabilities, insecure coding patterns, injection risks, authentication weaknesses, and other security concerns. The output is structured around specific findings with references to the affected code, making it actionable for addressing issues before merging.",
+      "_hash": "74af74aa920f"
     },
     {
       "id": "slash-plugin",
@@ -428,8 +428,8 @@
         "slash-doctor"
       ],
       "summary_en": "Install, uninstall, update, list, and troubleshoot plugins from the official Marketplace or a configured local plugin directory.",
-      "description_en": "Manages the full lifecycle of Claude Code plugins: installation, uninstallation, updates, listing installed plugins, and checking error states. Use this to install plugins from the official Marketplace or to manage plugins loaded from a local directory specified via --plugin-dir. Plugins bundle skills and sub-agent definitions into reusable, shareable packages that extend Claude Code's capabilities. After installing or updating a plugin, run /reload-plugins to apply the changes without restarting Claude Code. Plugins are sandboxed to the permissions declared in their manifest, so installing a plugin does not grant it unrestricted system access.",
-      "_hash": "e191067cb707"
+      "description_en": "Manages the full lifecycle of Claude Code plugins: installation, uninstallation, updates, listing installed plugins, and viewing error details for plugins that failed to load. Install from the official Plugin Marketplace or from a local directory configured with --plugin-dir. Use the error view to diagnose why a plugin is disabled or failing to initialize.",
+      "_hash": "a7cc7c6243bd"
     },
     {
       "id": "slash-skills",
@@ -456,8 +456,8 @@
         "slash-plugin"
       ],
       "summary_en": "List and search all installed skills; selecting one autocompletes its slash command name directly into the prompt input field.",
-      "description_en": "Displays a filterable list of all installed skills currently available in the session. Type characters to narrow the results in real time. Selecting a skill from the list autocompletes its /skill-name into the prompt input field, ready to invoke. Use this when you want to discover available skills or quickly invoke one without needing to remember the exact command name. Also useful for auditing which skills are active and available for the current project. Use the search filter to quickly narrow down skills when you have many installed, rather than scrolling through the entire list each time.",
-      "_hash": "cccca8bd0333"
+      "description_en": "Displays a filterable list of all installed skills currently available in the session. Type characters to filter the list by name or keyword. Selecting a skill from the list autocompletes its /skill-name into the prompt input so you can invoke it immediately. Use this when you cannot remember the exact name of a skill you have installed.",
+      "_hash": "edec51564fae"
     },
     {
       "id": "slash-mcp",
@@ -484,8 +484,8 @@
         "file-mcp-json"
       ],
       "summary_en": "Check the connection status, registered tool count, and authentication state of all currently connected MCP servers in the session.",
-      "description_en": "Displays a list of all currently connected MCP servers along with each server's tool count and authentication state. Servers with zero registered tools are flagged to draw attention to potential misconfiguration or failed startup. Duplicate URL warnings are shown when two servers share the same endpoint. Use this command to quickly diagnose MCP connectivity problems, confirm that a newly configured server has loaded correctly, or verify that OAuth authentication for a remote MCP server is working as expected. Run /doctor if /mcp shows unexpected server states, as /doctor provides deeper diagnostics including error messages from failed server startups.",
-      "_hash": "906bbd7083ad"
+      "description_en": "Displays a list of all currently connected MCP servers along with each server's tool count and authentication state. Servers that expose zero tools are flagged for easy identification. Duplicate URL warnings are shown when multiple servers point to the same endpoint. Use this to verify that MCP integrations are connected and providing the tools you expect.",
+      "_hash": "ce990b634167"
     },
     {
       "id": "slash-doctor",
@@ -512,8 +512,8 @@
         "slash-mcp"
       ],
       "summary_en": "Diagnose environment problems such as MCP server errors, disabled plugins, version conflicts, and other configuration issues affecting Claude Code.",
-      "description_en": "Diagnoses and reports a range of environment problems including MCP server startup errors, disabled plugin warnings, version conflicts between installed packages, and other configuration issues that could affect Claude Code's operation. This is the recommended first troubleshooting step whenever something seems wrong. Run it immediately after installation on a new machine, after upgrading Claude Code, or whenever tools, plugins, or MCP integrations stop responding as expected. After running /doctor and resolving flagged issues, run it again to confirm the fixes are effective before resuming work.",
-      "_hash": "6af2db86ef83"
+      "description_en": "Diagnoses and reports a range of environment problems including MCP server startup errors, disabled or incompatible plugins, version conflicts between Claude Code and installed extensions, and other configuration issues. Run this as the first step when something unexpected is happening — it provides a structured summary of detected problems and suggested remediation steps.",
+      "_hash": "373ebcd878b2"
     },
     {
       "id": "slash-usage",
@@ -539,8 +539,8 @@
         "slash-cost"
       ],
       "summary_en": "View current and historical API token usage and associated costs in a unified interface with tabs for stats and history.",
-      "description_en": "Displays current session and historical API token usage alongside associated monetary costs, all in a single unified interface. The /cost and /stats tabs are accessible from within /usage after the v2.1.118 consolidation. Use this for a comprehensive view of usage patterns across multiple sessions over time. Particularly useful for identifying which types of work consume the most tokens, understanding cost trends, and making informed decisions about model selection or context management strategies. The usage data is updated after each API call so the numbers you see are always current for the session, not delayed by any reporting lag.",
-      "_hash": "442172595309"
+      "description_en": "Displays current session and historical API token usage alongside associated monetary costs, all in one unified interface. Since v2.1.118, this command integrates the functionality of /cost and /stats as tabs within the same view. Use the Cost tab for per-session breakdowns and the Stats tab for long-term usage trends and model preference data.",
+      "_hash": "83edd2031b8e"
     },
     {
       "id": "slash-effort",
@@ -550,11 +550,11 @@
       "description_ja": "Claude の思考量（effort）を low / normal / high / max / auto から選択。Opus モデルの xhigh も設定可能。速度と精度のトレードオフを制御。",
       "examples": [
         {
-          "title": "Maximum thinking",
+          "title": "Set max effort",
           "code": "/effort max"
         },
         {
-          "title": "Auto adjust",
+          "title": "Set auto effort",
           "code": "/effort auto"
         }
       ],
@@ -570,8 +570,8 @@
         "slash-model"
       ],
       "summary_en": "Adjust Claude's thinking intensity level between low, normal, high, max, and auto to balance speed against accuracy and cost.",
-      "description_en": "Selects Claude's thinking effort level from the options: low, normal, high, max, or auto. The xhigh setting is additionally available for Opus models. Increasing the effort level gives Claude more time to reason through difficult problems thoroughly, but also increases response latency and per-request cost. Use max or high for complex architectural decisions, hard debugging sessions, or tasks requiring deep multi-step reasoning. Use low for quick, routine tasks where speed and cost efficiency are the priority. The auto setting dynamically selects the effort level based on the complexity Claude perceives in the current task, offering a good default for mixed workloads.",
-      "_hash": "e7f5a6d3f4af"
+      "description_en": "Selects Claude's thinking effort level from the options: low, normal, high, max, or auto. The xhigh setting is also available for Opus models when deeper reasoning is required. Lower effort levels respond faster and use fewer tokens, while higher levels produce more thorough analysis. Auto lets Claude decide the appropriate depth based on the complexity of the task.",
+      "_hash": "dda48c035bfd"
     },
     {
       "id": "slash-rename",
@@ -581,7 +581,7 @@
       "description_ja": "現在のセッションにわかりやすい名前を付ける。ステータスバーに表示され、/resume での再開時に識別しやすくなる。",
       "examples": [
         {
-          "title": "Set session name",
+          "title": "Set name",
           "code": "/rename 認証機能の実装"
         }
       ],
@@ -597,8 +597,8 @@
         "slash-resume"
       ],
       "summary_en": "Assign a human-readable name to the current session to make it easier to identify when resuming it later.",
-      "description_en": "Assigns a human-readable name to the current session. The name appears in the status bar for the duration of the session and makes it significantly easier to identify the right session in the /resume session picker. This is particularly valuable when you are running multiple concurrent sessions on different tasks or branches and need to switch between them reliably without confusion. Name your sessions descriptively — for example by feature name or bug ID — for the best results. Session names are stored in the session metadata and survive across terminal restarts, so a name given today is visible when you resume the session tomorrow.",
-      "_hash": "d9fa20159295"
+      "description_en": "Assigns a human-readable name to the current session. The name appears in the status bar for the duration of the session and is shown in the session picker when using /resume. Use this when working on multiple sessions simultaneously or to make a session easily identifiable when you want to return to it later.",
+      "_hash": "061b25ba8156"
     },
     {
       "id": "slash-login",
@@ -622,8 +622,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Re-run the OAuth login flow when your access token expires or an authentication error occurs during an active session.",
-      "description_en": "Re-runs the OAuth login flow to refresh authentication when your token has expired or an authentication error occurs. Can switch from environment-variable-based authentication using CLAUDE_CODE_OAUTH_TOKEN to disk-based credential storage, or vice versa. Run this whenever you see authentication-related error messages or after rotating credentials as part of a security policy update. No session restart is required — authentication is refreshed in place and the session continues normally afterward. If you are using an enterprise SSO configuration, consult your organization administrator before re-running login, as re-authenticating may require organizational approval.",
-      "_hash": "9877fb71bab6"
+      "description_en": "Re-runs the OAuth login flow to refresh authentication when your token has expired or an authentication error has occurred. This works even if the CLAUDE_CODE_OAUTH_TOKEN environment variable is set — running /login switches to disk-based authentication so you can continue the session with fresh credentials without restarting.",
+      "_hash": "5bd5d7d6d300"
     },
     {
       "id": "slash-permissions",
@@ -649,8 +649,8 @@
         "mode-permission"
       ],
       "summary_en": "Review commands allowed or denied in Auto mode, retry denied operations, and add or remove permission allowlist entries.",
-      "description_en": "Shows the history of tool calls and commands that were denied during Auto mode operation, and lets you retry them after reviewing the decision. You can add new permission rules to the allowlist or remove existing ones to fine-tune what Claude is permitted to do automatically without confirmation. The Recent tab provides a chronological view of the latest permission decisions, making it straightforward to audit what was auto-approved or blocked during the current session. The allowlist additions you make through /permissions are written to settings.json or settings.local.json, persisting across sessions without requiring manual file editing.",
-      "_hash": "02e93f823d0e"
+      "description_en": "Shows the history of tool calls and commands that were denied during Auto mode operation, and lets you retry specific denied operations after reviewing them. The Recent tab shows the current state of permission allowances. Use this to adjust permission rules, add new allowlist entries for safe operations, or remove entries that are no longer needed.",
+      "_hash": "ff2289a67633"
     },
     {
       "id": "slash-add-dir",
@@ -664,7 +664,7 @@
           "code": "/add-dir ../other-repo"
         },
         {
-          "title": "Add permanently",
+          "title": "Persist directory",
           "code": "/add-dir --remember ../shared-lib"
         }
       ],
@@ -678,8 +678,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Add an additional working directory to the current session to expand Claude's file access, with an option to persist it.",
-      "description_en": "Loads an additional directory into the current session, expanding Claude's file access beyond the current working directory. Use the --remember option to persist the addition across all future sessions automatically. Particularly useful when working across multiple repositories, a monorepo with multiple packages, or a project where shared libraries live in a sibling directory that is not part of the current working tree. Claude respects the boundaries of the added directories and will not attempt to read files outside the explicitly allowed paths, maintaining security.",
-      "_hash": "d61349c8a065"
+      "description_en": "Loads an additional directory into the current session, expanding Claude's file access beyond the current working directory. Use the --remember option to persist the additional directory across future sessions. Particularly useful when working across multiple repositories or when files you need are located outside the primary working directory.",
+      "_hash": "cb8ba79bb905"
     },
     {
       "id": "slash-branch",
@@ -705,8 +705,8 @@
         "slash-resume"
       ],
       "summary_en": "Fork the current session into an independent branch to safely try a different approach without affecting the original conversation.",
-      "description_en": "Forks the current session at the current point so you can explore a different approach or direction. The branched session preserves the complete conversation history up to the fork point and can be resumed later using /resume. Use this to experiment with risky or speculative changes — such as a major refactor or architectural pivot — without impacting the original session. This is the session-level equivalent of a git branch, allowing safe A/B testing of different solutions. Both the original and the branched sessions remain independently accessible and resumable, so you can compare the outcomes of different approaches side by side.",
-      "_hash": "74090089c9a3"
+      "description_en": "Forks the current session at the current point so you can explore a different approach or direction. The branched session is independent from the original and can be resumed later with /resume. Use this for experimental changes you want to test without affecting the main session, similar to creating a git branch for a speculative feature.",
+      "_hash": "a468648bd883"
     },
     {
       "id": "slash-copy",
@@ -716,7 +716,7 @@
       "description_ja": "Claude の直前の応答をクリップボードにコピー。マークダウン形式で GitHub・Notion・Slack に貼り付けるのに最適。tmux 環境でも動作（/terminal-setup 要設定）。",
       "examples": [
         {
-          "title": "Copy full response",
+          "title": "Copy all",
           "code": "/copy"
         }
       ],
@@ -732,8 +732,8 @@
         "slash-terminal-setup"
       ],
       "summary_en": "Copy Claude's most recent response to the clipboard in Markdown format, ready to paste into GitHub, Notion, or Slack.",
-      "description_en": "Copies Claude's most recent response to the clipboard in Markdown format, making it immediately ready to paste into GitHub pull request descriptions, Notion pages, Slack messages, email, or any other Markdown-aware application. Also functions in tmux environments, though /terminal-setup must be run first to configure the necessary clipboard access permissions. The complete last message is copied, preserving all code blocks, lists, and formatting exactly as rendered. If /copy produces garbled output or the clipboard appears empty, run /terminal-setup to configure the correct clipboard method for your terminal and operating system.",
-      "_hash": "d41e87afc872"
+      "description_en": "Copies Claude's most recent response to the clipboard in Markdown format, making it immediately ready to paste into GitHub issues, Notion pages, Slack messages, or any other tool that renders Markdown. Works in standard terminal environments and in tmux sessions when properly configured with /terminal-setup.",
+      "_hash": "3e38272b9fbd"
     },
     {
       "id": "slash-remote-control",
@@ -757,8 +757,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Connect the active CLI session to claude.ai/code so you can continue the same session from a browser or smartphone.",
-      "description_en": "Connects the current CLI session to claude.ai/code, allowing you to continue the same session from a browser or smartphone without any context loss. Session accent colors are synchronized in real time while Remote Control is active, providing a visual indicator of the connection. This is useful for monitoring long-running agentic tasks from a mobile device, handing off work to a colleague, or switching from a desktop terminal to a browser when you move away from your primary machine. The Remote Control link expires after a period of inactivity but can be regenerated by running /remote-control again in the CLI session.",
-      "_hash": "20dde0be9bc3"
+      "description_en": "Connects the current CLI session to claude.ai/code, allowing you to continue the same session from a web browser or smartphone without losing any context. When a Remote Control connection is active, the session accent color set with /color is synchronized between the CLI and the web interface.",
+      "_hash": "7179b70af5fb"
     },
     {
       "id": "slash-terminal-setup",
@@ -784,8 +784,8 @@
         "slash-copy"
       ],
       "summary_en": "Optimize Claude Code terminal settings including iTerm2 clipboard access permissions and mouse scroll sensitivity adjustments.",
-      "description_en": "Configures the terminal environment for optimal Claude Code operation. Automatically sets up iTerm2 clipboard access permissions needed for /copy to work, adjusts mouse scroll sensitivity to a comfortable default, and applies other terminal-specific settings that improve the overall experience. Run this command once after installing Claude Code on a new machine, or whenever you experience issues with clipboard access, rendering artifacts, or scroll behavior in the terminal interface. The setup is idempotent so running it multiple times on the same machine is safe and will simply reapply any settings that may have changed.",
-      "_hash": "c5b32403c33b"
+      "description_en": "Configures the terminal environment for optimal Claude Code operation. Automatically sets up iTerm2 clipboard access permissions so that /copy works correctly, adjusts mouse scroll sensitivity, and applies other terminal-level settings that improve the Claude Code experience. Run this once when setting up a new machine or if clipboard or scroll behavior is not working as expected.",
+      "_hash": "0fe0410366bb"
     },
     {
       "id": "slash-reload-plugins",
@@ -811,8 +811,8 @@
         "slash-plugin"
       ],
       "summary_en": "Reload all installed plugins immediately after editing or updating them to apply changes without restarting the Claude Code session.",
-      "description_en": "Reloads all installed plugins so that edits and updates take effect immediately in the current session without requiring a full restart of Claude Code. Also automatically installs any newly required dependency packages discovered during the reload. Use this during active plugin development to quickly test changes in a live session, or after pulling plugin updates from a shared package repository to apply the latest version without interrupting ongoing work. If a plugin fails to reload due to a syntax error, /reload-plugins will report the error with a file path and line number for quick diagnosis.",
-      "_hash": "4b2226a09a17"
+      "description_en": "Reloads all installed plugins so that edits and updates take effect immediately in the current session. Also automatically installs any missing dependency packages required by the plugins. Use this after modifying a plugin's SKILL.md or after installing a plugin update to pick up the new behavior without ending and restarting the session.",
+      "_hash": "1b7d8d1591c4"
     },
     {
       "id": "slash-color",
@@ -842,8 +842,8 @@
         "slash-remote-control"
       ],
       "summary_en": "Set the current session's UI accent color; run without arguments to randomly pick a color from the available palette.",
-      "description_en": "Changes the UI accent color for the current session from the available color palette. Running the command without arguments selects a random color automatically. When Remote Control is active, the color change is synchronized to claude.ai/code in real time so both surfaces show the same color. The primary use case is visually distinguishing between multiple concurrent Claude Code sessions running in different terminal windows or tabs, making it easy to identify which session is which at a glance. The color setting is session-scoped and does not persist to the next session unless configured as a default in settings.json.",
-      "_hash": "c500756b6851"
+      "description_en": "Changes the UI accent color for the current session from the available color palette. Running the command without arguments selects a color randomly. You can also pass a specific color name as an argument. When connected via Remote Control, the chosen color is synchronized to the claude.ai/code interface as well.",
+      "_hash": "60a5fd9c2c68"
     },
     {
       "id": "slash-loop",
@@ -857,7 +857,7 @@
           "code": "/loop 5m デプロイ状態を確認して"
         },
         {
-          "title": "Run a slash command on a recurring interval",
+          "title": "Run a slash command periodically",
           "code": "/loop 10m /review"
         }
       ],
@@ -873,8 +873,8 @@
         "slash-compact"
       ],
       "summary_en": "Run a prompt or slash command on a recurring interval; cancel anytime with Esc. Also available as /proactive.",
-      "description_en": "Repeatedly executes a prompt or slash command at a specified interval. For example, `/loop 5m check deploy status` checks deployment every five minutes. Press Esc at any time to cancel. `/proactive` is an alias introduced in v2.1.105. The command also works on Bedrock and Vertex deployments, making it useful for long-running monitoring or automated review workflows.",
-      "_hash": "b56848e39dd2"
+      "description_en": "Repeatedly executes a prompt or slash command at a specified interval. For example, `/loop 5m check deploy status` runs the check every five minutes until you press Esc to cancel. Use it for monitoring tasks, periodic status checks, or any work you want to run on a schedule during an interactive session. The alias /proactive was introduced in v2.1.105. Also works on Bedrock and Vertex.",
+      "_hash": "9e9b7bf95e80"
     },
     {
       "id": "slash-theme",
@@ -900,8 +900,8 @@
         "slash-config"
       ],
       "summary_en": "Switch the UI theme using built-in presets or custom JSON theme files stored in your ~/.claude/themes/ directory.",
-      "description_en": "Opens the interactive theme picker to select a built-in theme from the available presets. Custom themes can also be created by placing a JSON file in ~/.claude/themes/ and selecting it from the picker. The Auto (match terminal) option automatically switches between dark and light based on the system's appearance setting. Press Ctrl+t at any time, independent of the theme command, to toggle syntax highlighting on and off for code blocks without changing the overall theme. Custom themes are loaded from disk on each theme switch, so you can edit a JSON theme file and switch back to it to see changes instantly.",
-      "_hash": "ca961b616caf"
+      "description_en": "Opens the interactive theme picker to select a built-in theme from the available presets. Custom themes can be created by placing JSON theme files in ~/.claude/themes/ and selecting them from the same picker. Choose Auto (match terminal) to automatically switch between dark and light variants based on the terminal's current color scheme. Press Ctrl+t to toggle syntax highlighting on or off independently of the active theme.",
+      "_hash": "1aa9d8d35968"
     },
     {
       "id": "slash-stats",
@@ -928,8 +928,8 @@
         "slash-cost"
       ],
       "summary_en": "View detailed API token usage statistics including favorite model breakdowns, usage graphs, and streak tracking across all sessions.",
-      "description_en": "Displays detailed usage statistics including your most frequently used models, token usage graphs, and usage streaks over time. From v2.1.118 onward it functions as a shortcut to the Stats tab within the unified /usage interface rather than opening a standalone view. Press r to cycle the time range between Last 7 days, Last 30 days, and All time to see usage at different granularities. Use this to understand long-term usage patterns, identify peak consumption periods, and make informed decisions about plan upgrades.",
-      "_hash": "359b88518e9b"
+      "description_en": "Displays detailed usage statistics including your most frequently used models, token usage graphs over time, and usage streak information. Since v2.1.118 this command acts as a shortcut to the Stats tab within /usage. Press r to toggle between Last 7 days, Last 30 days, and All time views to analyze usage trends across different time ranges.",
+      "_hash": "8a8eb291ee83"
     },
     {
       "id": "slash-feedback",
@@ -953,8 +953,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Send a bug report or feature request directly to Anthropic and simultaneously generate a GitHub issue URL for tracking.",
-      "description_en": "Sends bug reports and feature requests directly to Anthropic and simultaneously generates a corresponding GitHub issue URL for public tracking and follow-up. If the feature is unavailable due to authentication state or plan restrictions, the menu displays a clear explanation of why. Long description texts are handled correctly since the bug fix in v2.1.14. Use this for product feedback about Claude Code itself — bugs, confusing behaviors, or missing features — rather than general coding questions. GitHub issue URLs generated by this command are publicly visible, so avoid including sensitive project details or credentials in the feedback text.",
-      "_hash": "ee7ddde316d6"
+      "description_en": "Sends bug reports and feature requests directly to Anthropic and simultaneously generates a corresponding GitHub issue URL so you can track the report. The command handles long descriptions correctly (fixed in v2.1.14). If feedback submission is not available in the current authentication state, a notice is displayed in the menu instead of showing a broken form.",
+      "_hash": "7f0982f0de4d"
     },
     {
       "id": "slash-voice",
@@ -978,8 +978,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Toggle voice input mode on or off to speak prompts instead of typing them in the terminal interface.",
-      "description_en": "Toggles voice input mode on and off, enabling you to speak your prompts using a microphone instead of typing. When enabled, the recognized input language is displayed so you can verify it is correct; languages not supported by the speech engine trigger an informational warning. Voice mode also functions in Remote Control sessions via the browser. Availability may vary by authentication plan — the command may not appear in the menu for certain plan configurations. In environments where microphone access requires OS-level permission, you may need to grant Claude Code microphone access in system settings before voice mode will function.",
-      "_hash": "7b2b2a82bc11"
+      "description_en": "Toggles voice input mode on and off, enabling you to speak your prompts using a microphone instead of typing them. When enabled, the recognized language is displayed. Languages not supported by the voice recognition engine show a warning. Voice mode also works in Remote Control sessions. The command may be hidden depending on the authentication plan in use.",
+      "_hash": "8e0fc8fd7804"
     },
     {
       "id": "slash-tui",
@@ -1003,8 +1003,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Switch to the alternative flicker-free fullscreen TUI renderer with mouse support and automatic clipboard copy on text selection.",
-      "description_en": "Switches to an alternative fullscreen terminal renderer via /tui fullscreen. This renderer offers flicker-free output through alternate-screen rendering, lower memory usage compared to the default renderer, full mouse support for scrolling and selection, and automatic clipboard copying when you select text. The fullscreen renderer also works within git worktree sessions alongside the main session. Recommended for users who prefer a more polished, high-performance terminal UI experience during long work sessions. If you encounter rendering problems in the default renderer, the fullscreen renderer is often a good fallback that resolves common terminal compatibility issues.",
-      "_hash": "f85fd3dced4b"
+      "description_en": "Switches to an alternative fullscreen terminal renderer via /tui fullscreen. This renderer offers flicker-free rendering, lower memory usage compared to the default renderer, mouse click and scroll support, and automatic clipboard copy when text is selected. The fullscreen renderer is also available inside worktree sessions.",
+      "_hash": "4f49fb56390f"
     },
     {
       "id": "slash-extra-usage",
@@ -1031,8 +1031,8 @@
         "slash-upgrade"
       ],
       "summary_en": "Open a dialog to enable additional API usage beyond your plan's monthly limit so /fast becomes immediately available.",
-      "description_en": "Opens a dialog that lets you enable additional API usage beyond your plan's standard monthly limit. Once additional usage is enabled, the /fast command becomes immediately available without waiting for the next billing cycle to reset. Accessible from the main CLI, the VS Code extension, and Remote Control sessions via browser or smartphone. Use this when you need continued high-volume API access mid-session after hitting your standard plan limit. Additional usage is billed at the standard overage rate for your plan and appears as a separate line item on your monthly invoice.",
-      "_hash": "09f3c321dcdf"
+      "description_en": "Opens a dialog that lets you enable additional API usage beyond your plan's standard monthly limit. Once enabled, features like /fast become immediately available without waiting for the next billing cycle. The dialog is accessible from VS Code and Remote Control (browser and smartphone) sessions as well as the standard CLI.",
+      "_hash": "4e742e24626f"
     },
     {
       "id": "slash-rewind",
@@ -1042,11 +1042,11 @@
       "description_ja": "ピッカーで任意のポイントを選択して会話を巻き戻し、コード変更も元に戻せる。/undo はエイリアス。VS Code では Esc×2 でも起動可能。",
       "examples": [
         {
-          "title": "Rewind picker",
+          "title": "Open rewind picker",
           "code": "/rewind"
         },
         {
-          "title": "Alias",
+          "title": "Use alias",
           "code": "/undo"
         }
       ],
@@ -1060,8 +1060,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Open a picker to rewind the conversation to any selected earlier point and undo all code changes made since then.",
-      "description_en": "Opens an interactive picker that lets you select any earlier turn in the conversation history as a rewind target. Rewinding restores the session state to the selected point and also undoes all file system changes that Claude made after that turn, providing a complete rollback. The /undo command is a full alias with identical behavior. In VS Code, pressing Esc twice also opens the rewind picker as a convenient shortcut. Use this to safely recover from a wrong direction without manually reverting file changes.",
-      "_hash": "9aea6395b476"
+      "description_en": "Opens an interactive picker that lets you select any earlier turn in the conversation history as a rewind point. After selecting a turn, the conversation is rolled back to that point and all code changes made since then are undone. The alias /undo does the same thing. In VS Code, pressing Esc twice also opens the rewind picker.",
+      "_hash": "21cc1a306727"
     },
     {
       "id": "slash-upgrade",
@@ -1087,8 +1087,8 @@
         "slash-extra-usage"
       ],
       "summary_en": "Open the Claude Max plan upgrade dialog to smoothly switch to a higher subscription tier with more generous limits.",
-      "description_en": "Opens an in-session dialog for upgrading to the Claude Max plan, which provides higher rate limits and additional features. The command is automatically hidden when the current authentication configuration does not support plan changes — for example when using API key authentication or an enterprise SSO setup. It may also be proactively suggested when you hit rate limits during an active session. Use this for a seamless upgrade without needing to leave Claude Code and visit the website. After upgrading, the new plan limits take effect immediately in the current session without requiring a restart or re-login.",
-      "_hash": "14076789a27b"
+      "description_en": "Opens an in-session dialog for upgrading to the Claude Max plan, which provides higher rate limits and access to additional features. The dialog is automatically hidden when it is not applicable to the current authentication configuration. Claude Code may suggest this command when you are rate-limited on your current plan.",
+      "_hash": "dbc43fa4d3d7"
     },
     {
       "id": "slash-exit",
@@ -1114,8 +1114,8 @@
         "slash-resume"
       ],
       "summary_en": "End the current session and reliably archive it, ensuring all conversation data and tool logs are saved before closing.",
-      "description_en": "Ends the current session and archives it, ensuring all conversation history, tool call logs, and session metadata are reliably saved before the process exits. Can also be triggered remotely from a browser or smartphone via Remote Control. Prefer this command over force-quitting the terminal process to avoid any risk of session data loss or corruption. The archived session can be resumed later at any time using /resume. Sessions exited with this command appear in the /resume session list with their full conversation history preserved and ready to continue.",
-      "_hash": "1e375bc84785"
+      "description_en": "Ends the current session and archives it, ensuring all conversation history, tool call logs, and session metadata are saved reliably. Can be executed from Remote Control sessions (browser or smartphone) as well as from the CLI. Use this instead of closing the terminal abruptly to ensure the session is properly archived for later retrieval with /resume.",
+      "_hash": "b6e0be2db33d"
     },
     {
       "id": "slash-export",
@@ -1146,8 +1146,8 @@
         "slash-resume"
       ],
       "summary_en": "Export the current conversation transcript to an external file, optionally specifying a custom path for sharing or archiving.",
-      "description_en": "Writes the current conversation transcript to an external file. Accepts absolute paths, relative paths, and the tilde (~) home directory shorthand. After writing, the command displays the complete resolved path of the created file for confirmation. Use this to share conversation logs with colleagues who were not part of the session, to archive important sessions for future reference, or to post-process the transcript with external text analysis or formatting tools. The exported file is a plain text transcript that can be version-controlled, shared via email, or imported into documentation tools for further processing.",
-      "_hash": "8477a405e2b9"
+      "description_en": "Writes the current conversation transcript to an external file. Accepts absolute paths, paths starting with ~, and relative paths. The full resolved path of the output file is displayed on completion. Use this to share a conversation with a teammate, archive a problem-solving session for documentation, or post it to an issue tracker.",
+      "_hash": "2198c91c1dad"
     },
     {
       "id": "slash-ultrareview",
@@ -1161,7 +1161,7 @@
           "code": "/ultrareview"
         },
         {
-          "title": "Review specific PR",
+          "title": "Review a specific PR",
           "code": "/ultrareview 123"
         }
       ],
@@ -1178,8 +1178,8 @@
         "slash-security-review"
       ],
       "summary_en": "Run a comprehensive cloud-based multi-agent parallel code review on the current branch or a specified GitHub pull request.",
-      "description_en": "Launches multiple specialized review agents in parallel in the cloud to perform a comprehensive, multi-perspective code review. Without arguments, it reviews the current branch's diff; providing a number targets that specific GitHub pull request. Non-interactive execution is supported via the claude ultrareview subcommand for use in CI pipelines without an interactive session. Delivers significantly more thorough coverage than a single-agent review by distributing the analysis work across several agents simultaneously. Results from the parallel agents are consolidated into a single structured report that combines all their findings without duplication.",
-      "_hash": "4a8479942da3"
+      "description_en": "Launches multiple specialized review agents in parallel in the cloud to perform a comprehensive, multi-perspective code review. Run without arguments to review the current branch; pass a PR number to target a specific GitHub pull request. Can also be run non-interactively from CI with `claude ultrareview`. The parallel agent architecture covers more ground than a single-pass review.",
+      "_hash": "7b7ac3ae6aac"
     },
     {
       "id": "slash-plan",
@@ -1210,8 +1210,8 @@
         "agent-plan"
       ],
       "summary_en": "Activate read-only plan mode directly via a slash command, optionally passing an inline task description to start planning immediately.",
-      "description_en": "Enables plan mode — a read-only mode where Claude outlines what it would do without making any actual changes — directly from a slash command. Passing an inline description such as /plan fix authentication bug immediately starts planning that specific task. The Shift+Tab keyboard shortcut is an alternative for toggling plan mode during normal interaction. Use this at the beginning of a complex task to review and agree on Claude's intended approach before any code is written or files are modified.",
-      "_hash": "88ce1d7b97d9"
+      "description_en": "Enables plan mode — a read-only mode where Claude outlines what it would do without making any actual file changes. Pass a description as an argument (e.g., /plan fix auth bug) to start planning that specific task immediately. Plan mode can also be toggled with Shift+Tab. Use this to review the proposed approach before committing to any changes.",
+      "_hash": "43d2089ba57d"
     },
     {
       "id": "slash-tasks",
@@ -1238,8 +1238,8 @@
         "slash-agents"
       ],
       "summary_en": "Open a dialog to view and manage the status of all background tasks and their associated remote session URLs.",
-      "description_en": "Opens a management dialog for monitoring background tasks running in the current session. If only one task is currently active, the dialog navigates directly to that task's detail view rather than showing a list. Task metadata such as start time, progress, current status, and remote session URLs are all visible from this view. Use this command to keep track of long-running background agents without interrupting your ongoing foreground work or losing visibility into parallel operations. From the task detail view you can also cancel a running background agent if it is no longer needed, freeing up resources for other work.",
-      "_hash": "5232eed29fcb"
+      "description_en": "Opens a management dialog for monitoring background tasks running in the current session. If only one task is active, the dialog navigates directly to the task detail view. Use this to check progress, view remote session URLs, and manage tasks launched by /bg or the Task tool.",
+      "_hash": "47ea4a28f104"
     },
     {
       "id": "slash-btw",
@@ -1263,8 +1263,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Inject a side question into the conversation by typing /btw followed by the question while Claude is still generating a response.",
-      "description_en": "Lets you type /btw followed by a question while Claude is actively generating a response, inserting the side question into the conversation queue without aborting the current response in progress. Any text you paste along with the /btw command is also captured and processed as part of the side question. This allows you to resolve a quick secondary concern in parallel rather than waiting for the main response to complete before asking your follow-up. Side questions asked with /btw do not interrupt the main response stream, so both the original answer and the side question answer appear in the transcript.",
-      "_hash": "2245ad52c1ac"
+      "description_en": "Lets you type /btw followed by a question while Claude is actively generating a response, inserting the question as a side query without interrupting the main response. Pasted text is also processed correctly. This is useful when a thought occurs to you mid-response and you want it addressed without waiting for Claude to finish its current output.",
+      "_hash": "fed11c91b8bf"
     },
     {
       "id": "slash-insights",
@@ -1291,8 +1291,8 @@
         "slash-usage"
       ],
       "summary_en": "Analyze the complete session history including all tool calls and generate a structured insights report linked in the transcript.",
-      "description_en": "Analyzes the complete current session history — including every tool call, file read, and conversation turn — and generates a structured insights report. Upon completion, returns a clickable link to the report file within the transcript. Use this for session retrospectives to understand what was accomplished, to create a shareable summary of a complex debugging or design session, or to maintain a running log of work done across long multi-day projects. The insights report is saved to a local file so it persists after the session ends and can be reviewed or shared at any later time.",
-      "_hash": "69345d7766df"
+      "description_en": "Analyzes the complete current session history — including every tool call, file read, and conversation turn — and generates a structured insights report. A link to the report file is returned in the transcript. Use this at the end of a long session to create a record of what was explored and decided, or to share a summary of the work done.",
+      "_hash": "d0d136dc71ba"
     },
     {
       "id": "slash-release-notes",
@@ -1316,8 +1316,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Browse Claude Code release notes interactively for any past version using a version picker, available from v2.1.92 onward.",
-      "description_en": "Lets you browse the release notes for any past version of Claude Code using an interactive version picker, available from v2.1.92 onward. Select any version from the most recent downward to view the full changelog and feature descriptions for that release. Useful for quickly understanding what changed after an automatic update, for finding when a specific feature was introduced, or for checking whether a bug you experienced has been fixed in a newer release. The release notes viewer also shows the date of each release, making it easy to correlate version numbers with specific feature arrivals or bug fixes.",
-      "_hash": "13e86a0bba6a"
+      "description_en": "Lets you browse the release notes for any past version of Claude Code using an interactive version picker, introduced in v2.1.92. Select any version from the list to read its full update content. Use this to catch up on changes after an update or to verify when a specific feature was introduced.",
+      "_hash": "60ef575bf358"
     },
     {
       "id": "slash-keybindings",
@@ -1343,8 +1343,8 @@
         "misc-keybindings"
       ],
       "summary_en": "Show the setup guide for creating custom keyboard shortcuts and chord bindings in Claude Code, added in v2.1.18.",
-      "description_en": "Displays a comprehensive setup guide for creating and managing custom keyboard shortcuts in Claude Code, added in v2.1.18. Covers how to configure per-context keybindings for different parts of the interface, how to define multi-key chord sequences, and how to edit the ~/.claude/keybindings.json configuration file directly. After reading the guide, update your keybindings file with a text editor and reload Claude Code for the new shortcuts to take effect. Changes to keybindings.json take effect the next time Claude Code starts, so apply the changes and then restart to activate the new shortcuts.",
-      "_hash": "f7c481581017"
+      "description_en": "Displays a comprehensive setup guide for creating and managing custom keyboard shortcuts in Claude Code, added in v2.1.18. Covers context-specific key bindings, how to create chord sequences (multi-key shortcuts), and instructions for editing the ~/.claude/keybindings.json configuration file. Use this as a starting point when customizing your keyboard workflow.",
+      "_hash": "03de8ec79ae2"
     },
     {
       "id": "slash-sandbox",
@@ -1368,8 +1368,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "View sandbox environment status and check dependency installation progress using a navigable tabbed dialog interface.",
-      "description_en": "Displays a tabbed dialog showing the current status of the sandbox execution environment. The Dependencies tab lists the installation status of all required packages and provides step-by-step instructions for resolving any missing dependencies. Navigate between tabs using the Tab key or arrow keys. Use this command before running code in the sandbox environment to verify that all prerequisites are correctly installed, or to diagnose sandbox-related failures that prevent code execution from succeeding. If a required dependency is missing, the Dependencies tab provides the exact install command to run so you can resolve the issue without leaving Claude Code.",
-      "_hash": "c7345d2d9ef1"
+      "description_en": "Displays a tabbed dialog showing the current status of the sandbox execution environment. The Dependencies tab lists which dependencies have been installed and provides instructions for installing additional ones. Navigate between tabs using the Tab key or arrow keys. Use this when a sandbox command fails due to a missing dependency.",
+      "_hash": "7d6b3602a36c"
     },
     {
       "id": "slash-claude-api",
@@ -1395,8 +1395,8 @@
         "skill-overview"
       ],
       "summary_en": "Launch the built-in skill that provides expert guidance for building applications with the Claude API and Anthropic SDK.",
-      "description_en": "Launches a built-in skill added in v2.1.69 that provides expert guidance for building applications using the Claude API and the Anthropic SDK. Covers Managed Agents architecture, agent design patterns, tool schema design, context window management, and prompt caching strategies for cost optimization. Use this skill when starting a new Claude-powered application from scratch or when optimizing an existing API integration for performance, reliability, and cost efficiency. The skill is context-aware and adjusts its guidance based on the specific SDK usage patterns it detects in the current project files.",
-      "_hash": "243957b9ebc0"
+      "description_en": "Launches a built-in skill added in v2.1.69 that provides expert guidance for building applications using the Claude API and Anthropic SDK. Covers Managed Agents, agent design patterns, tool design, context management, and caching strategies. Use this when starting a new Claude API project or when you need guidance on advanced SDK features.",
+      "_hash": "969b592ccedd"
     },
     {
       "id": "slash-debug",
@@ -1422,8 +1422,8 @@
         "slash-doctor"
       ],
       "summary_en": "Toggle debug logging on or off mid-session without restarting to capture detailed diagnostic information for troubleshooting problems.",
-      "description_en": "Toggles debug logging on or off during the current session without requiring a restart, added in v2.1.30 and updated in v2.1.71. Debug logs are disabled by default to reduce noise in normal operation. Enabling them captures detailed internal information about tool calls, context management, and API interactions — useful for diagnosing unexpected behaviors. Also supports Claude-assisted session diagnostics where Claude analyzes the generated logs and suggests potential root causes. Debug logs are automatically cleared when you toggle debug mode off, so you only capture the log window relevant to the current investigation.",
-      "_hash": "9f1e190dd75a"
+      "description_en": "Toggles debug logging on or off during the current session without requiring a restart, added in v2.1.30 and updated in v2.1.71. Debug logs are not recorded by default. Enabling them captures detailed internal diagnostic information useful for troubleshooting unexpected behavior. Claude can also perform session diagnostics when debug mode is active.",
+      "_hash": "31b22fe0e096"
     },
     {
       "id": "slash-todos",
@@ -1449,8 +1449,8 @@
         "tool-todowrite"
       ],
       "summary_en": "Display an overlay panel listing all current session TODO items with their pending, in-progress, and completed progress states.",
-      "description_en": "Shows an overlay that lists all TODO items recorded by the TodoWrite tool in the current session, added in v1.0.94. Each item displays its current progress state: pending, in_progress, or completed. Use this to quickly review the overall task completion status and see exactly what remains without needing to scroll through the full conversation transcript to find individual TodoWrite tool calls. Pairs naturally with the /goal command for tracking multi-turn automated tasks. The TODO list is a session-scoped data structure maintained by Claude; you cannot manually edit it outside of asking Claude to update specific items.",
-      "_hash": "9187e24955f0"
+      "description_en": "Shows an overlay that lists all TODO items recorded by the TodoWrite tool in the current session, added in v1.0.94. Each item displays its current progress state: pending, in-progress, or completed. Use this to get a quick view of remaining work and overall task progress during a complex multi-step session.",
+      "_hash": "ec21b31a77dc"
     },
     {
       "id": "slash-recap",
@@ -1477,8 +1477,8 @@
         "slash-compact"
       ],
       "summary_en": "Show a concise summary of recent work context when returning to a session after an absence, added in v2.1.108.",
-      "description_en": "Provides a concise recap of recent work context when you return to a session after stepping away, added in v2.1.108. Auto-display on session return can be enabled via /config so the recap appears automatically without manually running the command. When telemetry is disabled, set the CLAUDE_CODE_ENABLE_AWAY_SUMMARY environment variable to force-enable the feature. Particularly helpful during multi-day work on a complex feature when you need to quickly re-orient before continuing. The recap is generated from the actual session content rather than a fixed template, so it accurately reflects what was actually worked on during the session.",
-      "_hash": "6207e0389d4f"
+      "description_en": "Provides a concise recap of recent work context when you return to a session after stepping away, added in v2.1.108. Automatic display of the recap on session resume can be configured via /config. When telemetry is disabled, set the CLAUDE_CODE_ENABLE_AWAY_SUMMARY environment variable to force the recap feature on.",
+      "_hash": "1756d5617b4b"
     },
     {
       "id": "slash-less-permission-prompts",
@@ -1505,8 +1505,8 @@
         "file-settings-json"
       ],
       "summary_en": "Scan past session transcripts to detect safe read-only patterns and suggest a prioritized allowlist to reduce repetitive permission prompts.",
-      "description_en": "A skill added in v2.1.111 that scans past session transcripts to identify frequently approved read-only Bash commands and MCP tool call patterns. Generates a prioritized allowlist proposal for .claude/settings.json so these calls are automatically permitted in future sessions without prompting. Use this to significantly reduce permission prompt fatigue during normal development workflows, while still requiring explicit approval for write operations and destructive commands. Review the proposed allowlist before accepting, as some tool calls that appear safe in isolation may require confirmation in sensitive deployment contexts.",
-      "_hash": "1a1ed7950c71"
+      "description_en": "A skill added in v2.1.111 that scans past session transcripts to identify frequently approved read-only Bash and MCP tool call patterns. It then generates a prioritized allowlist for the .claude/settings.json file, reducing repetitive permission prompts for operations Claude already has your implicit approval to perform.",
+      "_hash": "cb2097c78ed0"
     },
     {
       "id": "slash-setup-bedrock",
@@ -1516,7 +1516,7 @@
       "description_ja": "Amazon Bedrock 経由でClaudeを利用するための設定を対話形式で実施（v2.1.111改善）。CLAUDE_CONFIG_DIR 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1Mコンテキストオプションも提示。/setup-vertex も同様。",
       "examples": [
         {
-          "title": "Set up Bedrock",
+          "title": "Configure Bedrock",
           "code": "/setup-bedrock"
         }
       ],
@@ -1530,8 +1530,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Interactively configure Claude access through Amazon Bedrock with guided model selection and optional 1M context token settings.",
-      "description_en": "Interactively configures Claude access via Amazon Bedrock through a guided setup flow, improved in v2.1.111. Displays the actual configuration file path when CLAUDE_CONFIG_DIR is set, suggests model candidates based on existing configuration pins, and presents the 1M context token option for models that support it. A similar /setup-vertex command handles Google Cloud Vertex AI configuration. Use this for enterprise or regulated deployments where Claude traffic must route through AWS infrastructure. After completing the setup, verify the configuration by running /mcp to confirm the Bedrock connection appears with the expected tool count.",
-      "_hash": "068f8ad9ffd5"
+      "description_en": "Interactively configures Claude access via Amazon Bedrock through a guided setup flow, improved in v2.1.111. When CLAUDE_CONFIG_DIR is set, the actual config path is displayed instead of a generic placeholder. Model candidates are suggested from existing pins, and models that support 1M context windows offer that as an option during setup. The companion command /setup-vertex provides the same flow for Google Vertex AI.",
+      "_hash": "303eb7fb22bd"
     },
     {
       "id": "slash-fast",
@@ -1558,8 +1558,8 @@
         "slash-extra-usage"
       ],
       "summary_en": "Toggle Fast Mode for Claude Opus 4.6 to get quicker, lower-latency responses when speed is the priority over depth.",
-      "description_en": "Turns Fast Mode on or off for the Claude Opus 4.6 model, which provides quicker response generation at the cost of some reasoning depth. Fast Mode is not available when using third-party API providers — those environments display 'not available' when you attempt to enable it. The mode becomes immediately usable after enabling /extra-usage, which was fixed in v2.1.37 to correctly unblock the feature. Use Fast Mode for routine tasks where response latency matters more than exhaustive analysis. Fast Mode and standard mode can be toggled freely mid-session, so you can switch to standard mode for complex tasks and back to fast mode for quick queries.",
-      "_hash": "5f1359ef09e4"
+      "description_en": "Turns Fast Mode on or off for the Claude Opus 4.6 model, which provides quicker response generation at lower latency. Fast Mode is not available with third-party providers and displays a 'not available' message in those configurations. After enabling additional usage via /extra-usage, Fast Mode becomes available immediately (fixed in v2.1.37).",
+      "_hash": "4c753a9cd31f"
     },
     {
       "id": "slash-focus",
@@ -1585,8 +1585,8 @@
         "slash-tui"
       ],
       "summary_en": "Toggle the focus view in the fullscreen TUI renderer, a feature added in v2.1.110 alongside a Ctrl+O key reassignment.",
-      "description_en": "Toggles the focus view on or off in the fullscreen TUI renderer (/tui fullscreen), added in v2.1.110. As part of this change, Ctrl+O was reassigned to toggle exclusively between normal and detailed views; focus view control was moved to this dedicated command. If the fullscreen renderer is not currently active when you run this command, it displays clear instructions for how to enable fullscreen mode first using /tui fullscreen. Focus view is designed for deep work sessions where you want to maximize the visible response area and minimize distracting UI chrome.",
-      "_hash": "fe3eb98801ae"
+      "description_en": "Toggles the focus view on or off in the fullscreen TUI renderer (/tui fullscreen), added in v2.1.110. The Ctrl+O shortcut was reassigned to toggle between normal and detail views, while this command now controls the focus view specifically. When the fullscreen renderer is not active, the command shows instructions for how to enable it first.",
+      "_hash": "e1bdf2322c3b"
     },
     {
       "id": "slash-team-onboarding",
@@ -1613,8 +1613,8 @@
         "file-onboarding-md"
       ],
       "summary_en": "Auto-generate a team ramp-up guide from local Claude Code usage history to help new contributors get started quickly.",
-      "description_en": "Automatically generates a ramp-up guide for new team members based on the local Claude Code usage history from past sessions, added in v2.1.101. Produces a structured document that captures project-specific command patterns, recurring workflows, and team conventions that have been observed in practice. Helps new contributors get up to speed with how the team actually uses Claude Code on the project, rather than relying on manually maintained documentation. Review and edit the generated guide before sharing it with new team members, as automatically extracted patterns may need context or clarification added.",
-      "_hash": "6ec534653e6c"
+      "description_en": "Automatically generates a ramp-up guide for new team members based on the local Claude Code usage history for the project, added in v2.1.101. The generated document captures project-specific command patterns and conventions derived from actual usage, making it a practical starting point for new contributors rather than a manually maintained wiki page.",
+      "_hash": "fa09dd33962b"
     },
     {
       "id": "slash-install-github-app",
@@ -1638,8 +1638,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Interactively install the Claude Code GitHub App to enable GitHub Actions integration and automated pull request responses.",
-      "description_en": "Guides you interactively through installing the GitHub App that integrates Claude Code with GitHub, enabling GitHub Actions-based triggers and automated pull request responses. Error handling was improved in v1.0.7 for more helpful diagnostics on failure, and the Esc key now correctly closes the dialog without errors as of v2.1.136. Use this as the first step when setting up automated PR review, issue response, or CI-integrated Claude workflows. After installation, test the integration by opening a pull request and verifying that Claude Code responds to it as configured in the GitHub Actions workflow.",
-      "_hash": "64742e069d99"
+      "description_en": "Guides you interactively through installing the GitHub App that integrates Claude Code with GitHub, enabling automated responses to pull requests and GitHub Actions workflows. Error handling was improved in v1.0.7. Press Esc to close the dialog at any time (fixed in v2.1.136). Use this when setting up Claude Code in a new repository for GitHub Actions integration.",
+      "_hash": "1d8a75969f51"
     },
     {
       "id": "slash-simplify",
@@ -1665,8 +1665,8 @@
         "slash-review"
       ],
       "summary_en": "Review recently changed code for reusability, quality, and efficiency, then automatically apply all detected fixes in a single pass.",
-      "description_en": "A bundled slash command added in v2.1.63 that reviews recently changed code for reusability, quality, and efficiency concerns and then automatically applies fixes for all detected issues in the same pass. Combines the separate review and refactoring steps into a single integrated command, eliminating the manual round-trip of reading review suggestions, deciding which to accept, and then manually applying each one. Ideal for quickly improving code quality after an initial implementation. The command focuses on the most recent git diff, so it automatically targets only the changes you have made rather than analyzing the entire codebase.",
-      "_hash": "f90eb897675d"
+      "description_en": "A bundled slash command added in v2.1.63 that reviews recently changed code for reusability, quality, and efficiency. After identifying issues, it applies all detected fixes in a single automated pass. This combines what would otherwise be a two-step review-then-fix workflow into one command, making it efficient to clean up code immediately after making changes.",
+      "_hash": "bc2807f6575a"
     },
     {
       "id": "slash-goal",
@@ -1676,7 +1676,7 @@
       "description_ja": "完了条件をClaudeに設定し、条件が満たされるまで複数ターンにわたって自動実行する（v2.1.139追加）。インタラクティブ・--print・Remote Control のすべてで動作。実行中は経過時間・ターン数・トークン数をオーバーレイパネルでリアルタイム表示。",
       "examples": [
         {
-          "title": "Run until tests pass",
+          "title": "Run with completion condition",
           "code": "/goal テストがすべて通るまで修正を続けて"
         }
       ],
@@ -1692,8 +1692,8 @@
         "slash-loop"
       ],
       "summary_en": "Set a completion condition and have Claude automatically iterate across multiple conversation turns until that condition is satisfied.",
-      "description_en": "Sets a completion condition for Claude, which then automatically iterates through multiple turns until the condition is met, added in v2.1.139. Works in interactive mode, --print headless mode, and Remote Control browser and phone sessions. During execution, a real-time overlay panel continuously displays elapsed time, current turn count, and cumulative token usage. Use this for autonomous tasks like 'keep fixing until all tests pass' or 'keep refactoring until the linter reports zero errors'. The goal condition is evaluated by Claude at the end of each turn, so define it as a clear, observable state rather than a vague intent.",
-      "_hash": "69b7b16ebafc"
+      "description_en": "Sets a completion condition for Claude, which then automatically iterates through multiple turns until the condition is met, added in v2.1.139. Works in interactive mode, --print mode, and Remote Control sessions. A live overlay panel shows elapsed time, turn count, and token usage in real time while the goal is being pursued.",
+      "_hash": "15977fd0dada"
     },
     {
       "id": "slash-scroll-speed",
@@ -1720,8 +1720,8 @@
         "slash-terminal-setup"
       ],
       "summary_en": "Adjust the mouse wheel scroll speed with a real-time live preview; trackpad and mouse wheel speeds are controlled independently.",
-      "description_en": "Adjusts the mouse wheel scroll speed with a real-time preview so you can immediately see the effect of each adjustment, added in v2.1.139. Addresses scroll speed issues that were reported specifically in Cursor and VS Code terminal environments. Trackpad scroll amount and mouse wheel scroll amount can be controlled independently via separate sliders, which is useful when you use both input methods and prefer different speeds for each. Your scroll speed preferences are saved to settings.json so they persist across all future Claude Code sessions without needing to be reconfigured.",
-      "_hash": "4b93d87d0654"
+      "description_en": "Adjusts the mouse wheel scroll speed with a real-time preview so you can immediately see the effect before confirming, added in v2.1.139. Addresses scroll speed issues observed in Cursor and VS Code environments. Trackpad scroll amount and mouse wheel scroll amount are controlled as separate settings, so you can tune each input device independently.",
+      "_hash": "72e7a70b35f5"
     },
     {
       "id": "slash-schedule",
@@ -1748,8 +1748,8 @@
         "slash-remote-control"
       ],
       "summary_en": "Create, list, and manage remote agents that run automatically on a cron schedule to automate recurring development tasks.",
-      "description_en": "Manages remote agents — called routines — that execute automatically on a cron schedule, introduced in v2.1.139. Requires claude.ai authentication to function and is automatically disabled when the ANTHROPIC_API_KEY environment variable is set, consistent with how Remote Control and the claude.ai MCP connector behave. Use this to automate recurring tasks such as daily code quality reviews, nightly dependency update checks, or weekly report generation without manual triggering. Scheduled routines run in isolated cloud environments and send results to your configured notification channel when they complete.",
-      "_hash": "bae371c5921e"
+      "description_en": "Manages remote agents — called routines — that execute automatically on a cron schedule, introduced in v2.1.139. Requires claude.ai authentication. When ANTHROPIC_API_KEY is set, this feature is disabled in the same way as Remote Control and the claude.ai MCP connector. Use this to automate recurring development tasks without manual intervention.",
+      "_hash": "f656d8c5d7ff"
     },
     {
       "id": "slash-ultraplan",
@@ -1776,8 +1776,8 @@
         "slash-plan"
       ],
       "summary_en": "Refine a complex plan in a dedicated cloud-based session, launched from plan mode via the 'Refine with Ultraplan' action.",
-      "description_en": "A cloud-based plan refinement capability added in v2.1.101, accessible from plan mode via the 'Refine with Ultraplan' action. Automatically provisions a default cloud environment for the refinement session and displays the remote session URL in the transcript for monitoring and sharing. Hidden automatically when the organization or authentication settings cannot reach the cloud infrastructure. Use this for complex, high-stakes plans that benefit from a dedicated, persistent cloud environment rather than a local interactive session. The cloud session used by Ultraplan runs with the same permissions as a standard session and can access the same MCP servers configured for the project.",
-      "_hash": "481443626747"
+      "description_en": "A cloud-based plan refinement capability added in v2.1.101, accessible from plan mode via the 'Refine with Ultraplan' action. Automatically provisions a default cloud environment and displays the remote session URL in the transcript. Hidden when the organization or authentication configuration cannot reach the cloud environment.",
+      "_hash": "a7560a552737"
     },
     {
       "id": "slash-powerup",
@@ -1803,8 +1803,8 @@
         "slash-help"
       ],
       "summary_en": "Launch interactive animated feature tutorials to learn Claude Code hands-on step by step, introduced in v2.1.90.",
-      "description_en": "Starts interactive lessons that teach Claude Code features through animated demonstrations, added in v2.1.90. Each lesson is hands-on rather than purely descriptive, walking you through real usage scenarios with guided practice. The progressive format builds genuine muscle memory for key workflows rather than just theoretical knowledge. Ideal for new users who want a structured guided introduction to the most important features, or for experienced users who want to discover capabilities they may have missed. The tutorial system tracks your progress, so you can pause mid-lesson and resume from the same point in a future session.",
-      "_hash": "400a85ec244a"
+      "description_en": "Starts interactive lessons that teach Claude Code features through animated demonstrations, added in v2.1.90. Each lesson is presented in a hands-on format so you can practice the feature as you learn it. Use this to get up to speed on features you have not tried yet or to explore capabilities you may have overlooked.",
+      "_hash": "3b077fa838f3"
     },
     {
       "id": "slash-teleport",
@@ -1832,8 +1832,8 @@
         "slash-resume"
       ],
       "summary_en": "Resume a previously configured remote session for claude.ai subscribers; configure the target connection first with /remote-env.",
-      "description_en": "A remote session resume command for claude.ai subscribers, added in v2.1.0. Before using this command, configure the remote connection parameters with /remote-env. After that setup step, /teleport resumes the configured remote session directly. Can be combined with Remote Control for a seamless cross-device workflow where you transition between CLI access and browser access to the same ongoing session without losing any context. If the remote session has been inactive for too long and cannot be resumed, you will need to create a new remote session via /remote-env.",
-      "_hash": "477079cd8157"
+      "description_en": "A remote session resume command for claude.ai subscribers, added in v2.1.0. Before using this command, configure the remote session target with /remote-env. Once configured, /teleport resumes the specified remote session. Can be used together with Remote Control to hand off work between devices.",
+      "_hash": "f2d57401a159"
     },
     {
       "id": "slash-remote-env",
@@ -1843,7 +1843,7 @@
       "description_ja": "claude.ai 登録者向けのリモートセッション設定コマンド（v2.1.0追加）。リモート環境のパラメータを設定し、/teleport でセッションを再開する際の接続先を定義する。",
       "examples": [
         {
-          "title": "Set remote environment",
+          "title": "Configure remote environment",
           "code": "/remote-env"
         }
       ],
@@ -1860,8 +1860,8 @@
         "slash-remote-control"
       ],
       "summary_en": "Define remote session connection parameters for claude.ai subscribers to set the endpoint used when resuming with /teleport.",
-      "description_en": "A remote session configuration command for claude.ai subscribers, added in v2.1.0. Defines the endpoint, authentication, and other connection parameters for the remote environment you want to work in. After configuring these parameters with /remote-env, use /teleport to establish and resume the configured remote session. Together, these two commands form a complete workflow for reliable remote development across different network environments and devices. Remote environment configurations are saved locally so you do not need to re-enter the parameters each time you want to teleport to the same environment.",
-      "_hash": "72033ef5c33b"
+      "description_en": "A remote session configuration command for claude.ai subscribers, added in v2.1.0. Defines the endpoint and parameters for the remote session that will be resumed with /teleport. Set the remote environment first, then use /teleport to connect to it. Designed for use alongside Remote Control for cross-device workflows.",
+      "_hash": "c80d758d7503"
     },
     {
       "id": "slash-bg",
@@ -1871,7 +1871,7 @@
       "description_ja": "バックグラウンドエージェントをコマンドまたはキーボードショートカット ←← で起動する。起動時に現在の権限モードを引き継ぐ（v2.1.141）。実行中のタスクは /tasks で確認可能。",
       "examples": [
         {
-          "title": "Launch background agent",
+          "title": "Launch in background",
           "code": "/bg"
         }
       ],
@@ -1888,8 +1888,8 @@
         "slash-agents"
       ],
       "summary_en": "Launch a background agent that inherits the current permission mode; monitor its progress at any time with /tasks.",
-      "description_en": "Launches a background agent via the /bg command or the ←← double-left-arrow keyboard shortcut. The background agent inherits the current session's permission mode at the time of launch, as of v2.1.141, ensuring it operates within the same safety boundaries as the foreground session. Running background tasks and their status can be monitored at any time using the /tasks command. Use this to offload long-running or exploratory work to a parallel agent while continuing interactive work in the foreground. Background agents report their status updates to the /tasks view in real time, so you always have visibility into what the agent is doing at any moment.",
-      "_hash": "ccb554a9b2bd"
+      "description_en": "Launches a background agent via the /bg command or the ←← double-left-arrow keyboard shortcut. The background agent inherits the current session's permission mode at the time of launch (v2.1.141). Monitor active background tasks and view their status at any time using /tasks.",
+      "_hash": "297377b5ede6"
     },
     {
       "id": "slash-setup-vertex",
@@ -1899,7 +1899,7 @@
       "description_ja": "Google Cloud Vertex AI 経由でClaudeを利用するための設定を対話形式で実施（v2.1.111改善）。CLAUDE_CONFIG_DIR 設定時は実際のパスを表示し、既存ピンからモデル候補を提案、対応モデルでは1Mコンテキストオプションも提示。",
       "examples": [
         {
-          "title": "Set up Vertex AI",
+          "title": "Configure Vertex AI",
           "code": "/setup-vertex"
         }
       ],
@@ -1915,8 +1915,8 @@
         "slash-setup-bedrock"
       ],
       "summary_en": "Interactively configure Claude access through Google Cloud Vertex AI with guided model selection and context token options.",
-      "description_en": "Interactively configures Claude access via Google Cloud Vertex AI through a guided setup flow, improved in v2.1.111. Displays the actual configuration file path when CLAUDE_CONFIG_DIR is set, suggests model candidates based on existing configuration pins, and presents the 1M context token option for models that support it. Use this for enterprise or regulated deployments where Claude API traffic must route through Google Cloud infrastructure rather than Anthropic's endpoints directly. After setup, run /mcp to verify that the Vertex AI connection is active and all expected tools have been registered successfully.",
-      "_hash": "8cdcd664ab0d"
+      "description_en": "Interactively configures Claude access via Google Cloud Vertex AI through a guided setup flow, improved in v2.1.111. When CLAUDE_CONFIG_DIR is set, the actual config path is shown. Model candidates are suggested from existing pins, and models supporting 1M context windows offer that as an option during setup. The companion command /setup-bedrock provides the same guided flow for Amazon Bedrock.",
+      "_hash": "3684b02880cb"
     },
     {
       "id": "slash-chrome",
@@ -1926,7 +1926,7 @@
       "description_ja": "Claude in Chrome拡張機能（claude.ai/chrome）と連携し、ブラウザを直接Claude Codeから操作できるベータ機能（v2.0.72追加）。認証設定によっては非表示になる場合がある。",
       "examples": [
         {
-          "title": "Chrome integration",
+          "title": "Connect Chrome",
           "code": "/chrome"
         }
       ],
@@ -1940,8 +1940,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Control your Chrome browser directly from Claude Code via the Claude in Chrome extension (Beta).",
-      "description_en": "Integrates with the Claude in Chrome extension (claude.ai/chrome) to let you operate your browser directly from Claude Code. This beta feature was added in v2.0.72. The command may be hidden depending on your authentication configuration. Once connected, Claude can interact with browser content, enabling web-based workflows without switching contexts.",
-      "_hash": "6379f9e29679"
+      "description_en": "Integrates with the Claude in Chrome extension (claude.ai/chrome) to let you operate your browser directly from Claude Code, added as a beta feature in v2.0.72. This enables browser automation workflows without leaving the terminal. May be hidden depending on the current authentication configuration.",
+      "_hash": "12af9e456cca"
     },
     {
       "id": "slash-commit-push-pr",
@@ -1968,8 +1968,8 @@
         "slash-review"
       ],
       "summary_en": "Run git commit, push, and pull request creation in one bundled command, with optional Slack notification.",
-      "description_en": "A bundled skill that executes git commit, push, and pull request creation in a single step. When Slack is configured via MCP, the PR URL is automatically posted to the designated Slack channel (behavior updated in v2.1.20). This eliminates the need to run multiple commands manually and ensures the PR link is immediately shared with the team upon creation.",
-      "_hash": "3f7e38d241fb"
+      "description_en": "A bundled skill that executes git commit, push, and pull request creation in a single step. When Slack is configured via MCP, the PR URL is automatically posted to the configured Slack channel (behavior changed in v2.1.20). Use this to streamline the common end-of-task workflow of committing work and opening a PR for review.",
+      "_hash": "89085f91210e"
     },
     {
       "id": "slash-web-setup",
@@ -1979,7 +1979,7 @@
       "description_ja": "Claude Code とGitHub AppのWeb接続を設定するダイアログ（v2.1.136追加）。既存の接続を上書きする前に警告を表示する（v2.1.142）。Escキーでダイアログを閉じられる。",
       "examples": [
         {
-          "title": "Web connection setup",
+          "title": "Configure web connection",
           "code": "/web-setup"
         }
       ],
@@ -1994,9 +1994,34 @@
       "related": [
         "slash-install-github-app"
       ],
-      "summary_en": "Configure the GitHub App Web connection for Claude Code through an interactive setup dialog.",
-      "description_en": "Opens an interactive dialog to set up the Web connection between Claude Code and the GitHub App, added in v2.1.136. Before overwriting any existing connection, a confirmation warning is displayed to prevent accidental overwrites (v2.1.142). The dialog can be dismissed at any time with the Esc key, leaving existing settings unchanged.",
-      "_hash": "4dca03d3e010"
+      "summary_en": "Configure the GitHub App Web connection for Claude Code through an interactive guided setup dialog, with overwrite protection added in v2.1.142.",
+      "description_en": "Opens an interactive dialog to set up the Web connection between Claude Code and the GitHub App, added in v2.1.136. Displays a warning before overwriting an existing connection (v2.1.142). Press Esc to close the dialog without making changes. Use this when setting up or reconfiguring the GitHub App web integration.",
+      "_hash": "151ac9fab5ba"
+    },
+    {
+      "id": "slash-update",
+      "name": "/update",
+      "category": "slash-command",
+      "summary_ja": "Claude Codeをセッション内から最新版に更新",
+      "description_ja": "セッション内から Claude Code を最新バージョンに更新するコマンド。`claude update` CLI サブコマンドと同等の更新を対話セッションから実行可能。worktree 内セッションでも動作（v2.1.116 修正）。`DISABLE_UPDATES` 環境変数で全更新パスを無効化可能。",
+      "examples": [
+        {
+          "title": "Run update",
+          "code": "/update"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 1,
+      "tier": "free",
+      "related": [],
+      "summary_en": "Update Claude Code to the latest version from within an active interactive session without restarting first.",
+      "description_en": "Updates Claude Code to the latest version from within an active interactive session, equivalent to running the `claude update` CLI subcommand. Works inside worktree sessions as well (fixed in v2.1.116). Set the DISABLE_UPDATES environment variable to disable all update paths, including this command, for managed deployments that control updates externally.",
+      "_hash": "02533669ffb9"
     },
     {
       "id": "tool-bash",
@@ -2020,8 +2045,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Execute shell commands including package installs, git operations, and build scripts, with a configurable timeout up to 10 minutes.",
-      "description_en": "Executes arbitrary commands in the shell environment with full access to the terminal. Use this for package installation with npm, pip, or other managers, git operations, running build scripts, executing test suites, or any other interaction with the operating system. A configurable timeout supports long-running commands up to a maximum of 10 minutes. This is one of the most frequently used tools in Claude Code, enabling direct interaction with the development toolchain and surrounding infrastructure. Background processes started with Bash will be terminated when the session ends, so use persistent services or background scripts with care.",
-      "_hash": "5ddb9d01110a"
+      "description_en": "Executes arbitrary commands in the shell environment with full access to the terminal. Use this for npm install, git operations, build commands, test runners, and any other shell interaction. A timeout can be specified up to a maximum of ten minutes for long-running processes. The shell state does not persist between separate Bash tool calls.",
+      "_hash": "ed08c2f86f2b"
     },
     {
       "id": "tool-read",
@@ -2048,8 +2073,8 @@
         "tool-edit"
       ],
       "summary_en": "Read file contents with line numbers and optional offset and limit; supports text files, PDFs, images, and Jupyter notebooks.",
-      "description_en": "Reads the contents of a file and returns them with line numbers prepended to each line for easy reference. Supports plain text files, PDFs, images for visual understanding, and Jupyter notebooks with all their cell types. Large files can be read in sections by specifying offset and limit parameters. Always use Read before editing a file to ensure you have the current contents and can construct precise old_string values for Edit operations. When reading very large files, use the offset and limit parameters to read only the relevant section, which reduces token consumption significantly.",
-      "_hash": "c0d3b279be75"
+      "description_en": "Reads the contents of a file and returns them with line numbers prepended to each line for easy reference. Supports text files, PDFs, images (displayed visually), and Jupyter notebooks. Use the offset and limit parameters to read only a specific portion of a large file rather than fetching the entire content at once.",
+      "_hash": "8eac4ff7818d"
     },
     {
       "id": "tool-write",
@@ -2076,8 +2101,8 @@
         "tool-edit"
       ],
       "summary_en": "Create a new file or completely overwrite an existing one; a prior Read is required if the target file already exists.",
-      "description_en": "Creates a new file or completely overwrites an existing file in the local filesystem with the provided content. If the target file already exists, a prior Read call is required before using Write to ensure the operation is intentional and accurate. For making targeted changes to specific sections of an existing file, prefer Edit or MultiEdit, which are more efficient because they only transmit the changed portions rather than the entire file content. Write creates the full directory path to the target file if any intermediate directories do not exist, so you do not need to create directories separately.",
-      "_hash": "d425a01fd1f9"
+      "description_en": "Creates a new file or completely overwrites an existing file in the local filesystem with the provided content. When overwriting an existing file, a prior Read of that file is required to confirm awareness of its contents. For targeted changes to existing files, prefer the Edit or MultiEdit tools, which transmit only the diff rather than rewriting the entire file.",
+      "_hash": "a47d9d2d3ab7"
     },
     {
       "id": "tool-edit",
@@ -2104,8 +2129,8 @@
         "tool-write"
       ],
       "summary_en": "Perform a targeted string replacement in an existing file, transmitting only the diff for efficiency over the full file.",
-      "description_en": "Performs a precise targeted string replacement in a file using old_string and new_string parameters. Only the diff is transmitted rather than the entire file, making this significantly more efficient than Write for partial edits, especially in large files. The old_string must appear exactly once in the file to avoid ambiguous matches — provide additional surrounding context lines if needed to make the match unique. For multiple replacements in the same file, use MultiEdit for atomicity. If old_string does not match exactly, Edit returns an error describing the mismatch, making it safe to use without risk of silently corrupting the file.",
-      "_hash": "4c96a8b612c0"
+      "description_en": "Performs a precise targeted string replacement in a file using old_string and new_string parameters. Only the diff is transmitted, making it significantly more efficient than rewriting the entire file with Write. The old_string must match exactly and must be unique within the file to ensure the correct location is edited. For multiple edits to the same file, use MultiEdit.",
+      "_hash": "07c1e6dc5cae"
     },
     {
       "id": "tool-multiedit",
@@ -2131,8 +2156,8 @@
         "tool-edit"
       ],
       "summary_en": "Apply multiple targeted Edit operations to a single file atomically; all changes roll back if any individual edit fails.",
-      "description_en": "Applies multiple Edit operations to a single file in a single atomic transaction. If any one edit in the batch fails — for example because its old_string is not found or is ambiguous — all other edits in the same call are rolled back, leaving the file in its original state. Use this when you need to make several related but independent changes to the same file and want to guarantee they either all succeed together or all fail cleanly without partial modifications.",
-      "_hash": "b509460ad230"
+      "description_en": "Applies multiple Edit operations to a single file in a single atomic transaction. If any one edit in the batch fails — for example due to a non-unique match string — all edits in the batch are rolled back, leaving the file unchanged. Use this when making several related changes to the same file to reduce round trips and ensure consistency.",
+      "_hash": "5d245c73c1eb"
     },
     {
       "id": "tool-glob",
@@ -2142,7 +2167,7 @@
       "description_ja": "ワイルドカードパターン（src/**/*.ts等）でファイルを高速検索。",
       "examples": [
         {
-          "title": "Search TypeScript files",
+          "title": "Search for TS files",
           "code": "Glob: src/**/*.ts"
         }
       ],
@@ -2158,8 +2183,8 @@
         "tool-grep"
       ],
       "summary_en": "Search for files matching a wildcard glob pattern such as src/**/*.ts quickly and efficiently across the entire workspace.",
-      "description_en": "Performs fast file discovery using wildcard glob patterns such as src/**/*.ts, **/*.test.js, or **/config.json. Returns a list of all matching file paths. Use this before reading or editing groups of files to discover which files exist without guessing full paths. Combine with Grep for a two-step workflow: first find files by name pattern with Glob, then search their contents with Grep to locate the exact code you need. Glob patterns follow standard Unix glob syntax and support double-star (**) for recursive matching across arbitrary directory depths.",
-      "_hash": "e04b76024cdd"
+      "description_en": "Performs fast file discovery using wildcard glob patterns such as src/**/*.ts, **/*.test.js, or **/config.*. Returns a list of matching file paths sorted by modification time. Use this when you need to find files by name pattern before reading or editing them, especially in large codebases with many directories.",
+      "_hash": "cafa646223b5"
     },
     {
       "id": "tool-grep",
@@ -2169,7 +2194,7 @@
       "description_ja": "ripgrepベースの高速検索。正規表現対応、コンテキスト行表示、ファイル種別フィルタなど多機能。",
       "examples": [
         {
-          "title": "Search function definition",
+          "title": "Search for function definition",
           "code": "Grep: \"function login\""
         }
       ],
@@ -2185,8 +2210,8 @@
         "tool-glob"
       ],
       "summary_en": "Perform full-text search with ripgrep, supporting regex patterns, context line display, and file type filters for fast results.",
-      "description_en": "Provides high-speed full-text search across the codebase using ripgrep as the underlying engine. Supports regular expressions, context line display to show code surrounding each match, and file type filtering to limit results to specific programming languages. Use this to find function definitions, variable references, error messages, import statements, or any text pattern without knowing the exact file location. Returns results quickly even in very large repositories. Grep searches are case-sensitive by default; use the -i flag in the pattern to perform a case-insensitive search when appropriate.",
-      "_hash": "ea40cb1f3403"
+      "description_en": "Provides high-speed full-text search across the codebase using ripgrep as the underlying engine. Supports regular expressions, optional context lines around each match, and file type filters to narrow the search to specific languages or extensions. Use this to find function definitions, variable usages, import statements, or any specific code pattern.",
+      "_hash": "283ef98c8583"
     },
     {
       "id": "tool-task",
@@ -2214,8 +2239,8 @@
         "agent-plan"
       ],
       "summary_en": "Launch a sub-agent in an isolated parallel execution context using types like Explore, Plan, or general-purpose.",
-      "description_en": "Launches a separate agent to execute a task in parallel with the main session. Built-in agent types include Explore for read-only code search, Plan for implementation strategy design, and general-purpose for broad multi-step work. Sub-agents run in fully isolated contexts and report their results back to the main session upon completion. Use this to parallelize research tasks, distribute independent implementation work, or run code searches without consuming the main agent's context window. Sub-agent results are returned as structured output that the main agent can parse and act on, enabling sophisticated multi-agent pipelines.",
-      "_hash": "633e8ba508b1"
+      "description_en": "Launches a separate agent to execute a task in parallel with the main session. Built-in agent types include Explore (read-only code search), Plan (implementation strategy design), and general-purpose (versatile multi-step work). Each agent runs in its own isolated context so it does not consume the main session's context window.",
+      "_hash": "babbc69aa4ce"
     },
     {
       "id": "tool-websearch",
@@ -2225,7 +2250,7 @@
       "description_ja": "最新情報を検索。日付・ドメインフィルタ対応。米国限定。",
       "examples": [
         {
-          "title": "Search latest info",
+          "title": "Search for latest info",
           "code": "WebSearch: \"Claude Code 2026\""
         }
       ],
@@ -2241,8 +2266,8 @@
         "tool-webfetch"
       ],
       "summary_en": "Search the web for current information beyond Claude's training cutoff using date and domain filters; US-only at this time.",
-      "description_en": "Searches the web for information beyond Claude's training cutoff date, providing access to current events, latest library releases, recent CVEs, and up-to-date documentation. Supports filtering results by date range to focus on recent information and by domain to restrict to authoritative sources. Currently available only for users in the United States. Use this when Claude's built-in knowledge may be outdated or when you need to verify current facts against live sources. Search results include titles, URLs, and snippets; use WebFetch on specific result URLs to retrieve the full content of a promising page.",
-      "_hash": "aa24a8ef8a95"
+      "description_en": "Searches the web for information beyond Claude's training cutoff date, providing access to current events, the latest documentation, and recently released libraries. Supports date range filters and domain-specific searches to narrow results. Currently available for US-based queries only.",
+      "_hash": "0dc0e0359978"
     },
     {
       "id": "tool-webfetch",
@@ -2268,8 +2293,8 @@
         "tool-websearch"
       ],
       "summary_en": "Fetch a URL, convert its HTML to Markdown, and return an AI-generated summary; responses are cached for 15 minutes.",
-      "description_en": "Fetches the HTML content from a specified URL, converts it to clean Markdown for readability, and returns an AI-generated summary of the content focused on the most relevant information. Results are cached for 15 minutes to avoid redundant network requests when the same URL is fetched multiple times in a session. Use this to pull in external documentation pages, API references, blog posts, or any web content as additional context for Claude to reference and reason over. WebFetch respects robots.txt and rate limits, so it may return an error for pages that explicitly block automated access.",
-      "_hash": "7eb7b9d1ff23"
+      "description_en": "Fetches the HTML content from a specified URL, converts it to clean Markdown for readability, and returns an AI-generated summary of the page content. Responses are cached for 15 minutes to avoid redundant network requests when the same URL is accessed multiple times in a session. Use this to read documentation pages, blog posts, or API references.",
+      "_hash": "e6b7af60c6ea"
     },
     {
       "id": "tool-notebookedit",
@@ -2295,8 +2320,8 @@
         "tool-edit"
       ],
       "summary_en": "Edit, add, or delete individual cells in a Jupyter Notebook .ipynb file while preserving the full notebook structure.",
-      "description_en": "Edits, adds, or deletes specific cells in a .ipynb Jupyter Notebook file. Designed for data science and machine learning workflows where code, markdown narrative, and output cells need targeted modifications without disturbing surrounding cells. Preserves the notebook's complete cell structure and all metadata, unlike Write which would replace the entire file. Use this instead of Edit or Write whenever working with Jupyter Notebooks to maintain file integrity. NotebookEdit can also insert new cells at a specified position or append them at the end, not just modify existing cells.",
-      "_hash": "e59b7de4f70d"
+      "description_en": "Edits, adds, or deletes specific cells in a .ipynb Jupyter Notebook file. Designed for data science and machine learning workflows where modifying individual cells without disrupting the notebook structure is important. Specify the cell index and the new source content, or use the delete action to remove a cell entirely.",
+      "_hash": "6bfb3edcfe6d"
     },
     {
       "id": "tool-todowrite",
@@ -2306,7 +2331,7 @@
       "description_ja": "現在のセッション内のタスク追跡。pending/in_progress/completed の3状態。複雑な作業の整理に。",
       "examples": [
         {
-          "title": "Add tasks",
+          "title": "Add task",
           "code": "TodoWrite: 認証実装、テスト追加"
         }
       ],
@@ -2320,8 +2345,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Create and manage a session task list with pending, in-progress, and completed states to track complex multi-step work.",
-      "description_en": "Creates and manages a structured task list within the current session using three progress states: pending, in_progress, and completed. Use this to organize complex multi-step work so Claude maintains a clear, explicit picture of what has been accomplished and what still remains. Task items persist for the duration of the session and are visible via the /todos command. Particularly valuable for long agentic tasks spanning many tool calls where explicit progress tracking prevents repeated or missed steps. Keeping the TODO list accurate helps Claude make better decisions about what to do next, so update it promptly when tasks are completed or new ones are identified.",
-      "_hash": "fd7bfe162bca"
+      "description_en": "Creates and manages a structured task list within the current session using three progress states: pending, in-progress, and completed. Use this to break complex multi-step tasks into trackable items and maintain a clear record of what has been done and what remains. The /todos command shows the current list in an overlay at any time.",
+      "_hash": "2424c91f51c9"
     },
     {
       "id": "tool-slashcommand",
@@ -2345,8 +2370,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "An internal tool that lets Claude programmatically invoke other slash commands during automated skill and agent execution.",
-      "description_en": "An internal tool that allows Claude to programmatically call other slash commands as part of automated skill or agent workflows. Serves as the underlying foundation for command chaining and orchestration between different Claude Code capabilities. Not typically invoked directly by users; it is used by the skill and agent execution framework to coordinate sequential or conditional command execution as part of complex multi-step automated procedures. SlashCommand is used internally by skills and orchestration frameworks; direct use in prompts is rarely necessary for end users.",
-      "_hash": "6738fb0294b1"
+      "description_en": "An internal tool that allows Claude to programmatically call other slash commands as part of automated skill or agent workflows. It serves as the foundation for skill and command composition, enabling one skill to trigger another as part of a multi-step pipeline. You do not invoke this tool directly; Claude uses it internally.",
+      "_hash": "456e5d3c6e05"
     },
     {
       "id": "hook-pretooluse",
@@ -2373,8 +2398,8 @@
         "slash-hooks"
       ],
       "summary_en": "Run a configured shell script immediately before a specific tool executes to validate, log, or block the invocation.",
-      "description_en": "Runs a configured shell script just before a tool is executed. Use the matcher field to target specific tools such as Bash or Edit. Common use cases include blocking dangerous commands like rm -rf before they are carried out, running pre-validation checks on proposed file changes to verify correctness, or logging every tool invocation to an audit trail. The hook can return a block signal with an explanatory message to prevent the targeted tool from running. If multiple PreToolUse hooks match the same tool, they are executed in the order they appear in settings.json, with each hook able to block or modify the invocation.",
-      "_hash": "cd7fead18fb8"
+      "description_en": "Runs a configured shell script just before a tool is executed. Use the matcher field to target specific tools such as Bash or Edit. The hook can inspect the tool input and return a non-zero exit code to block the tool call, making this the right place to enforce safety rules like preventing dangerous shell commands from running.",
+      "_hash": "16d4da0404a0"
     },
     {
       "id": "hook-posttooluse",
@@ -2400,8 +2425,8 @@
         "hook-pretooluse"
       ],
       "summary_en": "Run a configured shell script immediately after a specific tool executes for automatic code formatting, testing, or logging.",
-      "description_en": "Runs a configured shell script immediately after a tool finishes executing. Use the matcher field to target specific tools such as Edit or Write. Common use cases include automatically running code formatters like Prettier after file edits, triggering test suites after code changes to catch regressions immediately, and logging tool outputs to a structured audit file. The hook receives the tool's output as input so it can intelligently react to what was produced. PostToolUse hooks that run formatters or linters should be fast, since the main session waits for the hook to complete before continuing.",
-      "_hash": "9ac33fd21021"
+      "description_en": "Runs a configured shell script immediately after a tool finishes executing. Use the matcher field to target specific tools such as Edit or Write. Common use cases include running a code formatter automatically after every file edit, executing the test suite after code changes, or logging tool call results to an external system.",
+      "_hash": "2c6e421da51a"
     },
     {
       "id": "hook-stop",
@@ -2427,8 +2452,8 @@
         "hook-subagentstop"
       ],
       "summary_en": "Run a configured shell script each time Claude finishes generating a response, for completion notifications and session logging.",
-      "description_en": "Runs a configured hook script each time Claude finishes generating a response and stops producing output. Use this for completion notifications so you know when Claude is done with a long task, for writing session logs after each response, or for any post-response cleanup action. A common example is playing a notification sound or sending a desktop system notification so you can step away from the computer during long tasks and be alerted when Claude needs your attention. The Stop hook receives the full final response as JSON input, making it possible to conditionally trigger different actions based on the content of Claude's answer.",
-      "_hash": "450c9b9cebe0"
+      "description_en": "Runs a configured hook script each time Claude finishes generating a response and stops producing output. Use this for desktop completion notifications, writing session summaries to a log file, or triggering any action that should happen every time Claude finishes a turn. The hook runs after each complete response, not just at session end.",
+      "_hash": "911adba453ac"
     },
     {
       "id": "hook-subagentstop",
@@ -2454,8 +2479,8 @@
         "hook-stop"
       ],
       "summary_en": "Run a shell script when a Task-tool sub-agent completes its work, for logging results or triggering downstream processes.",
-      "description_en": "Runs a configured hook script when a sub-agent launched via the Task tool completes its execution and returns control to the main session. Use this to log sub-agent results to a file for later review, trigger downstream processing pipelines that depend on the sub-agent's output, or send targeted notifications when specific parallel work items finish. Complements the Stop hook which fires for the main agent; this hook fires specifically and only for sub-agents. Identifying which sub-agent triggered the hook is possible through the structured JSON payload passed to the hook script, which includes the agent's ID and type.",
-      "_hash": "a456937ef79b"
+      "description_en": "Runs a configured hook script when a sub-agent launched via the Task tool completes its execution and returns a result. Use this to log sub-agent results to a file, send a notification when a parallel task finishes, or chain downstream actions after a sub-agent's work is done.",
+      "_hash": "10c78930521e"
     },
     {
       "id": "hook-sessionstart",
@@ -2465,7 +2490,7 @@
       "description_ja": "Claude Code セッション開始時に走るフック。git pull や初期メッセージ表示に。",
       "examples": [
         {
-          "title": "git pull on start",
+          "title": "Run git pull",
           "code": "SessionStart: git pull"
         }
       ],
@@ -2481,8 +2506,8 @@
         "hook-sessionend"
       ],
       "summary_en": "Run a configured shell script each time a Claude Code session starts, such as running git pull or displaying a greeting.",
-      "description_en": "Runs a configured hook script each time a new Claude Code session is created and starts. Common use cases include running git pull to ensure the working tree is synchronized with the latest remote changes before work begins, displaying an initial status message or team announcement, or loading environment-specific configuration. Executes once per session creation, not on session resume. Pairs with SessionEnd for symmetric setup and teardown automation. SessionStart hooks have a short timeout, so keep the script fast and avoid long-running operations that would delay the session from becoming interactive.",
-      "_hash": "964fccc825a8"
+      "description_en": "Runs a configured hook script each time a new Claude Code session is created and starts. Common use cases include running git pull to ensure the repository is up to date, displaying a project status summary, or injecting environment-specific configuration. The hook fires once at the start of each session.",
+      "_hash": "d49823ed88d1"
     },
     {
       "id": "hook-sessionend",
@@ -2492,7 +2517,7 @@
       "description_ja": "セッション終了時に走るフック。コミット忘れ警告、サマリー出力など。",
       "examples": [
         {
-          "title": "Warn on uncommitted changes",
+          "title": "Warn about uncommitted changes",
           "code": "SessionEnd: git status check"
         }
       ],
@@ -2508,8 +2533,8 @@
         "hook-sessionstart"
       ],
       "summary_en": "Run a configured shell script each time a session ends, such as checking uncommitted changes or writing a session summary.",
-      "description_en": "Runs a configured hook script each time a Claude Code session ends. Common use cases include checking for and warning about uncommitted git changes that might be lost, writing a session summary to a log file for the team's record, or triggering cleanup scripts that should run after every work session. Pairs naturally with SessionStart for symmetric setup and teardown automation across the full session lifecycle. SessionEnd hooks run even if the session is force-quit rather than exited cleanly, providing a reliable cleanup mechanism in most cases.",
-      "_hash": "6fd1af8d33c0"
+      "description_en": "Runs a configured hook script each time a Claude Code session ends. Common use cases include checking for uncommitted changes and displaying a warning, writing a summary of the session's work to a log file, or running cleanup tasks that should happen at the end of every working session.",
+      "_hash": "641b7f03c109"
     },
     {
       "id": "hook-userpromptsubmit",
@@ -2519,7 +2544,7 @@
       "description_ja": "ユーザーがプロンプトを送信した直後に走る。入力内容を加工・追記したり、追加コンテキスト注入に使える。",
       "examples": [
         {
-          "title": "Auto-add translation hint",
+          "title": "Auto-append translation instruction",
           "code": "UserPromptSubmit: 日本語入力に英訳ヒント追加"
         }
       ],
@@ -2533,8 +2558,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Run a shell script when the user submits a prompt to transform the input or automatically inject additional runtime context.",
-      "description_en": "Runs a configured hook script immediately after the user submits a prompt and before Claude begins processing it. The hook can append additional instructions to the prompt, translate the input language, or inject dynamic runtime context such as the current git status, environment information, or relevant file contents. Use this to automatically enrich every prompt with project-specific information or to enforce a consistent prompt format and style across all user inputs in the session. The modified prompt returned by the hook replaces the original for Claude's processing, but the original user input is still recorded in the transcript for transparency.",
-      "_hash": "e04ab922c1c7"
+      "description_en": "Runs a configured hook script immediately after the user submits a prompt and before Claude begins processing it. The hook can modify the prompt content, append additional context, or inject runtime information such as the current date or environment state. Use this to automatically add standing instructions to every prompt without typing them manually.",
+      "_hash": "0c3992eda93a"
     },
     {
       "id": "hook-precompact",
@@ -2544,7 +2569,7 @@
       "description_ja": "コンテキスト圧縮が走る直前に呼ばれる。圧縮前に重要な情報を保存したい時に。",
       "examples": [
         {
-          "title": "Snapshot before compact",
+          "title": "Snapshot before compaction",
           "code": "PreCompact: dump to file"
         }
       ],
@@ -2560,8 +2585,8 @@
         "slash-compact"
       ],
       "summary_en": "Run a shell script just before context compression to preserve critical session state before it is summarized and compacted.",
-      "description_en": "Runs a configured hook script just before context compression is triggered — either manually via /compact or automatically by the system when the context window fills up. Use this to save important information before it gets summarized and potentially obscured, such as dumping the current task list, writing critical session state to a file, or snapshotting important code snippets. Ensures that essential data survives the compaction process and remains accessible after the context is compressed. The hook receives metadata about the current session including token counts and session ID, which can be used to conditionally skip saving for short sessions.",
-      "_hash": "2f9cf35ab740"
+      "description_en": "Runs a configured hook script just before context compression is triggered — either manually via /compact or automatically when the context window fills up. Use this to snapshot important session state, write a checkpoint to a file, or extract and save information that might be lost or summarized away during compression.",
+      "_hash": "e7b48d8f96a2"
     },
     {
       "id": "hook-notification",
@@ -2585,8 +2610,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Run a shell script when Claude emits a notification event such as a permission request, rate limit, or task completion.",
-      "description_en": "Runs a configured hook script when Claude emits a notification event, such as requesting user permission for a sensitive operation, hitting a rate limit, or completing a long-running background task. Use this to integrate Claude Code with native desktop notification systems for true asynchronous work. A common example is triggering a macOS system notification via osascript so you can step away from the computer and be alerted without constantly monitoring the terminal. Notification hooks are triggered before the notification is displayed to the user, so the hook can also be used to suppress or redirect certain notification types.",
-      "_hash": "86b49cbd429a"
+      "description_en": "Runs a configured hook script when Claude emits a notification event, such as requesting user permission to execute a tool, hitting a rate limit, or completing a long-running background task. Use this to forward notifications to a desktop notification system so you are alerted even when not actively watching the terminal.",
+      "_hash": "9e98fb1f8a2c"
     },
     {
       "id": "mode-plan",
@@ -2612,8 +2637,8 @@
         "agent-plan"
       ],
       "summary_en": "A read-only planning mode where Claude outlines what it would do without making any changes; toggle it with Shift+Tab.",
-      "description_en": "Toggle with Shift+Tab to enter a read-only planning mode where Claude only proposes the steps it would take — reading files, outlining changes, and describing its approach — without actually writing code or modifying the filesystem. Ideal for reviewing Claude's intended implementation plan before committing to it. Use this at the start of a complex task to catch architectural misunderstandings or scope disagreements early, before any actual changes are made that would need to be reversed. While in plan mode, Claude can still read files and search the codebase, but any write or shell-execution requests are rejected with a clear explanation.",
-      "_hash": "6078acaa836d"
+      "description_en": "Toggle with Shift+Tab to enter a read-only planning mode where Claude only proposes the steps it would take and the changes it would make, without actually writing any code or modifying any files. Use this to review and validate the proposed approach before committing to implementation. Particularly useful for complex refactors or changes that touch many files.",
+      "_hash": "40adb95f2fa6"
     },
     {
       "id": "mode-permission",
@@ -2639,8 +2664,8 @@
         "mode-plan"
       ],
       "summary_en": "Select from four tool confirmation modes — default, acceptEdits, bypassPermissions, or plan — to balance safety and productivity.",
-      "description_en": "Four modes control how Claude handles tool execution confirmation: default requires explicit confirmation for each tool call, acceptEdits automatically approves all file edits without prompting, bypassPermissions runs all tools fully automatically without any confirmation, and plan allows only read-only operations. Choose the mode that best balances safety and productivity for your current task and risk tolerance. Use acceptEdits for rapid iteration and default for production-sensitive changes. Use bypassPermissions with caution and only in trusted environments, as it removes all safeguards and allows Claude to modify or delete files without confirmation.",
-      "_hash": "b56b429d5d6e"
+      "description_en": "Four modes control how Claude handles tool execution confirmation: default requires explicit confirmation for most tool calls; acceptEdits automatically approves file edit operations while still prompting for shell commands; bypassPermissions skips all confirmations for fully automated workflows; and plan is a read-only mode where no changes can be made. Choose the mode that matches your current task's risk tolerance.",
+      "_hash": "c84d0fcb791c"
     },
     {
       "id": "mode-output-style",
@@ -2664,8 +2689,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Customize Claude's response tone and format using built-in presets such as concise mode or educational mode for different needs.",
-      "description_en": "Adjusts Claude's response tone, verbosity, and format to match your working style. Available presets include concise mode for brief, direct answers optimized for rapid iteration, and educational mode for detailed explanations with background context suitable for learning. Use this to tailor how Claude communicates to fit the situation — terse answers during intensive debugging, or thorough explanations when onboarding a new team member to the codebase. Output style preferences can also be set in CLAUDE.md to apply a specific style automatically for all sessions within a project.",
-      "_hash": "e778e4dd18b5"
+      "description_en": "Adjusts Claude's response tone, verbosity, and format to match your working style. Available presets include concise mode for brief answers, educational mode for step-by-step explanations, and others. These act as persistent style modifiers applied to all responses in the session until changed.",
+      "_hash": "5be98aa236f7"
     },
     {
       "id": "mode-headless",
@@ -2691,8 +2716,8 @@
         "cli-print"
       ],
       "summary_en": "Run a single prompt non-interactively with --print and print the result to stdout for use in CI pipelines and scripts.",
-      "description_en": "The --print flag runs a single prompt without launching the interactive TUI and outputs the result directly to stdout, making it easy to capture in scripts or pipe to other commands. Ideal for integrating Claude into CI pipelines, Makefiles, shell scripts, and any automated workflow where interactive use is not feasible. Most slash commands and tool calls work in headless mode. Combine with --model, --add-dir, and other CLI flags for complete scripting flexibility. The exit code of the headless command reflects whether Claude completed the task successfully, enabling proper error handling in CI pipelines.",
-      "_hash": "f4802c68a07d"
+      "description_en": "The --print flag runs a single prompt without launching the interactive TUI and outputs the result directly to stdout. This headless mode is ideal for CI pipelines, shell script integration, and any workflow where you need programmatic access to Claude's output. Combine with --model to specify the model and with shell redirects to capture the output.",
+      "_hash": "6b14d181b0ae"
     },
     {
       "id": "file-claude-md",
@@ -2719,8 +2744,8 @@
         "file-agents-md"
       ],
       "summary_en": "A project guidance file placed at the repository root that Claude automatically reads at every session start as standing instructions.",
-      "description_en": "Place this file at the repository root and Claude will automatically read it at the start of every session, treating its contents as standing instructions that apply to all work in the project. Use it to document coding conventions, describe the directory structure, list important build commands, and note any project-specific caveats Claude should always be aware of. Generate an initial template with /init, then customize it collaboratively with your team to reflect your actual workflows and standards. Claude respects a hierarchy of CLAUDE.md files: repo root, parent directories, and ~/.claude/CLAUDE.md are all read and merged in order of precedence.",
-      "_hash": "f53035861a26"
+      "description_en": "Place this file at the repository root and Claude will automatically read it at the start of every session, treating its contents as standing instructions. Use it to document coding conventions, directory structure, important commands, and anything else Claude should always know about the project. Generate a starter template with /init and customize it for your team.",
+      "_hash": "abd3bfb5e7cd"
     },
     {
       "id": "file-agents-md",
@@ -2730,7 +2755,7 @@
       "description_ja": "サブエージェントの挙動を定義。CLAUDE.md と並列で機能する場合あり。",
       "examples": [
         {
-          "title": "Place in project root",
+          "title": "Place file",
           "code": "プロジェクトルートに配置"
         }
       ],
@@ -2746,8 +2771,8 @@
         "file-claude-md"
       ],
       "summary_en": "A project-level file that defines default sub-agent behavior and tool access, functioning alongside CLAUDE.md in compatible configurations.",
-      "description_en": "Defines the default behavior, tool access, and behavioral constraints for sub-agents launched within the project. In compatible configurations it functions alongside CLAUDE.md, providing agent-specific guidance that is separate from the main Claude session's instructions. Place it at the project root to ensure sub-agents receive consistent, project-appropriate instructions whenever they are launched. Useful for teams that rely heavily on parallel agent workflows and need predictable sub-agent behavior. If AGENTS.md conflicts with CLAUDE.md instructions, CLAUDE.md takes precedence for the main session, while AGENTS.md takes precedence for sub-agent behavior.",
-      "_hash": "020fc2df0d38"
+      "description_en": "Defines the default behavior, tool access, and behavioral constraints for sub-agents launched within the project. In configurations where both CLAUDE.md and AGENTS.md are present, they function in parallel with each other. Use this to set project-wide defaults for how sub-agents should operate, separate from the main session guidance in CLAUDE.md.",
+      "_hash": "b386dcef0f12"
     },
     {
       "id": "file-onboarding-md",
@@ -2757,7 +2782,7 @@
       "description_ja": "プロジェクトに初めて触れる人のためのオンボーディング情報。Claude が読み込んでアシストに使う。",
       "examples": [
         {
-          "title": "Place in project root",
+          "title": "Place file",
           "code": "プロジェクトルートに配置"
         }
       ],
@@ -2773,8 +2798,8 @@
         "file-claude-md"
       ],
       "summary_en": "An onboarding guide for new project contributors that Claude reads automatically and uses to proactively assist new team members.",
-      "description_en": "Contains onboarding information tailored specifically for people who are new to the project. Claude reads this file and uses its content to proactively assist new contributors with common setup questions, workflow guidance, and project conventions without them needing to ask. Place it at the project root alongside CLAUDE.md for automatic pickup. Use /team-onboarding to auto-generate initial content from historical usage patterns, then refine it manually. The onboarding file is read alongside CLAUDE.md, so you can keep project conventions in CLAUDE.md and new-contributor guidance in ONBOARDING.md separately.",
-      "_hash": "7ba9f32183cf"
+      "description_en": "Contains onboarding information tailored specifically for people who are new to the project. Claude reads this file automatically and uses its contents to proactively assist contributors who are getting started. Include environment setup steps, key architecture concepts, important conventions, and links to relevant resources.",
+      "_hash": "032931756ff3"
     },
     {
       "id": "file-settings-json",
@@ -2801,8 +2826,8 @@
         "slash-config"
       ],
       "summary_en": "The global user settings file at ~/.claude/settings.json covering themes, hooks, permission allowlists, and environment variable definitions.",
-      "description_en": "The global configuration file located at ~/.claude/settings.json. Contains user-level settings covering theme selection, hook script definitions, permission allowlists, environment variable definitions, and other global preferences. Settings here apply consistently across all Claude Code sessions for every project. Use /config as a convenient interface for common adjustments, and edit this file directly for advanced configuration such as complex hook scripts or detailed allowlist patterns. The settings file supports environment-variable interpolation in hook script paths, making it easier to write portable configurations that work across different machines.",
-      "_hash": "6af3259af530"
+      "description_en": "The global configuration file located at ~/.claude/settings.json. Contains user-level settings covering the active theme, hook definitions, tool permission allowlists, and environment variable declarations. Changes to this file apply across all Claude Code sessions. Use /config for an interactive interface instead of editing the JSON directly.",
+      "_hash": "bc94e3e2d059"
     },
     {
       "id": "file-settings-local-json",
@@ -2828,8 +2853,8 @@
         "file-settings-json"
       ],
       "summary_en": "A project-specific settings file at .claude/settings.local.json that is excluded from version control for personal configuration overrides.",
-      "description_en": "Project-level configuration stored in .claude/settings.local.json that is automatically excluded from git version control. This makes it appropriate for personal permission rules, local file path overrides, developer-specific environment variables, and other settings that should not be shared with the rest of the team. Works alongside the shared .claude/settings.json to give individuals project-local configuration that does not conflict with team-wide settings. Even though settings.local.json is gitignored, it is still loaded and merged with settings.json, with local values taking precedence over global ones.",
-      "_hash": "969e4896b1bc"
+      "description_en": "Project-level configuration stored in .claude/settings.local.json that is automatically excluded from version control. Use this for personal permission overrides and project-specific settings that should not be shared with the rest of the team. Settings in this file take precedence over the global settings.json for the current project.",
+      "_hash": "fe73dc98d95a"
     },
     {
       "id": "file-mcp-json",
@@ -2855,8 +2880,8 @@
         "mcp-overview"
       ],
       "summary_en": "The project-level MCP server configuration file at .mcp.json for registering stdio, SSE, and HTTP transport server connections.",
-      "description_en": "Defines the MCP servers associated with the project in a .mcp.json file at the project root. Supports three server types: stdio (spawned child process), SSE (HTTP streaming), and HTTP (REST request-response). Claude automatically connects to all configured MCP servers when a new session starts in the project directory, making their tools available without any manual setup steps. Each server entry specifies the type, connection details, and authentication configuration. MCP server connection errors at session start are reported in the /mcp status view and can be diagnosed in more detail with the /doctor command.",
-      "_hash": "f99495905117"
+      "description_en": "Defines the MCP servers associated with the project in a .mcp.json file at the project root. Supports all three MCP transport types: stdio (local process), SSE (HTTP streaming), and HTTP (standard request-response). This file is typically committed to the repository so all team members share the same MCP server configuration.",
+      "_hash": "2d77f3baa0d8"
     },
     {
       "id": "file-memory",
@@ -2881,9 +2906,9 @@
       "related": [
         "slash-memory"
       ],
-      "summary_en": "The persistent cross-session memory store at ~/.claude/projects/<hash>/memory/ with MEMORY.md as the directory index file.",
-      "description_en": "Stores user preferences and accumulated project knowledge persistently across sessions in the ~/.claude/projects/<hash>/memory/ directory. The MEMORY.md file serves as the index and primary entry point for the memory system. Claude automatically references stored memories in future interactions, reducing the need to re-explain context each session. Manage memory contents — reviewing, updating, or deleting entries — using the /memory command. The memory system uses a hierarchical structure where MEMORY.md indexes other memory files, allowing large amounts of information to be organized and retrieved efficiently.",
-      "_hash": "b71767afc9a5"
+      "summary_en": "The persistent cross-session memory store located at ~/.claude/projects/<hash>/memory/, using MEMORY.md as its directory index file.",
+      "description_en": "Stores user preferences and accumulated project knowledge persistently across sessions in the ~/.claude/projects/<hash>/memory/ directory. The MEMORY.md file serves as the index for the memory store. Claude references these memories automatically in future interactions to maintain continuity. Use /memory to view and manage what has been stored.",
+      "_hash": "01cf45d5dc52"
     },
     {
       "id": "file-mention",
@@ -2907,8 +2932,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Reference any file by typing @path/to/file in a prompt to automatically add the file's full contents to the context.",
-      "description_en": "Typing @path/to/file in a prompt automatically adds the complete contents of that file to the conversation context before Claude processes the request. Use this to quickly provide Claude with relevant source files, configuration files, or documentation without needing to use a Read tool call first. Tab completion for file paths is supported in most terminal environments, making it fast to reference deeply nested files without typing the full path manually. The @ mention is evaluated at the time the prompt is sent, so the file contents added to context always reflect the current state of the file on disk.",
-      "_hash": "5a1ef4f9fd9a"
+      "description_en": "Typing @path/to/file in a prompt automatically adds the complete contents of that file to the conversation context. This makes it easy to ask questions about specific files without copying and pasting their contents. Supports both relative and absolute paths. Tab completion is available in some terminal environments.",
+      "_hash": "78e6eccfc5af"
     },
     {
       "id": "cli-continue",
@@ -2918,7 +2943,7 @@
       "description_ja": "claude --continue で直前のセッションをそのまま再開。コンテキストを失わずに続けられる。",
       "examples": [
         {
-          "title": "Continue last session",
+          "title": "Continue session",
           "code": "claude -c"
         }
       ],
@@ -2935,8 +2960,8 @@
         "slash-resume"
       ],
       "summary_en": "Resume the most recent session immediately with --continue or -c, restoring all conversation history and context without a picker.",
-      "description_en": "Running claude --continue or claude -c resumes the most recently active session exactly where it left off, restoring the complete conversation history and all associated context without any session selection step. Use this as the fastest way to return to your current work after closing the terminal or opening a new shell window. No session picker is shown — Claude jumps directly into the previous session immediately. If the most recent session was a very long one, consider using /compact early in the continued session to avoid quickly hitting the context limit again.",
-      "_hash": "71d3725bb46d"
+      "description_en": "Running claude --continue or claude -c resumes the most recently active session exactly where it left off, without presenting a session picker. All conversation history and context are restored. Use this when you close the terminal accidentally or when you always want to pick up from the last session without being prompted to choose.",
+      "_hash": "264f2f69749d"
     },
     {
       "id": "cli-resume",
@@ -2946,7 +2971,7 @@
       "description_ja": "claude --resume <session-id> で過去の任意セッションを再開。",
       "examples": [
         {
-          "title": "Select and resume session",
+          "title": "Resume by selecting from list",
           "code": "claude -r"
         }
       ],
@@ -2962,8 +2987,8 @@
         "cli-continue"
       ],
       "summary_en": "Resume any specific past session by its ID with --resume (-r), or open an interactive picker to select from all sessions.",
-      "description_en": "Running claude --resume <session-id> resumes a specific past session using its unique identifier. Running claude -r without an ID opens an interactive session picker where you can browse all archived sessions, sorted by recency, and select the one you want to resume. Use this when you need to return to a session that is not the most recent one, or when you have named sessions with /rename and want to find them by name. The session picker shows sessions sorted by their last access time, with the most recently used sessions at the top for quick access.",
-      "_hash": "33ade2e9a69c"
+      "description_en": "Running claude --resume <session-id> resumes a specific past session using its unique identifier. Running claude --resume without an ID opens an interactive session picker that lists all past sessions so you can select one. Use this to return to an older session that is not the most recent one.",
+      "_hash": "4796943bdb86"
     },
     {
       "id": "cli-print",
@@ -2989,8 +3014,8 @@
         "mode-headless"
       ],
       "summary_en": "Execute a single prompt non-interactively with --print (-p) and output the result to stdout for shell scripting and CI.",
-      "description_en": "Runs a single prompt without launching the interactive TUI and prints the result to standard output, making it easy to capture in shell variables, pipe to other commands, or integrate into CI/CD pipelines. Useful for generating dynamic content in shell scripts, running Claude as a step in a Makefile, or scripting repetitive code generation tasks. Functionally equivalent to the Headless Mode described in the documentation. Combine with --model for consistent model selection. Standard error from tool calls is captured separately and not included in the main stdout output, making it clean to pipe Claude's responses to downstream tools.",
-      "_hash": "60e363743b1b"
+      "description_en": "Runs a single prompt without launching the interactive TUI and prints the result to standard output, making it composable with shell pipes and redirects. Use --print (-p) to integrate Claude into shell scripts, CI pipelines, or any automated workflow that needs Claude's output as text. Combine with --model to specify which model to use.",
+      "_hash": "32c4b4ebbe33"
     },
     {
       "id": "cli-model",
@@ -3016,8 +3041,8 @@
         "slash-model"
       ],
       "summary_en": "Pin the AI model to use at launch time with --model to ensure a specific Claude version is used for the entire session.",
-      "description_en": "Specifies the Claude model to use when launching a new session, for example claude --model claude-opus-4-7. The specified model is used for the entire session unless you explicitly change it mid-session using /model. Use this in shell aliases, npm scripts, or CI configurations to consistently pin a specific model for reproducibility, or to always use a faster or more cost-effective model for automated tasks. If the specified model is not available for your current plan, Claude Code will report an error and fall back to the default model for the session.",
-      "_hash": "95297357bb95"
+      "description_en": "Specifies the Claude model to use when launching a new session, for example claude --model claude-opus-4-7. The specified model is used for the entire session. Use this when you need a particular model version for reproducibility or when you want to override the default model configured in settings.json.",
+      "_hash": "8e27121ffa27"
     },
     {
       "id": "cli-add-dir",
@@ -3041,8 +3066,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Extend Claude's file access to additional directories at session launch with --add-dir for cross-repo and monorepo work.",
-      "description_en": "Extends Claude's file access at session launch to include one or more additional directories beyond the current working directory. Use this when the code relevant to a task is spread across multiple repositories, or when working with a monorepo layout where important packages or shared libraries are in sibling directories. Equivalent to using /add-dir inside an active session but applied at startup time for immediate availability throughout the session. Multiple --add-dir flags can be specified in a single launch command to add several additional directories at once.",
-      "_hash": "c2f18c4ac50e"
+      "description_en": "Extends Claude's file access at session launch to include one or more additional directories beyond the current working directory. Useful for monorepos, projects that span multiple repositories, or any situation where the files you need are not all under a single root directory. Multiple --add-dir flags can be combined.",
+      "_hash": "d0ed5836643e"
     },
     {
       "id": "agent-subagent",
@@ -3069,8 +3094,8 @@
         "slash-agents"
       ],
       "summary_en": "The sub-agent system launches specialized agents in isolated contexts for parallel task execution or context-separated delegated work.",
-      "description_en": "Sub-agents are specialized agents that run in execution contexts fully separate from the main Claude session. They are launched via the Task tool and can execute concurrently with the main agent or with other sub-agents. The isolation ensures that sub-agent work does not pollute the main session's context window. Use sub-agents for parallel task execution, strict context isolation, or delegating specialized work such as broad code search, isolated implementation experiments, or concurrent analysis of multiple codebases. The main session always retains control of the overall task; sub-agents are workers that report back, not independent decision-makers.",
-      "_hash": "4897df5711f7"
+      "description_en": "Sub-agents are specialized agents that run in execution contexts fully separate from the main Claude session. Launch them with the Task tool to execute work in parallel without consuming the main session's context window. Common patterns include delegating research tasks to an Explore agent while the main session continues planning, or running multiple investigation tasks simultaneously.",
+      "_hash": "ce75f782c1e3"
     },
     {
       "id": "agent-explore",
@@ -3080,7 +3105,7 @@
       "description_ja": "コードを探すための読み取り専用検索エージェント。パターン・キーワード・シンボル検索に最適。並列実行で本体の文脈を消費しない。",
       "examples": [
         {
-          "title": "Search components",
+          "title": "Search for component",
           "code": "Task: subagent_type=Explore で\"src/components/**/*.tsx\"検索"
         }
       ],
@@ -3097,8 +3122,8 @@
         "tool-glob"
       ],
       "summary_en": "A read-only search sub-agent optimized for fast pattern, keyword, and symbol discovery without consuming the main session context.",
-      "description_en": "A read-only agent optimized specifically for searching and discovering code across the repository. Best suited for wildcard pattern matching, keyword searches, symbol lookups, and identifying all usages of a particular function or variable. Runs in parallel with the main session without consuming its context window, leaving more room for the main agent's conversation and reasoning. Use this to locate all relevant files before the main agent performs edits, keeping both agents efficient. Explore agents terminate automatically after completing their search task, returning a structured result without leaving any persistent processes running.",
-      "_hash": "f0d8a7f19975"
+      "description_en": "A read-only agent optimized specifically for searching and discovering code across the repository. Best used for pattern searches, keyword lookups, and symbol discovery tasks. Runs in parallel with the main session without consuming its context window, making it efficient for broad codebase exploration before focused editing begins.",
+      "_hash": "7b07631b577e"
     },
     {
       "id": "agent-plan",
@@ -3108,7 +3133,7 @@
       "description_ja": "タスクの実装戦略を設計。ステップバイステップ計画、重要ファイル特定、アーキテクチャトレードオフ考慮。",
       "examples": [
         {
-          "title": "Plan new feature",
+          "title": "Plan a new feature",
           "code": "Task: subagent_type=Plan で認証機能の実装計画"
         }
       ],
@@ -3125,8 +3150,8 @@
         "mode-plan"
       ],
       "summary_en": "A specialized planning sub-agent that designs step-by-step implementation strategies, identifies critical files, and considers architectural tradeoffs.",
-      "description_en": "Designs detailed implementation strategies for complex development tasks. Produces step-by-step execution plans, identifies the critical files that will need to be created or modified, and considers architectural tradeoffs between different technical approaches. Use this agent before starting a significant new feature, a major refactor, or a complex bug fix to establish a clear, agreed-upon roadmap before any code is written, reducing the risk of costly mid-implementation pivots. Plan agents can be interrupted and their partial output used as a starting point for refinement, rather than requiring a complete plan before proceeding.",
-      "_hash": "06f7dd40ca35"
+      "description_en": "Designs detailed implementation strategies for complex development tasks. Produces step-by-step execution plans, identifies the critical files and modules involved, and considers architectural tradeoffs. Use this agent when a task is complex enough that upfront planning will save time and reduce rework during implementation.",
+      "_hash": "a0d0292cdb34"
     },
     {
       "id": "agent-general-purpose",
@@ -3136,7 +3161,7 @@
       "description_ja": "特化していない汎用エージェント。複雑な調査やマルチステップタスクに使える。",
       "examples": [
         {
-          "title": "General research",
+          "title": "General investigation",
           "code": "Task: subagent_type=general-purpose"
         }
       ],
@@ -3152,8 +3177,8 @@
         "agent-subagent"
       ],
       "summary_en": "A versatile general-purpose sub-agent for complex research and multi-step tasks spanning both reading and writing operations.",
-      "description_en": "A non-specialized general-purpose agent capable of handling a wide variety of tasks including both read and write operations. Best for complex investigations, multi-step research tasks, and work that does not fit cleanly into the Explore (read-only search) or Plan (strategy design) specializations. Use this as a flexible parallel worker whenever you need a second agent with full capabilities rather than a specialized one. Unlike Explore, general-purpose agents can write files and execute commands, so apply the same permission consideration as you would to the main agent.",
-      "_hash": "834b1599b4b8"
+      "description_en": "A non-specialized general-purpose agent capable of handling a wide variety of tasks including both read and write operations. Use this when the task does not fit cleanly into the Explore or Plan agent roles, or when you need a sub-agent that can both investigate and implement as part of the same delegated task.",
+      "_hash": "2964de381ba1"
     },
     {
       "id": "agent-custom",
@@ -3163,7 +3188,7 @@
       "description_ja": ".claude/agents/<name>.md にエージェント定義を置くと、自分専用のサブエージェントが作れる。",
       "examples": [
         {
-          "title": "Place agent file",
+          "title": "Place file",
           "code": ".claude/agents/my-agent.md"
         }
       ],
@@ -3179,8 +3204,8 @@
         "agent-subagent"
       ],
       "summary_en": "Create your own custom sub-agents by placing a Markdown definition file at .claude/agents/<name>.md with instructions and tool access.",
-      "description_en": "Create project-specific sub-agents by placing a markdown definition file at .claude/agents/<name>.md. The file specifies the agent's system prompt, allowed tools, behavioral constraints, and any project-specific instructions. Custom agents appear alongside built-in agent types in the Task tool and are launched the same way. Use this to encode repeatable specialized workflows unique to your project, such as a dedicated database migration agent or a documentation generation agent. Custom agents defined in .claude/agents/ are project-scoped; agents defined in ~/.claude/agents/ are available globally across all projects.",
-      "_hash": "cef3c2d8689c"
+      "description_en": "Create project-specific sub-agents by placing a markdown definition file at .claude/agents/<name>.md in the project directory. The file defines the agent's system prompt, allowed tools, and behavioral constraints. Custom agents are then available for delegation via the Task tool, just like built-in agent types.",
+      "_hash": "86adf57714bd"
     },
     {
       "id": "agent-isolation",
@@ -3206,8 +3231,8 @@
         "agent-subagent"
       ],
       "summary_en": "Run sub-agents in separate git worktrees to completely isolate their filesystem changes from the main working tree.",
-      "description_en": "Runs sub-agents in dedicated git worktrees, completely isolating their filesystem changes from the main working tree and from any other concurrently running agents. This prevents accidental file conflicts, merge issues, and interference when multiple agents work on the same repository in parallel. Use this for high-stakes parallel development scenarios — such as running several independent feature agents simultaneously — where the agents must not interfere with each other's in-progress changes. Worktree isolation requires that git worktrees are supported in your repository, which is standard for all modern git versions.",
-      "_hash": "7869130f17ed"
+      "description_en": "Runs sub-agents in dedicated git worktrees, completely isolating their filesystem changes from the main working tree. This prevents accidental conflicts when multiple agents are modifying related files in parallel. Use this pattern for parallel feature development or when running experiments that should not affect the main working directory until explicitly merged.",
+      "_hash": "0f8e714ae2da"
     },
     {
       "id": "skill-overview",
@@ -3217,7 +3242,7 @@
       "description_ja": ".claude/skills/<name>/SKILL.md でスキル定義。description のキーワードでトリガーされ、Claudeが自動的に呼び出す。",
       "examples": [
         {
-          "title": "Place skill file",
+          "title": "Place file",
           "code": ".claude/skills/my-skill/SKILL.md"
         }
       ],
@@ -3233,8 +3258,8 @@
         "skill-structure"
       ],
       "summary_en": "Reusable instruction sets defined in SKILL.md files that Claude automatically invokes when user input matches their trigger keywords.",
-      "description_en": "Skills are reusable instruction sets defined in .claude/skills/<name>/SKILL.md files within the project. Claude automatically invokes a skill when the user's input text matches keywords specified in the description frontmatter field. Use skills to encode repeatable project-specific workflows, team conventions, or specialized procedures so that Claude applies them consistently and automatically whenever a matching situation arises, without requiring users to remember the exact invocation syntax. Skills are loaded at session start and remain available for the entire session; adding a new skill file requires either restarting or running /reload-plugins.",
-      "_hash": "c4c6adb0d6fc"
+      "description_en": "Skills are reusable instruction sets defined in .claude/skills/<name>/SKILL.md files within the project directory. Each skill has a description field that acts as a trigger — when user input matches the description's keywords, Claude automatically invokes the skill. Skills can define the specific tools they need and include detailed step-by-step procedures.",
+      "_hash": "2b4a5353521e"
     },
     {
       "id": "skill-structure",
@@ -3260,8 +3285,8 @@
         "skill-overview"
       ],
       "summary_en": "A SKILL.md file starts with YAML frontmatter containing name, description, and tools, followed by a procedure instruction body.",
-      "description_en": "A SKILL.md file contains YAML frontmatter at the top with key fields: name (the skill's identifier), description (the trigger phrase Claude matches against user input), and tools (the list of tools the skill is permitted to use). The remainder of the file is the skill body, which contains step-by-step procedure instructions, rules, templates, and any other guidance Claude should follow when the skill is invoked. The description field is most critical — write it as a specific, unambiguous trigger phrase.",
-      "_hash": "4c53c8337b4b"
+      "description_en": "A SKILL.md file contains YAML frontmatter at the top with key fields: name (the skill's identifier), description (the trigger keywords that activate automatic invocation), and tools (the list of tools the skill is allowed to use). The body of the file contains the skill's instructions, step-by-step procedures, rules, and output templates that Claude follows when executing the skill.",
+      "_hash": "b2e83679def6"
     },
     {
       "id": "skill-marketplace",
@@ -3287,8 +3312,8 @@
         "skill-overview"
       ],
       "summary_en": "The official Plugin Marketplace for browsing and installing skill-and-agent plugin bundles from Anthropic and community contributors.",
-      "description_en": "A curated marketplace for distributing and obtaining plugins — reusable bundles of skills and sub-agent definitions — from Anthropic and community contributors. Browse available plugins, review their descriptions and capabilities, and install them with a single command to immediately extend Claude Code's functionality. Use the marketplace to add new capabilities quickly without writing your own skill or agent definitions from scratch when a suitable community plugin already exists. Before installing a marketplace plugin, review its SKILL.md and any agent definitions to understand what tools and permissions it requests.",
-      "_hash": "b72e58f28152"
+      "description_en": "A curated marketplace for distributing and obtaining plugins — reusable bundles of skills and sub-agents — published by Anthropic and community contributors. Browse available plugins, read their descriptions, and install them with /plugin. The marketplace provides a centralized discovery point for extending Claude Code's capabilities beyond the built-in features.",
+      "_hash": "4b68555b3a25"
     },
     {
       "id": "skill-trigger",
@@ -3314,8 +3339,8 @@
         "skill-overview"
       ],
       "summary_en": "Claude automatically invokes a skill when user input contains trigger keywords defined in the skill's description frontmatter field.",
-      "description_en": "The automatic invocation mechanism that makes skills activate without explicit commands. When the user's input text matches keywords or phrases defined in the description frontmatter of a SKILL.md file, Claude detects the match and automatically activates that skill. Write the description as a clear, specific natural-language trigger phrase that accurately describes the situations where the skill should activate, and avoid overly broad phrases that might trigger the skill in unrelated contexts. If a skill is triggered unexpectedly, shorten or make the description more specific; if it is never triggered, broaden the description to better match natural user phrasing.",
-      "_hash": "3b3cd80faa11"
+      "description_en": "The automatic invocation mechanism that makes skills activate without explicit commands. When the user submits a prompt, Claude checks whether any installed skill's description field matches the prompt keywords. If a match is found, Claude invokes the skill automatically and follows its defined procedure. Write clear, specific description text to ensure skills trigger only when appropriate.",
+      "_hash": "ab167583d10f"
     },
     {
       "id": "mcp-overview",
@@ -3344,8 +3369,8 @@
         "mcp-http"
       ],
       "summary_en": "Model Context Protocol is an open standard that connects Claude to external tools and APIs like GitHub, Slack, and databases.",
-      "description_en": "An open protocol for integrating external tools, APIs, and data sources directly into Claude's context. Bridges Claude to services such as GitHub for code and PR management, Slack for team communication, databases for live data queries, and any other system that provides an MCP-compatible server. Configure MCP servers in the .mcp.json file at the project root and Claude automatically connects to them at session start, making all registered tools immediately available. MCP servers can also expose resources and prompts in addition to tools, providing structured data access and reusable prompt templates to Claude.",
-      "_hash": "50ae0cc828e6"
+      "description_en": "An open protocol for integrating external tools, APIs, and data sources directly into Claude's context. MCP servers act as bridges between Claude and external services such as GitHub, Slack, databases, and custom internal APIs. Once configured in .mcp.json, the tools provided by MCP servers are available to Claude in every session automatically.",
+      "_hash": "13058e963380"
     },
     {
       "id": "mcp-stdio",
@@ -3355,7 +3380,7 @@
       "description_ja": "プロセス起動して stdin/stdout でやりとりするMCPサーバー。最も一般的。Pythonやnpx で簡単に動かせる。",
       "examples": [
         {
-          "title": "Config example",
+          "title": "Configuration example",
           "code": "type: stdio, command: npx, args: [...]"
         }
       ],
@@ -3371,8 +3396,8 @@
         "mcp-overview"
       ],
       "summary_en": "The most common MCP server type, which communicates with Claude via stdin/stdout through a locally spawned child process.",
-      "description_en": "An MCP server that communicates with Claude via standard input and standard output by spawning a child process on the local machine. This is the most widely used MCP server type due to its simplicity, broad language compatibility, and ease of testing. Easy to implement in Python, Node.js, or any other language and run via npx or a direct command. Defined in .mcp.json with type: stdio, a command, and optional arguments array. Best suited for local tools and scripts you control.",
-      "_hash": "fbf27f0b79b0"
+      "description_en": "An MCP server that communicates with Claude via standard input and standard output by spawning a child process locally. This is the most common and widely supported transport type. MCP stdio servers can be written in Python, Node.js, or any language with an MCP SDK, and are typically started with npx, uvx, or a direct executable path.",
+      "_hash": "895afebd8d9d"
     },
     {
       "id": "mcp-sse",
@@ -3382,7 +3407,7 @@
       "description_ja": "HTTP経由でストリーミング通信するMCPサーバー。クラウドホスト型サービスに向く。",
       "examples": [
         {
-          "title": "Config example",
+          "title": "Configuration example",
           "code": "type: sse, url: https://..."
         }
       ],
@@ -3398,8 +3423,8 @@
         "mcp-overview"
       ],
       "summary_en": "An HTTP-based MCP server type using Server-Sent Events streaming to communicate with Claude, suited for cloud-hosted remote services.",
-      "description_en": "An MCP server that communicates over HTTP using the Server-Sent Events protocol to stream responses back to Claude. Well-suited for cloud-hosted services and remote APIs where you do not control or run the server process locally. Defined in .mcp.json with type: sse and a URL pointing to the SSE endpoint. Use this for third-party MCP integrations provided as remote services that need to push streamed data rather than single-shot responses. SSE servers must be running and accessible before Claude Code starts; if the server is unreachable, the connection will fail at session startup.",
-      "_hash": "420de65906ce"
+      "description_en": "An MCP server that communicates over HTTP using the Server-Sent Events protocol to stream responses back to Claude. Well-suited for cloud-hosted services or remote APIs that need to push streaming data. Configure the server URL in .mcp.json and Claude will connect to it at session start.",
+      "_hash": "8638866a56c3"
     },
     {
       "id": "mcp-http",
@@ -3409,7 +3434,7 @@
       "description_ja": "標準的なHTTPでやり取りするMCPサーバー。シンプルなリクエスト/レスポンスモデル。",
       "examples": [
         {
-          "title": "Config example",
+          "title": "Configuration example",
           "code": "type: http, url: https://..."
         }
       ],
@@ -3425,8 +3450,8 @@
         "mcp-overview"
       ],
       "summary_en": "A standard REST/HTTP MCP server type using simple request-response communication, well-suited for straightforward API integrations.",
-      "description_en": "An MCP server that communicates over standard HTTP using a simple request-response model without streaming. Simpler to implement, test, and debug than SSE for services where each tool call maps cleanly to a single synchronous HTTP request. Defined in .mcp.json with type: http and a URL pointing to the HTTP endpoint. Use this for straightforward REST API integrations where you want to expose existing API endpoints as Claude tools without implementing a streaming protocol. HTTP servers must correctly set CORS headers if accessed from a browser-based Remote Control session, as browsers enforce cross-origin restrictions.",
-      "_hash": "5adc45841f74"
+      "description_en": "An MCP server that communicates over standard HTTP using a simple request-response model without streaming. Suitable for straightforward API integrations where streaming is not required. Easier to implement and debug than SSE-based servers for services that return complete responses.",
+      "_hash": "8d4b396299bd"
     },
     {
       "id": "misc-statusline",
@@ -3436,7 +3461,7 @@
       "description_ja": "git ブランチ、モデル名、コンテキスト残量など、自分の好みに合わせて統合バーを表示できる。",
       "examples": [
         {
-          "title": "Set up via skill",
+          "title": "Configure via skill",
           "code": "/statusline-setup"
         }
       ],
@@ -3450,8 +3475,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "A customizable status bar displayed below the prompt that shows git branch, active model, context usage, and other metrics.",
-      "description_en": "A customizable integration bar displayed just below the prompt input field. Can show a variety of real-time information including the current git branch, active model name, remaining context window percentage, session name, and other configurable metrics. Configure the bar through the /statusline-setup skill to display the specific data points most relevant to your workflow. Provides at-a-glance situational awareness without needing to run separate status commands mid-task. The statusline script is evaluated on each render tick, so keep the implementation fast to avoid any perceptible delay in the prompt display.",
-      "_hash": "5e9cbdc5a716"
+      "description_en": "A customizable integration bar displayed just below the prompt input field. Can show a variety of real-time metrics including the current git branch, active model name, context window usage percentage, and other session information. Configure the status line content through a skill or by editing settings.json.",
+      "_hash": "6b46af4bc5d1"
     },
     {
       "id": "misc-keybindings",
@@ -3461,7 +3486,7 @@
       "description_ja": "~/.claude/keybindings.json でキー割当をカスタマイズ。chord（複数キー）対応。",
       "examples": [
         {
-          "title": "File location",
+          "title": "File",
           "code": "~/.claude/keybindings.json"
         }
       ],
@@ -3475,8 +3500,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Customize Claude Code keyboard shortcuts in ~/.claude/keybindings.json with support for both single keys and multi-key chord sequences.",
-      "description_en": "Customize key assignments for Claude Code actions by editing the ~/.claude/keybindings.json configuration file. Supports both single-key bindings and chord bindings — multi-key sequences pressed in succession — for maximum flexibility. Use this to remap frequently used actions to keyboard shortcuts that match your muscle memory from other tools, or to add shortcuts for Claude Code actions that are not bound to any key by default. See /keybindings for a guided setup walkthrough. Test new keybindings in a fresh session after saving the file, and check for conflicts with existing terminal or OS-level shortcuts before committing.",
-      "_hash": "7d4b68b95b27"
+      "description_en": "Customize key assignments for Claude Code actions by editing the ~/.claude/keybindings.json configuration file. Supports both single-key bindings and chord sequences (multi-key shortcuts pressed in sequence). Use /keybindings to open a guided walkthrough of the configuration format and see which actions can be bound to custom keys.",
+      "_hash": "eb66a477f836"
     },
     {
       "id": "misc-ide-vscode",
@@ -3500,8 +3525,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Integrates Claude Code into VS Code so the current file and code selection are automatically added to Claude's context.",
-      "description_en": "Integrates Claude Code directly into Visual Studio Code as an extension. Interact with Claude from a panel inside the editor, and the currently open file, open tabs, and any selected code are automatically added to the context without any manual steps. Install from the VS Code Marketplace. Provides a seamless AI-assisted coding experience without switching to a separate terminal window or copying and pasting code manually. The extension communicates with a locally running Claude Code process, so the CLI must also be installed and authenticated for the extension to function.",
-      "_hash": "9e4cab46fcb3"
+      "description_en": "Integrates Claude Code directly into Visual Studio Code as an extension. Interact with Claude from within the editor using the integrated panel. The currently open file and any selected code are automatically included in Claude's context, making it easy to ask questions or request edits on the code you are actively working with.",
+      "_hash": "feb3c850c026"
     },
     {
       "id": "misc-ide-jetbrains",
@@ -3525,8 +3550,8 @@
       "tier": "free",
       "related": [],
       "summary_en": "Integrates Claude Code into IntelliJ, WebStorm, PyCharm, and other JetBrains IDEs with full feature parity to the VS Code extension.",
-      "description_en": "Integrates Claude Code into the JetBrains IDE family including IntelliJ IDEA, WebStorm, PyCharm, and other JetBrains products. Provides feature parity with the VS Code extension, including in-editor interaction and automatic context from the currently open file and selection. Install from the JetBrains Marketplace. Enables AI-assisted development for JetBrains users without requiring them to adopt a different editor or switch to a terminal. Like the VS Code extension, the JetBrains plugin requires a locally installed and authenticated Claude Code CLI to connect to for its AI capabilities.",
-      "_hash": "031576cef131"
+      "description_en": "Integrates Claude Code into the JetBrains IDE family including IntelliJ IDEA, WebStorm, PyCharm, and others. Provides feature parity with the VS Code extension, including automatic context from the active file and code selection. Install from the JetBrains Plugin Marketplace and configure with your Claude Code credentials.",
+      "_hash": "11040bf16b64"
     },
     {
       "id": "misc-fast-mode",
@@ -3552,8 +3577,8 @@
         "slash-model"
       ],
       "summary_en": "Fast Mode uses Claude Opus 4.6 for lower-latency quicker responses; toggle it on or off at any time with the /fast command.",
-      "description_en": "Enables a faster response mode specifically for Claude Opus 4.6, reducing response latency at the cost of some reasoning depth. Toggle it on and off with the /fast command. Fast Mode is not available when using third-party API providers — those environments display 'not available' when you attempt to enable it. Enable /extra-usage first if you have reached your standard plan limit and want Fast Mode to become immediately available without waiting for a usage reset. Because Fast Mode only applies to Opus 4.6, switching to a different model with /model will automatically disable Fast Mode for that session.",
-      "_hash": "d6fb5f961d8d"
+      "description_en": "Enables a faster response mode specifically for Claude Opus 4.6, reducing response latency at the cost of some depth. Fast Mode is only available when using the Opus 4.6 model. Toggle it on or off at any time during a session with the /fast command. Useful when you need rapid back-and-forth iteration and are willing to trade depth for speed.",
+      "_hash": "39dcad2d67ad"
     }
   ]
 }

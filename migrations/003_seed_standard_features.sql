@@ -1027,6 +1027,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-update',
+  '/update',
+  'slash-command',
+  'Claude Codeをセッション内から最新版に更新',
+  'セッション内から Claude Code を最新バージョンに更新するコマンド。`claude update` CLI サブコマンドと同等の更新を対話セッションから実行可能。worktree 内セッションでも動作（v2.1.116 修正）。`DISABLE_UPDATES` 環境変数で全更新パスを無効化可能。',
+  '[{"title": "更新実行", "code": "/update"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/update claude codeをセッション内から最新版に更新 セッション内から claude code を最新バージョンに更新するコマンド。`claude update` cli サブコマンドと同等の更新を対話セッションから実行可能。worktree 内セッションでも動作（v2.1.116 修正）。`disable_updates` 環境変数で全更新パスを無効化可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
