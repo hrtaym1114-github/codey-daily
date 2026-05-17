@@ -1041,6 +1041,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-fork',
+  '/fork',
+  'slash-command',
+  '/branch の旧コマンド名（エイリアス）',
+  'v2.1.77 で `/branch` にリネームされた旧コマンド名。エイリアスとして引き続き動作し、セッションをフォークして別の方向を試すことができる。分岐したセッションは /resume で再開可能。新しい記法では `/branch` を使用することを推奨。',
+  '[{"title": "セッション分岐（旧コマンド）", "code": "/fork"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-branch"]',
+  '/fork /branch の旧コマンド名（エイリアス） v2.1.77 で `/branch` にリネームされた旧コマンド名。エイリアスとして引き続き動作し、セッションをフォークして別の方向を試すことができる。分岐したセッションは /resume で再開可能。新しい記法では `/branch` を使用することを推奨。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
