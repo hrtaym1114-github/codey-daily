@@ -1055,6 +1055,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-batch',
+  '/batch',
+  'slash-command',
+  'バッチ操作を一括実行するバンドル型スラッシュコマンド',
+  'v2.1.63 で /simplify と同時に追加されたバンドル型スラッシュコマンド。CHANGELOG には「Added /simplify and /batch bundled slash commands」の一行のみ記載。詳細は /release-notes で v2.1.63 のリリースノートを参照。',
+  '[{"title": "バッチ実行", "code": "/batch"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-simplify"]',
+  '/batch バッチ操作を一括実行するバンドル型スラッシュコマンド v2.1.63 で /simplify と同時に追加されたバンドル型スラッシュコマンド。changelog には「added /simplify and /batch bundled slash commands」の一行のみ記載。詳細は /release-notes で v2.1.63 のリリースノートを参照。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

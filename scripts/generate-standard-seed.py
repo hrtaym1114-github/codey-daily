@@ -726,6 +726,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["slash-branch"],
     },
+    {
+        "id": "slash-batch", "name": "/batch", "category": "slash-command",
+        "summary_ja": "バッチ操作を一括実行するバンドル型スラッシュコマンド",
+        "description_ja": "v2.1.63 で /simplify と同時に追加されたバンドル型スラッシュコマンド。CHANGELOG には「Added /simplify and /batch bundled slash commands」の一行のみ記載。詳細は /release-notes で v2.1.63 のリリースノートを参照。",
+        "examples": [
+            {"title": "バッチ実行", "code": "/batch"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-simplify"],
+    },
 
     # ========== Built-in Tools ==========
     {
