@@ -735,6 +735,24 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-simplify"],
     },
+    {
+        "id": "slash-usage-credits", "name": "/usage-credits", "category": "slash-command",
+        "summary_ja": "追加API利用（使用クレジット）を有効化",
+        "description_ja": "プランの使用量上限を超えた追加API利用（使用クレジット）を有効化するダイアログを開く。v2.1.144 で「extra usage」から「usage credits」に名称変更され、/extra-usage から /usage-credits にリネーム。旧コマンド名 /extra-usage も引き続き動作する。",
+        "examples": [
+            {"title": "使用クレジット設定", "code": "/usage-credits"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-extra-usage", "slash-usage", "slash-upgrade"],
+    },
+    {
+        "id": "slash-heapdump", "name": "/heapdump", "category": "slash-command",
+        "summary_ja": "ヒープメモリダンプを生成する開発者向けコマンド",
+        "description_ja": "デバッグ用に Node.js ヒープメモリダンプファイルを生成する。メモリ使用量の問題調査やバグ報告時に使用する開発者向け診断コマンド。Windows では v2.1.73 でデスクトップフォルダが既存の場合の EEXIST エラーを修正済み。",
+        "examples": [
+            {"title": "ヒープダンプ生成", "code": "/heapdump"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["slash-debug", "slash-doctor"],
+    },
 
     # ========== Built-in Tools ==========
     {

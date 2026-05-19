@@ -1069,6 +1069,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-usage-credits',
+  '/usage-credits',
+  'slash-command',
+  '追加API利用（使用クレジット）を有効化',
+  'プランの使用量上限を超えた追加API利用（使用クレジット）を有効化するダイアログを開く。v2.1.144 で「extra usage」から「usage credits」に名称変更され、/extra-usage から /usage-credits にリネーム。旧コマンド名 /extra-usage も引き続き動作する。',
+  '[{"title": "使用クレジット設定", "code": "/usage-credits"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-extra-usage", "slash-usage", "slash-upgrade"]',
+  '/usage-credits 追加api利用（使用クレジット）を有効化 プランの使用量上限を超えた追加api利用（使用クレジット）を有効化するダイアログを開く。v2.1.144 で「extra usage」から「usage credits」に名称変更され、/extra-usage から /usage-credits にリネーム。旧コマンド名 /extra-usage も引き続き動作する。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-heapdump',
+  '/heapdump',
+  'slash-command',
+  'ヒープメモリダンプを生成する開発者向けコマンド',
+  'デバッグ用に Node.js ヒープメモリダンプファイルを生成する。メモリ使用量の問題調査やバグ報告時に使用する開発者向け診断コマンド。Windows では v2.1.73 でデスクトップフォルダが既存の場合の EEXIST エラーを修正済み。',
+  '[{"title": "ヒープダンプ生成", "code": "/heapdump"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-debug", "slash-doctor"]',
+  '/heapdump ヒープメモリダンプを生成する開発者向けコマンド デバッグ用に node.js ヒープメモリダンプファイルを生成する。メモリ使用量の問題調査やバグ報告時に使用する開発者向け診断コマンド。windows では v2.1.73 でデスクトップフォルダが既存の場合の eexist エラーを修正済み。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
