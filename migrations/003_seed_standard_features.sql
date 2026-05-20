@@ -1573,6 +1573,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'file-rules-dir',
+  '.claude/rules/',
+  'file',
+  '条件付きルールファイルをディレクトリで管理',
+  '`.claude/rules/*.md` に書いたルールは CLAUDE.md と同様に自動ロード（v2.0.64追加）。frontmatter の `paths:` フィールドで特定ファイルパターンにのみ適用される条件付きルールも作成可能。InstructionsLoaded フックと連携して読み込み検知も可能。',
+  '[{"title": "ルールファイル配置", "code": ".claude/rules/typescript.md"}, {"title": "条件付きルール", "code": "---\npaths: [''*.ts'']\n---"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/memory"}]',
+  2,
+  'free',
+  '["file-claude-md", "hook-pretooluse"]',
+  '.claude/rules/ 条件付きルールファイルをディレクトリで管理 `.claude/rules/*.md` に書いたルールは claude.md と同様に自動ロード（v2.0.64追加）。frontmatter の `paths:` フィールドで特定ファイルパターンにのみ適用される条件付きルールも作成可能。instructionsloaded フックと連携して読み込み検知も可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'file-commands-dir',
+  '.claude/commands/',
+  'file',
+  'カスタムスラッシュコマンドをMarkdownで定義',
+  '`.claude/commands/` ディレクトリに Markdown ファイルを置くと、その内容がプロンプトとして挿入されるカスタムスラッシュコマンドになる（v0.2.31追加）。サブディレクトリでネームスペース管理も可能（例: `frontend/fix.md` → `/frontend:fix`）。スキルより軽量な仕組みで、プロンプトテンプレートの共有に最適。',
+  '[{"title": "カスタムコマンド作成", "code": ".claude/commands/review.md"}, {"title": "ネームスペース付き", "code": ".claude/commands/frontend/component.md → /frontend:component"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/memory"}]',
+  2,
+  'free',
+  '["skill-overview", "file-claude-md"]',
+  '.claude/commands/ カスタムスラッシュコマンドをmarkdownで定義 `.claude/commands/` ディレクトリに markdown ファイルを置くと、その内容がプロンプトとして挿入されるカスタムスラッシュコマンドになる（v0.2.31追加）。サブディレクトリでネームスペース管理も可能（例: `frontend/fix.md` → `/frontend:fix`）。スキルより軽量な仕組みで、プロンプトテンプレートの共有に最適。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'cli-continue',
   '--continue (-c)',
   'cli',

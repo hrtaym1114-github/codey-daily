@@ -999,6 +999,26 @@ FEATURES = [
         "examples": [{"title": "ファイル参照", "code": "@src/index.ts のバグを直して"}],
         "links": [], "difficulty": 1, "tier": "free", "related": [],
     },
+    {
+        "id": "file-rules-dir", "name": ".claude/rules/", "category": "file",
+        "summary_ja": "条件付きルールファイルをディレクトリで管理",
+        "description_ja": "`.claude/rules/*.md` に書いたルールは CLAUDE.md と同様に自動ロード（v2.0.64追加）。frontmatter の `paths:` フィールドで特定ファイルパターンにのみ適用される条件付きルールも作成可能。InstructionsLoaded フックと連携して読み込み検知も可能。",
+        "examples": [
+            {"title": "ルールファイル配置", "code": ".claude/rules/typescript.md"},
+            {"title": "条件付きルール", "code": "---\npaths: ['*.ts']\n---"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["file-claude-md", "hook-pretooluse"],
+    },
+    {
+        "id": "file-commands-dir", "name": ".claude/commands/", "category": "file",
+        "summary_ja": "カスタムスラッシュコマンドをMarkdownで定義",
+        "description_ja": "`.claude/commands/` ディレクトリに Markdown ファイルを置くと、その内容がプロンプトとして挿入されるカスタムスラッシュコマンドになる（v0.2.31追加）。サブディレクトリでネームスペース管理も可能（例: `frontend/fix.md` → `/frontend:fix`）。スキルより軽量な仕組みで、プロンプトテンプレートの共有に最適。",
+        "examples": [
+            {"title": "カスタムコマンド作成", "code": ".claude/commands/review.md"},
+            {"title": "ネームスペース付き", "code": ".claude/commands/frontend/component.md → /frontend:component"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["skill-overview", "file-claude-md"],
+    },
 
     # ========== CLI Flags ==========
     {
