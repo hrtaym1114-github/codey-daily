@@ -753,6 +753,16 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["slash-debug", "slash-doctor"],
     },
+    {
+        "id": "slash-code-review", "name": "/code-review", "category": "slash-command",
+        "summary_ja": "コードレビューと修正を一括実行（/simplifyの改名版）",
+        "description_ja": "v2.1.146で/simplifyから改名。変更されたコードを再利用性・品質・効率の観点でレビューし、検出した問題を修正する。オプションのeffort levelで処理強度を指定可能（例: /code-review high）。",
+        "examples": [
+            {"title": "デフォルトレビュー", "code": "/code-review"},
+            {"title": "高強度レビュー", "code": "/code-review high"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-simplify", "slash-review", "slash-effort"],
+    },
 
     # ========== Built-in Tools ==========
     {

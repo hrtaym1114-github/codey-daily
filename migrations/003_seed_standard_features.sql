@@ -1097,6 +1097,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-code-review',
+  '/code-review',
+  'slash-command',
+  'コードレビューと修正を一括実行（/simplifyの改名版）',
+  'v2.1.146で/simplifyから改名。変更されたコードを再利用性・品質・効率の観点でレビューし、検出した問題を修正する。オプションのeffort levelで処理強度を指定可能（例: /code-review high）。',
+  '[{"title": "デフォルトレビュー", "code": "/code-review"}, {"title": "高強度レビュー", "code": "/code-review high"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-simplify", "slash-review", "slash-effort"]',
+  '/code-review コードレビューと修正を一括実行（/simplifyの改名版） v2.1.146で/simplifyから改名。変更されたコードを再利用性・品質・効率の観点でレビューし、検出した問題を修正する。オプションのeffort levelで処理強度を指定可能（例: /code-review high）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
