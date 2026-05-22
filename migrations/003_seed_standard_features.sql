@@ -1111,6 +1111,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-env',
+  '/env',
+  'slash-command',
+  'ツール実行環境の環境変数を設定・管理',
+  'Bash・PowerShell ツールが使用する環境変数をセッション内で動的に設定・確認するコマンド。v2.1.89 以降、Bash だけでなく PowerShell ツールにも適用される。settings.json の env: 設定と組み合わせて使用できる。',
+  '[{"title": "環境変数管理", "code": "/env"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["file-settings-json", "tool-bash"]',
+  '/env ツール実行環境の環境変数を設定・管理 bash・powershell ツールが使用する環境変数をセッション内で動的に設定・確認するコマンド。v2.1.89 以降、bash だけでなく powershell ツールにも適用される。settings.json の env: 設定と組み合わせて使用できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-ide',
+  '/ide',
+  'slash-command',
+  'IDE拡張機能を自動インストール',
+  'VS Code や JetBrains などの IDE 拡張機能をコマンドから自動インストールする。IDE 内で Claude Code を利用するための拡張機能のオンボーディングを自動化。インストール処理のエラーは v2.1.73 で修正済み。',
+  '[{"title": "拡張機能インストール", "code": "/ide"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["misc-ide-vscode", "misc-ide-jetbrains"]',
+  '/ide ide拡張機能を自動インストール vs code や jetbrains などの ide 拡張機能をコマンドから自動インストールする。ide 内で claude code を利用するための拡張機能のオンボーディングを自動化。インストール処理のエラーは v2.1.73 で修正済み。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
