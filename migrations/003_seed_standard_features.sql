@@ -1713,6 +1713,62 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'cli-worktree',
+  '--worktree (-w)',
+  'cli',
+  '独立した git worktree でセッションを開始',
+  'claude --worktree (-w) で隔離された git worktree 内でセッションを起動する（v2.1.49追加）。`worktree.baseRef` 設定（fresh|head）でブランチ元を origin/<default> かローカル HEAD かを選択可能。worktree 内では skills・hooks・settings.json が worktree ディレクトリからロードされる。',
+  '[{"title": "worktreeで起動", "code": "claude --worktree"}, {"title": "短縮形", "code": "claude -w"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["agent-isolation"]',
+  '--worktree (-w) 独立した git worktree でセッションを開始 claude --worktree (-w) で隔離された git worktree 内でセッションを起動する（v2.1.49追加）。`worktree.baseref` 設定（fresh|head）でブランチ元を origin/<default> かローカル head かを選択可能。worktree 内では skills・hooks・settings.json が worktree ディレクトリからロードされる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-dangerously-skip-permissions',
+  '--dangerously-skip-permissions',
+  'cli',
+  '全ての許可プロンプトをバイパス（CI向け）',
+  'ほぼ全操作の許可プロンプトをバイパスする。v2.1.126以降、`.claude/`・`.git/`・`.vscode/`・シェル設定ファイルへの書き込みも対象（rm -rf等の危険コマンドは引き続きプロンプト表示）。CI環境・エージェント実行の完全自動化に使う。`claude agents` にも渡せる（v2.1.142）。',
+  '[{"title": "CI自動実行", "code": "claude --dangerously-skip-permissions -p \"テストを実行して\""}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["mode-permission", "slash-permissions"]',
+  '--dangerously-skip-permissions 全ての許可プロンプトをバイパス（ci向け） ほぼ全操作の許可プロンプトをバイパスする。v2.1.126以降、`.claude/`・`.git/`・`.vscode/`・シェル設定ファイルへの書き込みも対象（rm -rf等の危険コマンドは引き続きプロンプト表示）。ci環境・エージェント実行の完全自動化に使う。`claude agents` にも渡せる（v2.1.142）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-plugin-dir',
+  '--plugin-dir',
+  'cli',
+  'ローカルプラグインディレクトリを指定',
+  'ローカルのプラグインディレクトリまたは .zip アーカイブを指定してプラグインを読み込む（v2.1.74）。同名のマーケットプレイス製プラグインより優先される。複数指定は `--plugin-dir` を繰り返す。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。',
+  '[{"title": "ローカル開発プラグイン", "code": "claude --plugin-dir ./my-plugin"}, {"title": "ZIPアーカイブ", "code": "claude --plugin-dir plugin.zip"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["slash-plugin"]',
+  '--plugin-dir ローカルプラグインディレクトリを指定 ローカルのプラグインディレクトリまたは .zip アーカイブを指定してプラグインを読み込む（v2.1.74）。同名のマーケットプレイス製プラグインより優先される。複数指定は `--plugin-dir` を繰り返す。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-mcp-config',
+  '--mcp-config',
+  'cli',
+  '外部ファイルでMCPサーバー設定を指定',
+  'JSON ファイルで MCP サーバー設定を指定し、プロジェクトの `.mcp.json` を上書きする。`-p` モードでは接続待ちを最大5秒に制限。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。`allowedMcpServers` 等の managed policy も適用される（v2.1.83修正）。',
+  '[{"title": "外部設定ファイル指定", "code": "claude --mcp-config ./mcp-servers.json"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["mcp-overview", "file-mcp-json"]',
+  '--mcp-config 外部ファイルでmcpサーバー設定を指定 json ファイルで mcp サーバー設定を指定し、プロジェクトの `.mcp.json` を上書きする。`-p` モードでは接続待ちを最大5秒に制限。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。`allowedmcpservers` 等の managed policy も適用される（v2.1.83修正）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'agent-subagent',
   'Subagent System',
   'agent',

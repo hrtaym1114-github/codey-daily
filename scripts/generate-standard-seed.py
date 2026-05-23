@@ -1084,6 +1084,44 @@ FEATURES = [
         "examples": [{"title": "別リポ追加", "code": "claude --add-dir ../other-repo"}],
         "links": [], "difficulty": 2, "tier": "free", "related": [],
     },
+    {
+        "id": "cli-worktree", "name": "--worktree (-w)", "category": "cli",
+        "summary_ja": "独立した git worktree でセッションを開始",
+        "description_ja": "claude --worktree (-w) で隔離された git worktree 内でセッションを起動する（v2.1.49追加）。`worktree.baseRef` 設定（fresh|head）でブランチ元を origin/<default> かローカル HEAD かを選択可能。worktree 内では skills・hooks・settings.json が worktree ディレクトリからロードされる。",
+        "examples": [
+            {"title": "worktreeで起動", "code": "claude --worktree"},
+            {"title": "短縮形", "code": "claude -w"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["agent-isolation"],
+    },
+    {
+        "id": "cli-dangerously-skip-permissions", "name": "--dangerously-skip-permissions", "category": "cli",
+        "summary_ja": "全ての許可プロンプトをバイパス（CI向け）",
+        "description_ja": "ほぼ全操作の許可プロンプトをバイパスする。v2.1.126以降、`.claude/`・`.git/`・`.vscode/`・シェル設定ファイルへの書き込みも対象（rm -rf等の危険コマンドは引き続きプロンプト表示）。CI環境・エージェント実行の完全自動化に使う。`claude agents` にも渡せる（v2.1.142）。",
+        "examples": [
+            {"title": "CI自動実行", "code": "claude --dangerously-skip-permissions -p \"テストを実行して\""},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["mode-permission", "slash-permissions"],
+    },
+    {
+        "id": "cli-plugin-dir", "name": "--plugin-dir", "category": "cli",
+        "summary_ja": "ローカルプラグインディレクトリを指定",
+        "description_ja": "ローカルのプラグインディレクトリまたは .zip アーカイブを指定してプラグインを読み込む（v2.1.74）。同名のマーケットプレイス製プラグインより優先される。複数指定は `--plugin-dir` を繰り返す。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。",
+        "examples": [
+            {"title": "ローカル開発プラグイン", "code": "claude --plugin-dir ./my-plugin"},
+            {"title": "ZIPアーカイブ", "code": "claude --plugin-dir plugin.zip"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["slash-plugin"],
+    },
+    {
+        "id": "cli-mcp-config", "name": "--mcp-config", "category": "cli",
+        "summary_ja": "外部ファイルでMCPサーバー設定を指定",
+        "description_ja": "JSON ファイルで MCP サーバー設定を指定し、プロジェクトの `.mcp.json` を上書きする。`-p` モードでは接続待ちを最大5秒に制限。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。`allowedMcpServers` 等の managed policy も適用される（v2.1.83修正）。",
+        "examples": [
+            {"title": "外部設定ファイル指定", "code": "claude --mcp-config ./mcp-servers.json"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["mcp-overview", "file-mcp-json"],
+    },
 
     # ========== Subagents ==========
     {
