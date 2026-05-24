@@ -1139,6 +1139,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-diff',
+  '/diff',
+  'slash-command',
+  'コード変更の差分詳細ビューを表示',
+  '差分（diff）詳細ビューを開き、コード変更内容を確認する。矢印キー・j/k・PgUp/PgDn・Space・Home/End でスクロール可能（v2.1.149 でキーボードナビゲーションが追加）。',
+  '[{"title": "差分ビュー表示", "code": "/diff"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-review", "slash-rewind"]',
+  '/diff コード変更の差分詳細ビューを表示 差分（diff）詳細ビューを開き、コード変更内容を確認する。矢印キー・j/k・pgup/pgdn・space・home/end でスクロール可能（v2.1.149 でキーボードナビゲーションが追加）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

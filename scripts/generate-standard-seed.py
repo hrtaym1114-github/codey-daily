@@ -781,6 +781,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["misc-ide-vscode", "misc-ide-jetbrains"],
     },
+    {
+        "id": "slash-diff", "name": "/diff", "category": "slash-command",
+        "summary_ja": "コード変更の差分詳細ビューを表示",
+        "description_ja": "差分（diff）詳細ビューを開き、コード変更内容を確認する。矢印キー・j/k・PgUp/PgDn・Space・Home/End でスクロール可能（v2.1.149 でキーボードナビゲーションが追加）。",
+        "examples": [
+            {"title": "差分ビュー表示", "code": "/diff"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-review", "slash-rewind"],
+    },
 
     # ========== Built-in Tools ==========
     {
