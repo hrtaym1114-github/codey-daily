@@ -790,6 +790,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-review", "slash-rewind"],
     },
+    {
+        "id": "slash-mobile", "name": "/mobile", "category": "slash-command",
+        "summary_ja": "モバイルアプリ連携の設定メニューを開く",
+        "description_ja": "Remote Control のモバイル接続設定などを管理するメニューコマンド。/voice・/chrome・/upgrade と同様に認証設定によって非表示になる（v2.1.84）。メニューのレイアウト・スペーシングは v2.1.147 で修正済み。",
+        "examples": [
+            {"title": "モバイル連携設定", "code": "/mobile"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-remote-control", "slash-voice", "slash-chrome"],
+    },
 
     # ========== Built-in Tools ==========
     {

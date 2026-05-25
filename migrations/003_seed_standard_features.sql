@@ -1153,6 +1153,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-mobile',
+  '/mobile',
+  'slash-command',
+  'モバイルアプリ連携の設定メニューを開く',
+  'Remote Control のモバイル接続設定などを管理するメニューコマンド。/voice・/chrome・/upgrade と同様に認証設定によって非表示になる（v2.1.84）。メニューのレイアウト・スペーシングは v2.1.147 で修正済み。',
+  '[{"title": "モバイル連携設定", "code": "/mobile"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-remote-control", "slash-voice", "slash-chrome"]',
+  '/mobile モバイルアプリ連携の設定メニューを開く remote control のモバイル接続設定などを管理するメニューコマンド。/voice・/chrome・/upgrade と同様に認証設定によって非表示になる（v2.1.84）。メニューのレイアウト・スペーシングは v2.1.147 で修正済み。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
