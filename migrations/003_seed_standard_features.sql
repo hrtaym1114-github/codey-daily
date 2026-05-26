@@ -1167,6 +1167,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-plugins',
+  '/plugins',
+  'slash-command',
+  'プラグイン一覧とマーケットプレイス探索ビューを開く',
+  'インストール済みプラグインの Installed タブとマーケットプレイスから新プラグインを探す discover ビューを持つプラグインブラウザ。v2.1.2 で Installed タブがプラグインと MCP をスコープ別グループ化に統合（v2.0.74 で discover ビューの表示バグ修正）。管理操作は /plugin も参照。',
+  '[{"title": "プラグイン一覧", "code": "/plugins"}, {"title": "探索モード", "code": "/plugins discover"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-plugin", "slash-reload-plugins", "skill-marketplace"]',
+  '/plugins プラグイン一覧とマーケットプレイス探索ビューを開く インストール済みプラグインの installed タブとマーケットプレイスから新プラグインを探す discover ビューを持つプラグインブラウザ。v2.1.2 で installed タブがプラグインと mcp をスコープ別グループ化に統合（v2.0.74 で discover ビューの表示バグ修正）。管理操作は /plugin も参照。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-background',
+  '/background',
+  'slash-command',
+  'バックグラウンドセッションを起動（/bg のフルネーム）',
+  '/bg コマンドのフルネーム。バックグラウンドでエージェントセッションを起動する。v2.1.147 でスキルやカスタムスラッシュコマンドのみが入力された場合にセッションを拒否するバグが修正された。実行中タスクは /tasks で確認可能。',
+  '[{"title": "バックグラウンド起動", "code": "/background"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-bg", "slash-tasks"]',
+  '/background バックグラウンドセッションを起動（/bg のフルネーム） /bg コマンドのフルネーム。バックグラウンドでエージェントセッションを起動する。v2.1.147 でスキルやカスタムスラッシュコマンドのみが入力された場合にセッションを拒否するバグが修正された。実行中タスクは /tasks で確認可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
