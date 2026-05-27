@@ -316,6 +316,15 @@ FEATURES = [
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-plugin"],
     },
     {
+        "id": "slash-reload-skills", "name": "/reload-skills", "category": "slash-command",
+        "summary_ja": "スキルディレクトリを再スキャンして即反映",
+        "description_ja": "セッションを再起動せずにスキルディレクトリを再スキャンして最新スキルを即反映させる（v2.1.152追加）。SessionStart フックで reloadSkills: true を返すことでも同様の再スキャンが可能。スキルを追加・編集した後すぐに使いたい時に使う。",
+        "examples": [
+            {"title": "スキル再スキャン", "code": "/reload-skills"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-skills", "slash-reload-plugins", "skill-overview"],
+    },
+    {
         "id": "slash-color", "name": "/color", "category": "slash-command",
         "summary_ja": "セッションのアクセントカラーを設定",
         "description_ja": "現在のセッションのUI色を変更。引数なしで実行するとランダムに選択。Remote Control 接続時は claude.ai/code にも同期される。",

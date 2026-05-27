@@ -425,6 +425,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-reload-skills',
+  '/reload-skills',
+  'slash-command',
+  'スキルディレクトリを再スキャンして即反映',
+  'セッションを再起動せずにスキルディレクトリを再スキャンして最新スキルを即反映させる（v2.1.152追加）。SessionStart フックで reloadSkills: true を返すことでも同様の再スキャンが可能。スキルを追加・編集した後すぐに使いたい時に使う。',
+  '[{"title": "スキル再スキャン", "code": "/reload-skills"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-skills", "slash-reload-plugins", "skill-overview"]',
+  '/reload-skills スキルディレクトリを再スキャンして即反映 セッションを再起動せずにスキルディレクトリを再スキャンして最新スキルを即反映させる（v2.1.152追加）。sessionstart フックで reloadskills: true を返すことでも同様の再スキャンが可能。スキルを追加・編集した後すぐに使いたい時に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-color',
   '/color',
   'slash-command',
