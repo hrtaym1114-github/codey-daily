@@ -1209,6 +1209,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-workflows',
+  '/workflows',
+  'slash-command',
+  'ダイナミックワークフローの実行一覧を管理',
+  'バックグラウンドで数十〜数百のエージェントを並列オーケストレーションするダイナミックワークフローを管理するコマンド（v2.1.154追加）。Claudeにワークフロー作成を依頼した後、/workflows で実行中・完了一覧を確認できる。大規模・複雑なタスクの実行管理に使う。',
+  '[{"title": "ワークフロー一覧確認", "code": "/workflows"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-tasks", "slash-agents", "slash-bg"]',
+  '/workflows ダイナミックワークフローの実行一覧を管理 バックグラウンドで数十〜数百のエージェントを並列オーケストレーションするダイナミックワークフローを管理するコマンド（v2.1.154追加）。claudeにワークフロー作成を依頼した後、/workflows で実行中・完了一覧を確認できる。大規模・複雑なタスクの実行管理に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-logout',
+  '/logout',
+  'slash-command',
+  'claude agentsビューでサインアウト',
+  'claude agents（エージェントビュー）セッション内でサインアウトするコマンド（v2.1.154追加）。以前はバックグラウンドセッションに誤送信されていたが修正済み。通常の対話セッションで認証をやり直す場合は /login を使う。',
+  '[{"title": "サインアウト", "code": "/logout"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-login"]',
+  '/logout claude agentsビューでサインアウト claude agents（エージェントビュー）セッション内でサインアウトするコマンド（v2.1.154追加）。以前はバックグラウンドセッションに誤送信されていたが修正済み。通常の対話セッションで認証をやり直す場合は /login を使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
