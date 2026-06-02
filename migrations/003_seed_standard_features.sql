@@ -1237,6 +1237,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-settings',
+  '/settings',
+  'slash-command',
+  '/config のエイリアス（設定表示・変更）',
+  '設定を表示・変更する /config コマンドのエイリアス（v2.0.71で追加）。テーマ、モデル、その他のユーザー設定を変更する際に /settings と入力しても動作する。config とは別に /settings という名称で設定操作に慣れているユーザー向けの互換性コマンド。',
+  '[{"title": "設定表示", "code": "/settings"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-config", "file-settings-json"]',
+  '/settings /config のエイリアス（設定表示・変更） 設定を表示・変更する /config コマンドのエイリアス（v2.0.71で追加）。テーマ、モデル、その他のユーザー設定を変更する際に /settings と入力しても動作する。config とは別に /settings という名称で設定操作に慣れているユーザー向けの互換性コマンド。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-proactive',
+  '/proactive',
+  'slash-command',
+  '/loop のエイリアス（定期プロンプト実行）',
+  'プロンプトを定期実行する /loop コマンドのエイリアス（v2.1.105で追加）。/loop と同様に指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行できる。Bedrock/Vertex でも利用可。新しい記法では /loop を使用することを推奨。',
+  '[{"title": "定期確認（/loop と同等）", "code": "/proactive 5m デプロイ状態を確認して"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-loop"]',
+  '/proactive /loop のエイリアス（定期プロンプト実行） プロンプトを定期実行する /loop コマンドのエイリアス（v2.1.105で追加）。/loop と同様に指定した間隔でプロンプトやスラッシュコマンドを繰り返し実行できる。bedrock/vertex でも利用可。新しい記法では /loop を使用することを推奨。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
