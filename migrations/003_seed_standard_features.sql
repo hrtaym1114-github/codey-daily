@@ -1265,6 +1265,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-autofix-pr',
+  '/autofix-pr',
+  'slash-command',
+  'PRブランチ専用の自動修正コマンド',
+  'デフォルトブランチでは実行不可のため、feature/fix ブランチ等のPRブランチ上で使用する。git worktreeや別リポジトリ内にいる際、誤って「cannot run on the default branch」が報告される問題をv2.1.161で修正。',
+  '[{"title": "PR自動修正", "code": "/autofix-pr"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-review", "slash-ultrareview"]',
+  '/autofix-pr prブランチ専用の自動修正コマンド デフォルトブランチでは実行不可のため、feature/fix ブランチ等のprブランチ上で使用する。git worktreeや別リポジトリ内にいる際、誤って「cannot run on the default branch」が報告される問題をv2.1.161で修正。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

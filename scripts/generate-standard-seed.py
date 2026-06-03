@@ -863,6 +863,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-loop"],
     },
+    {
+        "id": "slash-autofix-pr", "name": "/autofix-pr", "category": "slash-command",
+        "summary_ja": "PRブランチ専用の自動修正コマンド",
+        "description_ja": "デフォルトブランチでは実行不可のため、feature/fix ブランチ等のPRブランチ上で使用する。git worktreeや別リポジトリ内にいる際、誤って「cannot run on the default branch」が報告される問題をv2.1.161で修正。",
+        "examples": [
+            {"title": "PR自動修正", "code": "/autofix-pr"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-review", "slash-ultrareview"],
+    },
 
     # ========== Built-in Tools ==========
     {
