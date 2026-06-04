@@ -1279,6 +1279,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-undo',
+  '/undo',
+  'slash-command',
+  '/rewind のエイリアス（会話を巻き戻す）',
+  '会話を巻き戻してコード変更を取り消す `/rewind` コマンドのエイリアス（v2.1.108追加）。ピッカーで任意のポイントを選択して会話を巻き戻せる。VS Code では Esc×2 でも同様に起動可能。新しい記法では `/rewind` を推奨。',
+  '[{"title": "会話を巻き戻す", "code": "/undo"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-rewind"]',
+  '/undo /rewind のエイリアス（会話を巻き戻す） 会話を巻き戻してコード変更を取り消す `/rewind` コマンドのエイリアス（v2.1.108追加）。ピッカーで任意のポイントを選択して会話を巻き戻せる。vs code では esc×2 でも同様に起動可能。新しい記法では `/rewind` を推奨。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

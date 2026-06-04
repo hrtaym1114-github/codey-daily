@@ -872,6 +872,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-review", "slash-ultrareview"],
     },
+    {
+        "id": "slash-undo", "name": "/undo", "category": "slash-command",
+        "summary_ja": "/rewind のエイリアス（会話を巻き戻す）",
+        "description_ja": "会話を巻き戻してコード変更を取り消す `/rewind` コマンドのエイリアス（v2.1.108追加）。ピッカーで任意のポイントを選択して会話を巻き戻せる。VS Code では Esc×2 でも同様に起動可能。新しい記法では `/rewind` を推奨。",
+        "examples": [
+            {"title": "会話を巻き戻す", "code": "/undo"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-rewind"],
+    },
 
     # ========== Built-in Tools ==========
     {
