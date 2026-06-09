@@ -1293,6 +1293,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-cd',
+  '/cd',
+  'slash-command',
+  'セッションの作業ディレクトリを変更',
+  'セッションを再起動せずに作業ディレクトリを変更する（v2.1.169追加）。プロンプトキャッシュを壊さずにディレクトリを移動できるため、キャッシュを保持したまま別のプロジェクトディレクトリに切り替えられる。',
+  '[{"title": "ディレクトリ変更", "code": "/cd ~/other-project"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-add-dir"]',
+  '/cd セッションの作業ディレクトリを変更 セッションを再起動せずに作業ディレクトリを変更する（v2.1.169追加）。プロンプトキャッシュを壊さずにディレクトリを移動できるため、キャッシュを保持したまま別のプロジェクトディレクトリに切り替えられる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

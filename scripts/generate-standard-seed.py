@@ -881,6 +881,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-rewind"],
     },
+    {
+        "id": "slash-cd", "name": "/cd", "category": "slash-command",
+        "summary_ja": "セッションの作業ディレクトリを変更",
+        "description_ja": "セッションを再起動せずに作業ディレクトリを変更する（v2.1.169追加）。プロンプトキャッシュを壊さずにディレクトリを移動できるため、キャッシュを保持したまま別のプロジェクトディレクトリに切り替えられる。",
+        "examples": [
+            {"title": "ディレクトリ変更", "code": "/cd ~/other-project"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-add-dir"],
+    },
 
     # ========== Built-in Tools ==========
     {
