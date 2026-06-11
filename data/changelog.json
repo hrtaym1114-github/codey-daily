@@ -1,11 +1,356 @@
 {
-  "fetched_at": "2026-06-10T03:51:11.046398Z",
+  "fetched_at": "2026-06-11T04:04:30.160076Z",
   "source_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
   "docs_url": "https://code.claude.com/docs/en/changelog",
-  "version_count": 313,
-  "latest_version": "2.1.170",
+  "version_count": 314,
+  "latest_version": "2.1.172",
   "latest_date": null,
   "versions": [
+    {
+      "version": "2.1.172",
+      "date_raw": null,
+      "date": null,
+      "entries": [
+        {
+          "text": "Sub-agents can now spawn their own sub-agents (up to 5 levels deep)",
+          "category": "other",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Amazon Bedrock now reads the AWS region from `~/.aws` config files when `AWS_REGION` isn't set, matching AWS SDK precedence; `/status` shows where the region came from",
+          "category": "other",
+          "refs": {
+            "slash_commands": [
+              "/status"
+            ],
+            "env_vars": [
+              "AWS_REGION"
+            ],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Added a search bar when browsing a marketplace's plugins in `/plugin`",
+          "category": "added",
+          "refs": {
+            "slash_commands": [
+              "/plugin"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Added `model` attribute to the `claude_code.lines_of_code.count` OTEL metric",
+          "category": "added",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed sessions using 1M context without usage credits getting permanently stuck — the session now automatically compacts back under the standard context limit",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed a repeating \"an image in the conversation could not be processed and was removed\" error when the conversation contained multiple images",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed the agents view keeping a session under Working with a busy spinner for up to 30 seconds after the worker replied",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed background agents potentially reading another directory's project settings (`.mcp.json` approvals, trust) when dispatched onto a pre-warmed worker",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed background-session attach failing with EAUTH for sessions started on an older version after the daemon auto-updated",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed a background sub-agent staying stuck as \"active\" in the agent panel after a nested agent it spawned was stopped",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed `/model` suggestions in the `claude agents` dispatch input rendering with a misleading slash prefix and showing models disabled for your org",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [
+              "/model"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": [
+              "agents"
+            ]
+          }
+        },
+        {
+          "text": "Fixed `availableModels` restrictions not being applied to subagent model overrides, the agent dispatch model picker, and the advisor model",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed `availableModels` allowlists hiding the `/model` picker's Opus and Sonnet 1M rows when entries use version-specific IDs like `claude-opus-4-8`",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [
+              "/model"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed the `/model` picker on Bedrock offering models the provider doesn't serve — selecting one silently switched the session model and lit the selection marker on multiple rows",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [
+              "/model"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed model IDs getting a doubled 1M-context suffix (e.g. `[1M][1m]`) when `ANTHROPIC_DEFAULT_OPUS_MODEL` already includes one",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [
+              "ANTHROPIC_DEFAULT_OPUS_MODEL"
+            ],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed `opusplan` model setting not shipping with 1M context in plan mode for entitled users; the `opusplan[1m]` workaround now also correctly switches to Opus in plan mode",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed `WebFetch(domain:*.example.com)` wildcard domain rules never matching subdomains in allow, deny, and ask position, and file permission rules with mid-pattern wildcards (e.g. `Read(secrets-*/config.json)`) being rejected at startup",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [
+              "/config"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed up-arrow prompt history showing the main agent's prompts while a subagent's chat tab is open",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed memory recall not finding mounted team memory stores (`CLAUDE_MEMORY_STORES`) in remote sessions",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [
+              "CLAUDE_MEMORY_STORES"
+            ],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed workflow validation rejecting scripts whose prompt strings or comments merely mention `Date.now()`/`Math.random()`",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Disable mouse tracking on Windows consoles that don't fully support it",
+          "category": "other",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Fixed the `/plugin` marketplace list losing its cursor after backing out of a long plugin list, and Esc from the plugin browser returning to the wrong tab",
+          "category": "fixed",
+          "refs": {
+            "slash_commands": [
+              "/plugin"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Improved performance in long conversations by removing redundant message normalization and avoiding full message-history transforms when streaming tool-use state is unchanged",
+          "category": "improved",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Reduced idle CPU usage: `/goal` status chip no longer re-renders the terminal at 5 Hz while idle, and fewer UI re-renders while subagents run in parallel",
+          "category": "other",
+          "refs": {
+            "slash_commands": [
+              "/goal"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Improved Claude in Chrome tool loading: browser tools now load in a single batched call instead of one per tool",
+          "category": "improved",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Improved the non-interactive Usage Policy refusal message to suggest starting a new session or changing your model",
+          "category": "improved",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "`/code-review` now keeps the `ultra` option visible when you're not signed in to claude.ai, with an explanation that the cloud review requires a claude.ai account",
+          "category": "other",
+          "refs": {
+            "slash_commands": [
+              "/code-review"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Shortened the Remote Control footer indicator to \"/rc active\" and hid it on narrow terminals",
+          "category": "other",
+          "refs": {
+            "slash_commands": [
+              "/rc"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "Stopped promoting `/loop` in remote sessions, where pending loops don't keep the container alive",
+          "category": "other",
+          "refs": {
+            "slash_commands": [
+              "/loop"
+            ],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        },
+        {
+          "text": "[VSCode] Fixed PowerShell tool calls rendering as raw JSON instead of a proper command display and permission dialog, and stripped ANSI escape codes from displayed shell output",
+          "category": "other",
+          "refs": {
+            "slash_commands": [],
+            "env_vars": [],
+            "cli_flags": [],
+            "claude_subcommands": []
+          }
+        }
+      ],
+      "stats": {
+        "total": 30,
+        "added": 2,
+        "fixed": 17,
+        "security": 0,
+        "improved": 3,
+        "other": 8
+      }
+    },
     {
       "version": "2.1.170",
       "date_raw": null,
@@ -17,8 +362,8 @@
           "refs": {
             "slash_commands": [
               "/www",
-              "/news",
-              "/claude-fable-5-mythos-5"
+              "/claude-fable-5-mythos-5",
+              "/news"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -593,8 +938,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/login",
-              "/voice"
+              "/voice",
+              "/login"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -736,8 +1081,8 @@
             ],
             "env_vars": [],
             "cli_flags": [
-              "--enabled",
-              "--disabled"
+              "--disabled",
+              "--enabled"
             ],
             "claude_subcommands": []
           }
@@ -813,8 +1158,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/tmp",
-              "/claude-"
+              "/claude-",
+              "/tmp"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -908,8 +1253,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/plugins",
-              "/mcp"
+              "/mcp",
+              "/plugins"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -1032,9 +1377,9 @@
           "category": "changed",
           "refs": {
             "slash_commands": [
-              "/scroll-speed",
               "/ide",
-              "/terminal-setup"
+              "/terminal-setup",
+              "/scroll-speed"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -1056,8 +1401,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/allow",
-              "/ask"
+              "/ask",
+              "/allow"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -1428,9 +1773,9 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/bash",
               "/bin",
-              "/usr"
+              "/usr",
+              "/bash"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -1452,8 +1797,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/add",
-              "/get"
+              "/get",
+              "/add"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -1510,8 +1855,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "EADDRINUSE",
-              "CLAUDE_CODE_TMPDIR"
+              "CLAUDE_CODE_TMPDIR",
+              "EADDRINUSE"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -4293,10 +4638,10 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/plugin",
-              "/permissions",
               "/mobile",
               "/sandbox",
+              "/plugin",
+              "/permissions",
               "/status"
             ],
             "env_vars": [],
@@ -4880,8 +5225,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/bg",
-              "/add-dir"
+              "/add-dir",
+              "/bg"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -5341,10 +5686,10 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--settings",
-              "--plugin-dir",
               "--mcp-config",
-              "--add-dir"
+              "--add-dir",
+              "--settings",
+              "--plugin-dir"
             ],
             "claude_subcommands": [
               "agents"
@@ -5358,8 +5703,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--permission-mode",
               "--model",
+              "--permission-mode",
               "--dangerously-skip-permissions",
               "--effort"
             ],
@@ -5419,11 +5764,11 @@
             ],
             "env_vars": [],
             "cli_flags": [
+              "--strict-mcp-config",
               "--mcp-config",
               "--settings",
-              "--strict-mcp-config",
-              "--plugin-dir",
-              "--add-dir"
+              "--add-dir",
+              "--plugin-dir"
             ],
             "claude_subcommands": []
           }
@@ -5525,14 +5870,14 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--settings",
               "--mcp-config",
+              "--effort",
               "--dangerously-skip-permissions",
+              "--settings",
               "--model",
-              "--plugin-dir",
               "--permission-mode",
               "--add-dir",
-              "--effort"
+              "--plugin-dir"
             ],
             "claude_subcommands": [
               "agents"
@@ -6606,8 +6951,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/plugin",
-              "/doctor"
+              "/doctor",
+              "/plugin"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -6634,10 +6979,10 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/agent-view",
+              "/code",
               "/docs",
-              "/code"
+              "/en",
+              "/agent-view"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -6820,8 +7165,8 @@
               "/schedule"
             ],
             "env_vars": [
-              "ANTHROPIC_API_KEY",
-              "ANTHROPIC_AUTH_TOKEN"
+              "ANTHROPIC_AUTH_TOKEN",
+              "ANTHROPIC_API_KEY"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -6907,8 +7252,8 @@
               "/model"
             ],
             "env_vars": [
-              "ANTHROPIC_DEFAULT_OPUS_MODEL",
-              "ANTHROPIC_DEFAULT_SONNET_MODEL"
+              "ANTHROPIC_DEFAULT_SONNET_MODEL",
+              "ANTHROPIC_DEFAULT_OPUS_MODEL"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -7307,8 +7652,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
-              "--resume"
+              "--resume",
+              "--continue"
             ],
             "claude_subcommands": []
           }
@@ -7528,8 +7873,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/resume",
-              "/clear"
+              "/clear",
+              "/resume"
             ],
             "env_vars": [
               "CLAUDE_ENV_FILE"
@@ -7565,10 +7910,10 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
+              "/resume",
               "/web-setup",
-              "/install-github-app",
               "/desktop",
-              "/resume"
+              "/install-github-app"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -7988,8 +8333,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--remote-control",
-              "--remote-control-session-name-prefix"
+              "--remote-control-session-name-prefix",
+              "--remote-control"
             ],
             "claude_subcommands": []
           }
@@ -8279,8 +8624,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/mcp",
-              "/list"
+              "/list",
+              "/mcp"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -8302,9 +8647,9 @@
           "category": "improved",
           "refs": {
             "slash_commands": [
-              "/login",
+              "/upgrade",
               "/extra-usage",
-              "/upgrade"
+              "/login"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -8432,9 +8777,9 @@
           "category": "other",
           "refs": {
             "slash_commands": [
+              "/model",
               "/v1",
-              "/models",
-              "/model"
+              "/models"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -9038,8 +9383,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
-              "--resume"
+              "--resume",
+              "--continue"
             ],
             "claude_subcommands": []
           }
@@ -9130,8 +9475,8 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/v1",
               "/models",
+              "/v1",
               "/model"
             ],
             "env_vars": [
@@ -9148,8 +9493,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--dry-run",
-              "--all"
+              "--all",
+              "--dry-run"
             ],
             "claude_subcommands": []
           }
@@ -9816,8 +10161,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/copy",
-              "/terminal-setup"
+              "/terminal-setup",
+              "/copy"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -10411,9 +10756,9 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/local",
-              "/policy",
               "/settings",
+              "/policy",
+              "/local",
               "/config"
             ],
             "env_vars": [],
@@ -10848,8 +11193,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/reload-plugins",
-              "/doctor"
+              "/doctor",
+              "/reload-plugins"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -10982,9 +11327,9 @@
           "category": "other",
           "refs": {
             "slash_commands": [
+              "/stats",
               "/cost",
-              "/usage",
-              "/stats"
+              "/usage"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -11078,8 +11423,8 @@
             ],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
-              "--resume"
+              "--resume",
+              "--continue"
             ],
             "claude_subcommands": []
           }
@@ -11089,8 +11434,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/color",
-              "/code"
+              "/code",
+              "/color"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -11116,8 +11461,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/plugin",
-              "/doctor"
+              "/doctor",
+              "/plugin"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -11470,9 +11815,9 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/tasks",
               "/backups",
-              "/shell-snapshots"
+              "/shell-snapshots",
+              "/tasks"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -11705,8 +12050,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/templates",
-              "/list"
+              "/list",
+              "/templates"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -11828,10 +12173,10 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/downloads",
               "/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819",
+              "/claude-code-releases",
               "/storage",
-              "/claude-code-releases"
+              "/downloads"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -11961,8 +12306,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/tui",
-              "/update"
+              "/update",
+              "/tui"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -12088,8 +12433,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/extra-usage",
-              "/web"
+              "/web",
+              "/extra-usage"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -12947,8 +13292,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
-              "--resume"
+              "--resume",
+              "--continue"
             ],
             "claude_subcommands": []
           }
@@ -12958,8 +13303,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/reload-plugins",
               "/web",
+              "/reload-plugins",
               "/exit",
               "/context"
             ],
@@ -12996,8 +13341,8 @@
               "/headless"
             ],
             "env_vars": [
-              "TRACESTATE",
-              "TRACEPARENT"
+              "TRACEPARENT",
+              "TRACESTATE"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -13305,8 +13650,8 @@
           "refs": {
             "slash_commands": [
               "/review",
-              "/init",
-              "/security-review"
+              "/security-review",
+              "/init"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -13621,8 +13966,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/loop",
-              "/proactive"
+              "/proactive",
+              "/loop"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -14141,9 +14486,9 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "OTEL_LOG_TOOL_CONTENT",
               "OTEL_LOG_USER_PROMPTS",
-              "OTEL_LOG_TOOL_DETAILS"
+              "OTEL_LOG_TOOL_DETAILS",
+              "OTEL_LOG_TOOL_CONTENT"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -14186,8 +14531,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
-              "--resume"
+              "--resume",
+              "--continue"
             ],
             "claude_subcommands": []
           }
@@ -14442,8 +14787,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/config",
-              "/add-dir"
+              "/add-dir",
+              "/config"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -14561,8 +14906,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "CLAUDE_CODE_SCRIPT_CAPS",
-              "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB"
+              "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB",
+              "CLAUDE_CODE_SCRIPT_CAPS"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -14638,8 +14983,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "LANG",
-              "NO_COLOR"
+              "NO_COLOR",
+              "LANG"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -14650,9 +14995,9 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/dev",
               "/tcp",
-              "/udp"
+              "/udp",
+              "/dev"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -15002,9 +15347,9 @@
           "category": "improved",
           "refs": {
             "slash_commands": [
+              "/worktree",
               "/branch",
-              "/resume",
-              "/worktree"
+              "/resume"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -15127,8 +15472,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "CLAUDE_CODE_MAX_CONTEXT_TOKENS",
-              "DISABLE_COMPACT"
+              "DISABLE_COMPACT",
+              "CLAUDE_CODE_MAX_CONTEXT_TOKENS"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -15681,8 +16026,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "AWS_BEARER_TOKEN_BEDROCK",
-              "CLAUDE_CODE_SKIP_BEDROCK_AUTH"
+              "CLAUDE_CODE_SKIP_BEDROCK_AUTH",
+              "AWS_BEARER_TOKEN_BEDROCK"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -16189,8 +16534,8 @@
           "category": "removed",
           "refs": {
             "slash_commands": [
-              "/config",
-              "/vim"
+              "/vim",
+              "/config"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -16500,8 +16845,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/model",
-              "/config"
+              "/config",
+              "/model"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -17478,8 +17823,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "CLAUDE_CODE_MCP_SERVER_URL",
-              "CLAUDE_CODE_MCP_SERVER_NAME"
+              "CLAUDE_CODE_MCP_SERVER_NAME",
+              "CLAUDE_CODE_MCP_SERVER_URL"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -17631,8 +17976,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "OTEL_LOGS_EXPORTER",
               "OTEL_METRICS_EXPORTER",
+              "OTEL_LOGS_EXPORTER",
               "OTEL_TRACES_EXPORTER"
             ],
             "cli_flags": [],
@@ -17811,10 +18156,10 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/docs",
+              "/tools-reference",
               "/code",
-              "/tools-reference"
+              "/docs",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -18204,9 +18549,9 @@
           "refs": {
             "slash_commands": [
               "/voice",
-              "/upgrade",
               "/chrome",
-              "/mobile"
+              "/mobile",
+              "/upgrade"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -19629,8 +19974,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/right",
-              "/permissions"
+              "/permissions",
+              "/right"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -20497,8 +20842,8 @@
           "category": "changed",
           "refs": {
             "slash_commands": [
-              "/branch",
-              "/fork"
+              "/fork",
+              "/branch"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -21192,8 +21537,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--agents",
-              "--model"
+              "--model",
+              "--agents"
             ],
             "claude_subcommands": []
           }
@@ -21456,8 +21801,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
-              "--resume"
+              "--resume",
+              "--continue"
             ],
             "claude_subcommands": []
           }
@@ -21561,8 +21906,8 @@
           "category": "improved",
           "refs": {
             "slash_commands": [
-              "/model",
-              "/effort"
+              "/effort",
+              "/model"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -21643,8 +21988,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "ENABLE_TOOL_SEARCH",
-              "ANTHROPIC_BASE_URL"
+              "ANTHROPIC_BASE_URL",
+              "ENABLE_TOOL_SEARCH"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -21722,8 +22067,8 @@
           "refs": {
             "slash_commands": [
               "/medium",
-              "/effort",
-              "/high"
+              "/high",
+              "/effort"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -22819,8 +23164,8 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/disable",
-              "/mcp"
+              "/mcp",
+              "/disable"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -23801,8 +24146,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--system-prompt-file",
-              "--append-system-prompt-file"
+              "--append-system-prompt-file",
+              "--system-prompt-file"
             ],
             "claude_subcommands": []
           }
@@ -24744,8 +25089,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "CLAUDE_CODE_ACCOUNT_UUID",
               "CLAUDE_CODE_USER_EMAIL",
+              "CLAUDE_CODE_ACCOUNT_UUID",
               "CLAUDE_CODE_ORGANIZATION_UUID"
             ],
             "cli_flags": [],
@@ -24779,10 +25124,10 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/docs",
+              "/settings",
               "/code",
-              "/settings"
+              "/docs",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -25605,8 +25950,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/rename",
-              "/claude-code"
+              "/claude-code",
+              "/rename"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -25640,10 +25985,10 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/help",
-              "/model",
               "/compact",
-              "/claude-code"
+              "/claude-code",
+              "/help",
+              "/model"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -25690,8 +26035,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/resume",
-              "/claude-code"
+              "/claude-code",
+              "/resume"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -25715,8 +26060,8 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/claude-code",
-              "/add-dir"
+              "/add-dir",
+              "/claude-code"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -25899,8 +26244,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/resume",
-              "/claude-code"
+              "/claude-code",
+              "/resume"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -25936,8 +26281,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/claude-code",
-              "/fork"
+              "/fork",
+              "/claude-code"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -26074,8 +26419,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/resume",
-              "/claude-code"
+              "/claude-code",
+              "/resume"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -26147,8 +26492,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/rename",
-              "/claude-code"
+              "/claude-code",
+              "/rename"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -26695,8 +27040,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/dev",
-              "/stdin"
+              "/stdin",
+              "/dev"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -26983,10 +27328,10 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/fast-mode",
+              "/code",
               "/docs",
-              "/code"
+              "/fast-mode",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -27505,8 +27850,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--client-id",
-              "--client-secret"
+              "--client-secret",
+              "--client-id"
             ],
             "claude_subcommands": []
           }
@@ -28495,8 +28840,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/rename",
-              "/tag"
+              "/tag",
+              "/rename"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -28613,10 +28958,10 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/keybindings",
-              "/en",
               "/docs",
-              "/code"
+              "/code",
+              "/keybindings",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -28755,10 +29100,10 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/en",
               "/getting-started",
               "/docs",
-              "/claude-code"
+              "/claude-code",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -28924,9 +29269,9 @@
           "refs": {
             "slash_commands": [
               "/todos",
-              "/model",
+              "/context",
               "/config",
-              "/context"
+              "/model"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -29322,8 +29667,8 @@
           "category": "fixed",
           "refs": {
             "slash_commands": [
-              "/model",
-              "/theme"
+              "/theme",
+              "/model"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -29432,8 +29777,8 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/latest",
-              "/doctor"
+              "/doctor",
+              "/latest"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -29661,8 +30006,8 @@
           "category": "removed",
           "refs": {
             "slash_commands": [
-              "/disable",
-              "/mcp"
+              "/mcp",
+              "/disable"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -31535,8 +31880,8 @@
             "cli_flags": [
               "--fork-session",
               "--resume",
-              "--session-id",
-              "--continue"
+              "--continue",
+              "--session-id"
             ],
             "claude_subcommands": []
           }
@@ -31746,8 +32091,8 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/config",
-              "/settings"
+              "/settings",
+              "/config"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -32324,11 +32669,11 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/code",
               "/rules",
-              "/en",
+              "/memory",
+              "/code",
               "/docs",
-              "/memory"
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -32362,8 +32707,8 @@
             "slash_commands": [],
             "env_vars": [],
             "cli_flags": [
-              "--continue",
               "--resume",
+              "--continue",
               "--system-prompt"
             ],
             "claude_subcommands": []
@@ -32947,8 +33292,8 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/claude-opus-4-5",
               "/www",
+              "/claude-opus-4-5",
               "/news"
             ],
             "env_vars": [],
@@ -32961,8 +33306,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/download",
-              "/claude"
+              "/claude",
+              "/download"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -33243,10 +33588,10 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/azure-ai-foundry",
+              "/code",
               "/docs",
-              "/code"
+              "/en",
+              "/azure-ai-foundry"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -34290,12 +34635,12 @@
           "category": "removed",
           "refs": {
             "slash_commands": [
-              "/migration-guide",
-              "/en",
+              "/claude-agent-sdk",
               "/platform",
-              "/docs",
+              "/migration-guide",
               "/agent-sdk",
-              "/claude-agent-sdk"
+              "/docs",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -34832,8 +35177,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/claude-code-plugins",
               "/www",
+              "/claude-code-plugins",
               "/news"
             ],
             "env_vars": [],
@@ -34846,10 +35191,10 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/plugins",
+              "/code",
               "/docs",
-              "/code"
+              "/plugins",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -35003,8 +35348,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/disable",
-              "/mcp"
+              "/mcp",
+              "/disable"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -35508,10 +35853,10 @@
           "category": "added",
           "refs": {
             "slash_commands": [
-              "/en",
               "/slash-commands",
+              "/code",
               "/docs",
-              "/code"
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -36247,8 +36592,8 @@
           "refs": {
             "slash_commands": [],
             "env_vars": [
-              "ANTHROPIC_DEFAULT_OPUS_MODEL",
-              "ANTHROPIC_DEFAULT_SONNET_MODEL"
+              "ANTHROPIC_DEFAULT_SONNET_MODEL",
+              "ANTHROPIC_DEFAULT_OPUS_MODEL"
             ],
             "cli_flags": [],
             "claude_subcommands": []
@@ -36527,10 +36872,10 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/en",
-              "/docs",
               "/code",
-              "/output-styles"
+              "/docs",
+              "/output-styles",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -37873,9 +38218,9 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/commands",
               "/frontend",
-              "/component"
+              "/component",
+              "/commands"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -38140,14 +38485,14 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/code",
-              "/en",
-              "/issues",
-              "/anthropics",
-              "/docs",
+              "/claude-code",
               "/hooks",
               "/github",
-              "/claude-code"
+              "/issues",
+              "/anthropics",
+              "/code",
+              "/docs",
+              "/en"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -39121,8 +39466,8 @@
           "category": "changed",
           "refs": {
             "slash_commands": [
-              "/allowed-tools",
-              "/permissions"
+              "/permissions",
+              "/allowed-tools"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -39543,8 +39888,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/to",
-              "/file"
+              "/file",
+              "/to"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -40563,8 +40908,8 @@
           "category": "other",
           "refs": {
             "slash_commands": [
-              "/config",
-              "/vim"
+              "/vim",
+              "/config"
             ],
             "env_vars": [],
             "cli_flags": [],
@@ -40775,18 +41120,107 @@
   ],
   "all_references": {
     "slash_commands": {
-      "/www": {
-        "count": 3,
-        "first_seen": "2.1.170",
+      "/status": {
+        "count": 8,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "0.2.105",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "removed",
+          "fixed"
+        ]
+      },
+      "/plugin": {
+        "count": 43,
+        "first_seen": "2.1.172",
         "first_seen_date": null,
         "last_seen": "2.0.12",
         "last_seen_date": null,
         "categories": [
+          "added",
+          "fixed",
           "other",
+          "improved"
+        ]
+      },
+      "/model": {
+        "count": 42,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "1.0.77",
+        "last_seen_date": null,
+        "categories": [
+          "fixed",
+          "removed",
+          "other",
+          "added",
+          "improved",
+          "changed"
+        ]
+      },
+      "/config": {
+        "count": 29,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "0.2.34",
+        "last_seen_date": null,
+        "categories": [
+          "fixed",
+          "added",
+          "other",
+          "improved",
+          "removed"
+        ]
+      },
+      "/goal": {
+        "count": 4,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "2.1.139",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "fixed",
           "added"
         ]
       },
-      "/news": {
+      "/code-review": {
+        "count": 4,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "2.1.147",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "changed"
+        ]
+      },
+      "/rc": {
+        "count": 1,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "2.1.172",
+        "last_seen_date": null,
+        "categories": [
+          "other"
+        ]
+      },
+      "/loop": {
+        "count": 8,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "2.1.71",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "fixed",
+          "improved",
+          "added"
+        ]
+      },
+      "/www": {
         "count": 3,
         "first_seen": "2.1.170",
         "first_seen_date": null,
@@ -40805,6 +41239,17 @@
         "last_seen_date": null,
         "categories": [
           "other"
+        ]
+      },
+      "/news": {
+        "count": 3,
+        "first_seen": "2.1.170",
+        "first_seen_date": null,
+        "last_seen": "2.0.12",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "added"
         ]
       },
       "/cd": {
@@ -40849,17 +41294,6 @@
           "other"
         ]
       },
-      "/login": {
-        "count": 11,
-        "first_seen": "2.1.166",
-        "first_seen_date": null,
-        "last_seen": "2.1.30",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "improved"
-        ]
-      },
       "/voice": {
         "count": 6,
         "first_seen": "2.1.166",
@@ -40869,6 +41303,17 @@
         "categories": [
           "fixed",
           "other",
+          "improved"
+        ]
+      },
+      "/login": {
+        "count": 11,
+        "first_seen": "2.1.166",
+        "first_seen_date": null,
+        "last_seen": "2.1.30",
+        "last_seen_date": null,
+        "categories": [
+          "fixed",
           "improved"
         ]
       },
@@ -40885,19 +41330,6 @@
           "added"
         ]
       },
-      "/plugin": {
-        "count": 41,
-        "first_seen": "2.1.163",
-        "first_seen_date": null,
-        "last_seen": "2.0.12",
-        "last_seen_date": null,
-        "categories": [
-          "added",
-          "other",
-          "fixed",
-          "improved"
-        ]
-      },
       "/btw": {
         "count": 5,
         "first_seen": "2.1.163",
@@ -40907,18 +41339,6 @@
         "categories": [
           "added",
           "fixed"
-        ]
-      },
-      "/tmp": {
-        "count": 4,
-        "first_seen": "2.1.163",
-        "first_seen_date": null,
-        "last_seen": "1.0.48",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "improved",
-          "other"
         ]
       },
       "/claude-": {
@@ -40931,15 +41351,15 @@
           "fixed"
         ]
       },
-      "/plugins": {
-        "count": 5,
+      "/tmp": {
+        "count": 4,
         "first_seen": "2.1.163",
         "first_seen_date": null,
-        "last_seen": "2.0.12",
+        "last_seen": "1.0.48",
         "last_seen_date": null,
         "categories": [
           "fixed",
-          "changed",
+          "improved",
           "other"
         ]
       },
@@ -40957,6 +41377,18 @@
           "improved"
         ]
       },
+      "/plugins": {
+        "count": 5,
+        "first_seen": "2.1.163",
+        "first_seen_date": null,
+        "last_seen": "2.0.12",
+        "last_seen_date": null,
+        "categories": [
+          "fixed",
+          "changed",
+          "other"
+        ]
+      },
       "/effort": {
         "count": 20,
         "first_seen": "2.1.162",
@@ -40969,17 +41401,6 @@
           "changed",
           "added",
           "improved"
-        ]
-      },
-      "/scroll-speed": {
-        "count": 2,
-        "first_seen": "2.1.162",
-        "first_seen_date": null,
-        "last_seen": "2.1.139",
-        "last_seen_date": null,
-        "categories": [
-          "changed",
-          "added"
         ]
       },
       "/ide": {
@@ -41007,7 +41428,18 @@
           "fixed"
         ]
       },
-      "/allow": {
+      "/scroll-speed": {
+        "count": 2,
+        "first_seen": "2.1.162",
+        "first_seen_date": null,
+        "last_seen": "2.1.139",
+        "last_seen_date": null,
+        "categories": [
+          "changed",
+          "added"
+        ]
+      },
+      "/ask": {
         "count": 1,
         "first_seen": "2.1.162",
         "first_seen_date": null,
@@ -41017,7 +41449,7 @@
           "fixed"
         ]
       },
-      "/ask": {
+      "/allow": {
         "count": 1,
         "first_seen": "2.1.162",
         "first_seen_date": null,
@@ -41068,16 +41500,6 @@
           "fixed"
         ]
       },
-      "/bash": {
-        "count": 2,
-        "first_seen": "2.1.161",
-        "first_seen_date": null,
-        "last_seen": "2.1.72",
-        "last_seen_date": null,
-        "categories": [
-          "fixed"
-        ]
-      },
       "/bin": {
         "count": 2,
         "first_seen": "2.1.161",
@@ -41098,7 +41520,17 @@
           "fixed"
         ]
       },
-      "/add": {
+      "/bash": {
+        "count": 2,
+        "first_seen": "2.1.161",
+        "first_seen_date": null,
+        "last_seen": "2.1.72",
+        "last_seen_date": null,
+        "categories": [
+          "fixed"
+        ]
+      },
+      "/get": {
         "count": 1,
         "first_seen": "2.1.161",
         "first_seen_date": null,
@@ -41108,7 +41540,7 @@
           "fixed"
         ]
       },
-      "/get": {
+      "/add": {
         "count": 1,
         "first_seen": "2.1.161",
         "first_seen_date": null,
@@ -41162,47 +41594,6 @@
           "fixed"
         ]
       },
-      "/model": {
-        "count": 39,
-        "first_seen": "2.1.157",
-        "first_seen_date": null,
-        "last_seen": "1.0.77",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "removed",
-          "other",
-          "added",
-          "improved",
-          "changed"
-        ]
-      },
-      "/status": {
-        "count": 7,
-        "first_seen": "2.1.157",
-        "first_seen_date": null,
-        "last_seen": "0.2.105",
-        "last_seen_date": null,
-        "categories": [
-          "removed",
-          "fixed",
-          "other"
-        ]
-      },
-      "/config": {
-        "count": 28,
-        "first_seen": "2.1.157",
-        "first_seen_date": null,
-        "last_seen": "0.2.34",
-        "last_seen_date": null,
-        "categories": [
-          "added",
-          "fixed",
-          "other",
-          "improved",
-          "removed"
-        ]
-      },
       "/simplify": {
         "count": 4,
         "first_seen": "2.1.154",
@@ -41213,17 +41604,6 @@
           "other",
           "changed",
           "added"
-        ]
-      },
-      "/code-review": {
-        "count": 3,
-        "first_seen": "2.1.154",
-        "first_seen_date": null,
-        "last_seen": "2.1.147",
-        "last_seen_date": null,
-        "categories": [
-          "other",
-          "changed"
         ]
       },
       "/logout": {
@@ -41510,20 +41890,6 @@
           "improved"
         ]
       },
-      "/permissions": {
-        "count": 9,
-        "first_seen": "2.1.147",
-        "first_seen_date": null,
-        "last_seen": "1.0.7",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "other",
-          "improved",
-          "added",
-          "changed"
-        ]
-      },
       "/mobile": {
         "count": 2,
         "first_seen": "2.1.147",
@@ -41544,6 +41910,20 @@
         "categories": [
           "fixed",
           "improved"
+        ]
+      },
+      "/permissions": {
+        "count": 9,
+        "first_seen": "2.1.147",
+        "first_seen_date": null,
+        "last_seen": "1.0.7",
+        "last_seen_date": null,
+        "categories": [
+          "fixed",
+          "other",
+          "improved",
+          "added",
+          "changed"
         ]
       },
       "/review": {
@@ -41645,30 +42025,6 @@
           "other"
         ]
       },
-      "/loop": {
-        "count": 7,
-        "first_seen": "2.1.143",
-        "first_seen_date": null,
-        "last_seen": "2.1.71",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "improved",
-          "other",
-          "added"
-        ]
-      },
-      "/goal": {
-        "count": 3,
-        "first_seen": "2.1.143",
-        "first_seen_date": null,
-        "last_seen": "2.1.139",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "added"
-        ]
-      },
       "/claude": {
         "count": 5,
         "first_seen": "2.1.143",
@@ -41736,6 +42092,29 @@
           "added"
         ]
       },
+      "/code": {
+        "count": 14,
+        "first_seen": "2.1.139",
+        "first_seen_date": null,
+        "last_seen": "1.0.38",
+        "last_seen_date": null,
+        "categories": [
+          "added",
+          "other"
+        ]
+      },
+      "/docs": {
+        "count": 13,
+        "first_seen": "2.1.139",
+        "first_seen_date": null,
+        "last_seen": "1.0.38",
+        "last_seen_date": null,
+        "categories": [
+          "added",
+          "other",
+          "removed"
+        ]
+      },
       "/en": {
         "count": 13,
         "first_seen": "2.1.139",
@@ -41756,29 +42135,6 @@
         "last_seen_date": null,
         "categories": [
           "added"
-        ]
-      },
-      "/docs": {
-        "count": 13,
-        "first_seen": "2.1.139",
-        "first_seen_date": null,
-        "last_seen": "1.0.38",
-        "last_seen_date": null,
-        "categories": [
-          "added",
-          "other",
-          "removed"
-        ]
-      },
-      "/code": {
-        "count": 14,
-        "first_seen": "2.1.139",
-        "first_seen_date": null,
-        "last_seen": "1.0.38",
-        "last_seen_date": null,
-        "categories": [
-          "added",
-          "other"
         ]
       },
       "/turns": {
@@ -41889,6 +42245,16 @@
           "other"
         ]
       },
+      "/desktop": {
+        "count": 1,
+        "first_seen": "2.1.136",
+        "first_seen_date": null,
+        "last_seen": "2.1.136",
+        "last_seen_date": null,
+        "categories": [
+          "fixed"
+        ]
+      },
       "/install-github-app": {
         "count": 2,
         "first_seen": "2.1.136",
@@ -41898,16 +42264,6 @@
         "categories": [
           "fixed",
           "improved"
-        ]
-      },
-      "/desktop": {
-        "count": 1,
-        "first_seen": "2.1.136",
-        "first_seen_date": null,
-        "last_seen": "2.1.136",
-        "last_seen_date": null,
-        "categories": [
-          "fixed"
         ]
       },
       "/myplugin": {
@@ -42153,21 +42509,21 @@
           "added"
         ]
       },
-      "/local": {
-        "count": 1,
-        "first_seen": "2.1.119",
-        "first_seen_date": null,
-        "last_seen": "2.1.119",
-        "last_seen_date": null,
-        "categories": [
-          "other"
-        ]
-      },
       "/policy": {
         "count": 2,
         "first_seen": "2.1.119",
         "first_seen_date": null,
         "last_seen": "2.1.69",
+        "last_seen_date": null,
+        "categories": [
+          "other"
+        ]
+      },
+      "/local": {
+        "count": 1,
+        "first_seen": "2.1.119",
+        "first_seen_date": null,
+        "last_seen": "2.1.119",
         "last_seen_date": null,
         "categories": [
           "other"
@@ -42230,18 +42586,6 @@
           "fixed"
         ]
       },
-      "/cost": {
-        "count": 6,
-        "first_seen": "2.1.118",
-        "first_seen_date": null,
-        "last_seen": "0.2.108",
-        "last_seen_date": null,
-        "categories": [
-          "other",
-          "added",
-          "fixed"
-        ]
-      },
       "/stats": {
         "count": 7,
         "first_seen": "2.1.118",
@@ -42253,6 +42597,18 @@
           "fixed",
           "added",
           "improved"
+        ]
+      },
+      "/cost": {
+        "count": 6,
+        "first_seen": "2.1.118",
+        "first_seen_date": null,
+        "last_seen": "0.2.108",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "added",
+          "fixed"
         ]
       },
       "/themes": {
@@ -42276,18 +42632,6 @@
           "changed"
         ]
       },
-      "/tasks": {
-        "count": 3,
-        "first_seen": "2.1.117",
-        "first_seen_date": null,
-        "last_seen": "2.1.2",
-        "last_seen_date": null,
-        "categories": [
-          "other",
-          "improved",
-          "fixed"
-        ]
-      },
       "/backups": {
         "count": 2,
         "first_seen": "2.1.117",
@@ -42306,6 +42650,18 @@
         "last_seen_date": null,
         "categories": [
           "other"
+        ]
+      },
+      "/tasks": {
+        "count": 3,
+        "first_seen": "2.1.117",
+        "first_seen_date": null,
+        "last_seen": "2.1.2",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "improved",
+          "fixed"
         ]
       },
       "/return": {
@@ -42338,7 +42694,7 @@
           "other"
         ]
       },
-      "/downloads": {
+      "/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819": {
         "count": 1,
         "first_seen": "2.1.116",
         "first_seen_date": null,
@@ -42348,7 +42704,7 @@
           "other"
         ]
       },
-      "/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819": {
+      "/claude-code-releases": {
         "count": 1,
         "first_seen": "2.1.116",
         "first_seen_date": null,
@@ -42368,7 +42724,7 @@
           "other"
         ]
       },
-      "/claude-code-releases": {
+      "/downloads": {
         "count": 1,
         "first_seen": "2.1.116",
         "first_seen_date": null,
@@ -42458,16 +42814,6 @@
           "added"
         ]
       },
-      "/init": {
-        "count": 1,
-        "first_seen": "2.1.108",
-        "first_seen_date": null,
-        "last_seen": "2.1.108",
-        "last_seen_date": null,
-        "categories": [
-          "other"
-        ]
-      },
       "/security-review": {
         "count": 2,
         "first_seen": "2.1.108",
@@ -42477,6 +42823,16 @@
         "categories": [
           "other",
           "fixed"
+        ]
+      },
+      "/init": {
+        "count": 1,
+        "first_seen": "2.1.108",
+        "first_seen_date": null,
+        "last_seen": "2.1.108",
+        "last_seen_date": null,
+        "categories": [
+          "other"
         ]
       },
       "/undo": {
@@ -42541,16 +42897,6 @@
           "added"
         ]
       },
-      "/dev": {
-        "count": 2,
-        "first_seen": "2.1.98",
-        "first_seen_date": null,
-        "last_seen": "2.1.41",
-        "last_seen_date": null,
-        "categories": [
-          "fixed"
-        ]
-      },
       "/tcp": {
         "count": 1,
         "first_seen": "2.1.98",
@@ -42566,6 +42912,16 @@
         "first_seen": "2.1.98",
         "first_seen_date": null,
         "last_seen": "2.1.98",
+        "last_seen_date": null,
+        "categories": [
+          "fixed"
+        ]
+      },
+      "/dev": {
+        "count": 2,
+        "first_seen": "2.1.98",
+        "first_seen_date": null,
+        "last_seen": "2.1.41",
         "last_seen_date": null,
         "categories": [
           "fixed"
@@ -43194,7 +43550,7 @@
           "added"
         ]
       },
-      "/migration-guide": {
+      "/claude-agent-sdk": {
         "count": 1,
         "first_seen": "2.0.25",
         "first_seen_date": null,
@@ -43214,7 +43570,7 @@
           "removed"
         ]
       },
-      "/agent-sdk": {
+      "/migration-guide": {
         "count": 1,
         "first_seen": "2.0.25",
         "first_seen_date": null,
@@ -43224,7 +43580,7 @@
           "removed"
         ]
       },
-      "/claude-agent-sdk": {
+      "/agent-sdk": {
         "count": 1,
         "first_seen": "2.0.25",
         "first_seen_date": null,
@@ -43304,6 +43660,16 @@
           "other"
         ]
       },
+      "/github": {
+        "count": 1,
+        "first_seen": "1.0.38",
+        "first_seen_date": null,
+        "last_seen": "1.0.38",
+        "last_seen_date": null,
+        "categories": [
+          "other"
+        ]
+      },
       "/issues": {
         "count": 1,
         "first_seen": "1.0.38",
@@ -43315,16 +43681,6 @@
         ]
       },
       "/anthropics": {
-        "count": 1,
-        "first_seen": "1.0.38",
-        "first_seen_date": null,
-        "last_seen": "1.0.38",
-        "last_seen_date": null,
-        "categories": [
-          "other"
-        ]
-      },
-      "/github": {
         "count": 1,
         "first_seen": "1.0.38",
         "first_seen_date": null,
@@ -43354,7 +43710,7 @@
           "changed"
         ]
       },
-      "/to": {
+      "/file": {
         "count": 1,
         "first_seen": "0.2.107",
         "first_seen_date": null,
@@ -43364,7 +43720,7 @@
           "other"
         ]
       },
-      "/file": {
+      "/to": {
         "count": 1,
         "first_seen": "0.2.107",
         "first_seen_date": null,
@@ -43416,6 +43772,37 @@
       }
     },
     "env_vars": {
+      "AWS_REGION": {
+        "count": 1,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "2.1.172",
+        "last_seen_date": null,
+        "categories": [
+          "other"
+        ]
+      },
+      "ANTHROPIC_DEFAULT_OPUS_MODEL": {
+        "count": 3,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "1.0.88",
+        "last_seen_date": null,
+        "categories": [
+          "fixed",
+          "other"
+        ]
+      },
+      "CLAUDE_MEMORY_STORES": {
+        "count": 1,
+        "first_seen": "2.1.172",
+        "first_seen_date": null,
+        "last_seen": "2.1.172",
+        "last_seen_date": null,
+        "categories": [
+          "fixed"
+        ]
+      },
       "CLAUDE_CODE_SAFE_MODE": {
         "count": 1,
         "first_seen": "2.1.169",
@@ -43695,17 +44082,6 @@
           "added"
         ]
       },
-      "ANTHROPIC_DEFAULT_OPUS_MODEL": {
-        "count": 2,
-        "first_seen": "2.1.139",
-        "first_seen_date": null,
-        "last_seen": "1.0.88",
-        "last_seen_date": null,
-        "categories": [
-          "fixed",
-          "other"
-        ]
-      },
       "ANTHROPIC_DEFAULT_SONNET_MODEL": {
         "count": 2,
         "first_seen": "2.1.139",
@@ -43977,16 +44353,6 @@
           "added"
         ]
       },
-      "TRACESTATE": {
-        "count": 1,
-        "first_seen": "2.1.110",
-        "first_seen_date": null,
-        "last_seen": "2.1.110",
-        "last_seen_date": null,
-        "categories": [
-          "other"
-        ]
-      },
       "TRACEPARENT": {
         "count": 3,
         "first_seen": "2.1.110",
@@ -43997,6 +44363,16 @@
           "other",
           "added",
           "improved"
+        ]
+      },
+      "TRACESTATE": {
+        "count": 1,
+        "first_seen": "2.1.110",
+        "first_seen_date": null,
+        "last_seen": "2.1.110",
+        "last_seen_date": null,
+        "categories": [
+          "other"
         ]
       },
       "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": {
@@ -44039,7 +44415,7 @@
           "added"
         ]
       },
-      "OTEL_LOG_TOOL_CONTENT": {
+      "OTEL_LOG_TOOL_DETAILS": {
         "count": 1,
         "first_seen": "2.1.101",
         "first_seen_date": null,
@@ -44049,7 +44425,7 @@
           "improved"
         ]
       },
-      "OTEL_LOG_TOOL_DETAILS": {
+      "OTEL_LOG_TOOL_CONTENT": {
         "count": 1,
         "first_seen": "2.1.101",
         "first_seen_date": null,
@@ -44110,7 +44486,7 @@
           "added"
         ]
       },
-      "CLAUDE_CODE_SCRIPT_CAPS": {
+      "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB": {
         "count": 1,
         "first_seen": "2.1.98",
         "first_seen_date": null,
@@ -44120,7 +44496,7 @@
           "added"
         ]
       },
-      "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB": {
+      "CLAUDE_CODE_SCRIPT_CAPS": {
         "count": 1,
         "first_seen": "2.1.98",
         "first_seen_date": null,
@@ -44150,16 +44526,6 @@
           "other"
         ]
       },
-      "CLAUDE_CODE_MAX_CONTEXT_TOKENS": {
-        "count": 1,
-        "first_seen": "2.1.98",
-        "first_seen_date": null,
-        "last_seen": "2.1.98",
-        "last_seen_date": null,
-        "categories": [
-          "fixed"
-        ]
-      },
       "DISABLE_COMPACT": {
         "count": 2,
         "first_seen": "2.1.98",
@@ -44169,6 +44535,16 @@
         "categories": [
           "fixed",
           "other"
+        ]
+      },
+      "CLAUDE_CODE_MAX_CONTEXT_TOKENS": {
+        "count": 1,
+        "first_seen": "2.1.98",
+        "first_seen_date": null,
+        "last_seen": "2.1.98",
+        "last_seen_date": null,
+        "categories": [
+          "fixed"
         ]
       },
       "NO_FLICKER": {
@@ -44243,16 +44619,6 @@
           "added"
         ]
       },
-      "CLAUDE_CODE_MCP_SERVER_URL": {
-        "count": 1,
-        "first_seen": "2.1.85",
-        "first_seen_date": null,
-        "last_seen": "2.1.85",
-        "last_seen_date": null,
-        "categories": [
-          "added"
-        ]
-      },
       "CLAUDE_CODE_MCP_SERVER_NAME": {
         "count": 1,
         "first_seen": "2.1.85",
@@ -44263,7 +44629,17 @@
           "added"
         ]
       },
-      "OTEL_LOGS_EXPORTER": {
+      "CLAUDE_CODE_MCP_SERVER_URL": {
+        "count": 1,
+        "first_seen": "2.1.85",
+        "first_seen_date": null,
+        "last_seen": "2.1.85",
+        "last_seen_date": null,
+        "categories": [
+          "added"
+        ]
+      },
+      "OTEL_METRICS_EXPORTER": {
         "count": 1,
         "first_seen": "2.1.85",
         "first_seen_date": null,
@@ -44273,7 +44649,7 @@
           "fixed"
         ]
       },
-      "OTEL_METRICS_EXPORTER": {
+      "OTEL_LOGS_EXPORTER": {
         "count": 1,
         "first_seen": "2.1.85",
         "first_seen_date": null,
@@ -44446,7 +44822,7 @@
           "other"
         ]
       },
-      "CLAUDE_CODE_ACCOUNT_UUID": {
+      "CLAUDE_CODE_USER_EMAIL": {
         "count": 1,
         "first_seen": "2.1.51",
         "first_seen_date": null,
@@ -44456,7 +44832,7 @@
           "added"
         ]
       },
-      "CLAUDE_CODE_USER_EMAIL": {
+      "CLAUDE_CODE_ACCOUNT_UUID": {
         "count": 1,
         "first_seen": "2.1.51",
         "first_seen_date": null,
@@ -44676,7 +45052,7 @@
           "other"
         ]
       },
-      "--enabled": {
+      "--disabled": {
         "count": 1,
         "first_seen": "2.1.163",
         "first_seen_date": null,
@@ -44686,7 +45062,7 @@
           "added"
         ]
       },
-      "--disabled": {
+      "--enabled": {
         "count": 1,
         "first_seen": "2.1.163",
         "first_seen_date": null,
@@ -44787,6 +45163,18 @@
           "other"
         ]
       },
+      "--add-dir": {
+        "count": 9,
+        "first_seen": "2.1.143",
+        "first_seen_date": null,
+        "last_seen": "2.1.20",
+        "last_seen_date": null,
+        "categories": [
+          "other",
+          "added",
+          "fixed"
+        ]
+      },
       "--settings": {
         "count": 5,
         "first_seen": "2.1.143",
@@ -44809,18 +45197,6 @@
           "added",
           "fixed",
           "changed"
-        ]
-      },
-      "--add-dir": {
-        "count": 9,
-        "first_seen": "2.1.143",
-        "first_seen_date": null,
-        "last_seen": "2.1.20",
-        "last_seen_date": null,
-        "categories": [
-          "other",
-          "added",
-          "fixed"
         ]
       },
       "--permission-mode": {
@@ -45070,7 +45446,7 @@
           "fixed"
         ]
       },
-      "--system-prompt-file": {
+      "--append-system-prompt-file": {
         "count": 1,
         "first_seen": "2.1.69",
         "first_seen_date": null,
@@ -45080,7 +45456,7 @@
           "improved"
         ]
       },
-      "--append-system-prompt-file": {
+      "--system-prompt-file": {
         "count": 1,
         "first_seen": "2.1.69",
         "first_seen_date": null,
@@ -45243,15 +45619,15 @@
     },
     "claude_subcommands": {
       "agents": {
-        "count": 56,
-        "first_seen": "2.1.169",
+        "count": 57,
+        "first_seen": "2.1.172",
         "first_seen_date": null,
         "last_seen": "2.1.50",
         "last_seen_date": null,
         "categories": [
+          "fixed",
           "added",
           "other",
-          "fixed",
           "improved"
         ]
       },
