@@ -1231,6 +1231,33 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["mcp-overview", "file-mcp-json"],
     },
+    {
+        "id": "cli-channels", "name": "--channels", "category": "cli",
+        "summary_ja": "スマホへのツール許可プロンプトをリレー",
+        "description_ja": "MCP チャンネルサーバー経由でツール許可プロンプトをスマートフォン等の外部デバイスにリレーする（v2.1.80 リサーチプレビュー追加、v2.1.81 で permission relay に強化）。チャンネルサーバーが permission capability を宣言している必要がある。コンソール認証（API キー）でも動作。",
+        "examples": [
+            {"title": "チャンネル経由起動", "code": "claude --channels"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["mcp-overview", "slash-permissions"],
+    },
+    {
+        "id": "cli-bare", "name": "--bare", "category": "cli",
+        "summary_ja": "フック・プラグイン無効の高速スクリプトモード",
+        "description_ja": "フック・LSP・プラグイン同期・スキルスキャンをスキップして最速で応答する（v2.1.81追加）。ANTHROPIC_API_KEY 必須（OAuth 不可）。自動メモリも無効。`--bare -p` の組み合わせで API 統合が約14%高速化。SDK / CI パイプラインでの高速ヘッドレス実行に最適。",
+        "examples": [
+            {"title": "高速ヘッドレス実行", "code": "claude --bare -p \"PRを要約して\""},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["cli-print", "mode-headless"],
+    },
+    {
+        "id": "cli-agent-flag", "name": "--agent", "category": "cli",
+        "summary_ja": "起動時に使用するエージェント定義を指定",
+        "description_ja": "`.claude/agents/<name>.md` のカスタムエージェントやプラグイン提供エージェントを名前で指定して起動する（v2.0.59追加）。`--resume` による再開時は前回の指定を継承。ターミナルタイトルにエージェント名を表示。フック・パーミッションモードもエージェント定義の設定を引き継ぐ。",
+        "examples": [
+            {"title": "エージェント指定起動", "code": "claude --agent my-reviewer"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["agent-custom", "agent-subagent"],
+    },
 
     # ========== Subagents ==========
     {

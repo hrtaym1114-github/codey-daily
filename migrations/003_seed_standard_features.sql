@@ -1937,6 +1937,48 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'cli-channels',
+  '--channels',
+  'cli',
+  'スマホへのツール許可プロンプトをリレー',
+  'MCP チャンネルサーバー経由でツール許可プロンプトをスマートフォン等の外部デバイスにリレーする（v2.1.80 リサーチプレビュー追加、v2.1.81 で permission relay に強化）。チャンネルサーバーが permission capability を宣言している必要がある。コンソール認証（API キー）でも動作。',
+  '[{"title": "チャンネル経由起動", "code": "claude --channels"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["mcp-overview", "slash-permissions"]',
+  '--channels スマホへのツール許可プロンプトをリレー mcp チャンネルサーバー経由でツール許可プロンプトをスマートフォン等の外部デバイスにリレーする（v2.1.80 リサーチプレビュー追加、v2.1.81 で permission relay に強化）。チャンネルサーバーが permission capability を宣言している必要がある。コンソール認証（api キー）でも動作。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-bare',
+  '--bare',
+  'cli',
+  'フック・プラグイン無効の高速スクリプトモード',
+  'フック・LSP・プラグイン同期・スキルスキャンをスキップして最速で応答する（v2.1.81追加）。ANTHROPIC_API_KEY 必須（OAuth 不可）。自動メモリも無効。`--bare -p` の組み合わせで API 統合が約14%高速化。SDK / CI パイプラインでの高速ヘッドレス実行に最適。',
+  '[{"title": "高速ヘッドレス実行", "code": "claude --bare -p \"PRを要約して\""}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["cli-print", "mode-headless"]',
+  '--bare フック・プラグイン無効の高速スクリプトモード フック・lsp・プラグイン同期・スキルスキャンをスキップして最速で応答する（v2.1.81追加）。anthropic_api_key 必須（oauth 不可）。自動メモリも無効。`--bare -p` の組み合わせで api 統合が約14%高速化。sdk / ci パイプラインでの高速ヘッドレス実行に最適。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-agent-flag',
+  '--agent',
+  'cli',
+  '起動時に使用するエージェント定義を指定',
+  '`.claude/agents/<name>.md` のカスタムエージェントやプラグイン提供エージェントを名前で指定して起動する（v2.0.59追加）。`--resume` による再開時は前回の指定を継承。ターミナルタイトルにエージェント名を表示。フック・パーミッションモードもエージェント定義の設定を引き継ぐ。',
+  '[{"title": "エージェント指定起動", "code": "claude --agent my-reviewer"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["agent-custom", "agent-subagent"]',
+  '--agent 起動時に使用するエージェント定義を指定 `.claude/agents/<name>.md` のカスタムエージェントやプラグイン提供エージェントを名前で指定して起動する（v2.0.59追加）。`--resume` による再開時は前回の指定を継承。ターミナルタイトルにエージェント名を表示。フック・パーミッションモードもエージェント定義の設定を引き継ぐ。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'agent-subagent',
   'Subagent System',
   'agent',
