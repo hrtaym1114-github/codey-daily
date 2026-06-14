@@ -890,6 +890,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-add-dir"],
     },
+    {
+        "id": "slash-advisor", "name": "/advisor", "category": "slash-command",
+        "summary_ja": "アドバイザーモデルを設定する（実験的）",
+        "description_ja": "Advisor Tool（実験的）の設定ダイアログを開く。メインモデルに加えてアドバイザーモデルを選択・保存できる。ダイアログには「experimental」ラベルと詳細リンクが表示され、有効化時にスタートアップ通知も出る。availableModels 制限にも準拠（v2.1.117追加、v2.1.174修正）。",
+        "examples": [
+            {"title": "アドバイザー設定", "code": "/advisor"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["slash-model", "slash-effort"],
+    },
 
     # ========== Built-in Tools ==========
     {

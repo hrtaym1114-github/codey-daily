@@ -1307,6 +1307,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-advisor',
+  '/advisor',
+  'slash-command',
+  'アドバイザーモデルを設定する（実験的）',
+  'Advisor Tool（実験的）の設定ダイアログを開く。メインモデルに加えてアドバイザーモデルを選択・保存できる。ダイアログには「experimental」ラベルと詳細リンクが表示され、有効化時にスタートアップ通知も出る。availableModels 制限にも準拠（v2.1.117追加、v2.1.174修正）。',
+  '[{"title": "アドバイザー設定", "code": "/advisor"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-model", "slash-effort"]',
+  '/advisor アドバイザーモデルを設定する（実験的） advisor tool（実験的）の設定ダイアログを開く。メインモデルに加えてアドバイザーモデルを選択・保存できる。ダイアログには「experimental」ラベルと詳細リンクが表示され、有効化時にスタートアップ通知も出る。availablemodels 制限にも準拠（v2.1.117追加、v2.1.174修正）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
