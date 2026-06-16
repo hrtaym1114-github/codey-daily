@@ -1321,6 +1321,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-bug',
+  '/bug',
+  'slash-command',
+  'バグ報告をAnthropicに送信',
+  'Claude Code のバグを報告する専用コマンド。説明文の入力が必須で（v2.1.178改善）、モデルの拒否応答テキストがGitHub issueタイトルに誤使用される問題も修正済み。一般的なフィードバックや機能要望には /feedback を使用。',
+  '[{"title": "バグ報告", "code": "/bug"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-feedback", "slash-doctor"]',
+  '/bug バグ報告をanthropicに送信 claude code のバグを報告する専用コマンド。説明文の入力が必須で（v2.1.178改善）、モデルの拒否応答テキストがgithub issueタイトルに誤使用される問題も修正済み。一般的なフィードバックや機能要望には /feedback を使用。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

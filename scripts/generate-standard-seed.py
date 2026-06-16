@@ -899,6 +899,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["slash-model", "slash-effort"],
     },
+    {
+        "id": "slash-bug", "name": "/bug", "category": "slash-command",
+        "summary_ja": "バグ報告をAnthropicに送信",
+        "description_ja": "Claude Code のバグを報告する専用コマンド。説明文の入力が必須で（v2.1.178改善）、モデルの拒否応答テキストがGitHub issueタイトルに誤使用される問題も修正済み。一般的なフィードバックや機能要望には /feedback を使用。",
+        "examples": [
+            {"title": "バグ報告", "code": "/bug"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-feedback", "slash-doctor"],
+    },
 
     # ========== Built-in Tools ==========
     {
