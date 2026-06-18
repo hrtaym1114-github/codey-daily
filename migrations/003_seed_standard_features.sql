@@ -2007,6 +2007,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'cli-effort',
+  '--effort',
+  'cli',
+  '起動時のThinking処理強度を指定',
+  'low/normal/high/max/auto の処理強度を起動時に固定する。Opus モデルでは xhigh も指定可能（v2.1.111追加）。`--effort` 設定は `claude agents` やバックグラウンドセッション（/bg）にも引き継がれる（v2.1.142）。起動後は /effort コマンドでもセッション内変更可能。',
+  '[{"title": "最大思考量で起動", "code": "claude --effort max"}, {"title": "Opus専用xhigh", "code": "claude --effort xhigh"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  2,
+  'free',
+  '["slash-effort", "slash-model"]',
+  '--effort 起動時のthinking処理強度を指定 low/normal/high/max/auto の処理強度を起動時に固定する。opus モデルでは xhigh も指定可能（v2.1.111追加）。`--effort` 設定は `claude agents` やバックグラウンドセッション（/bg）にも引き継がれる（v2.1.142）。起動後は /effort コマンドでもセッション内変更可能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-permission-mode',
+  '--permission-mode',
+  'cli',
+  'ツール許可モードを起動時に設定',
+  'default/acceptEdits/bypassPermissions/plan の権限モードを起動時に指定する（v2.1.132修正）。`claude agents` での起動や `-p` ヘッドレスモードでも有効。`--resume`/`-c` 再開時は前回の設定を引き継がないため都度指定が必要。`claude agents` フラグとしても使用可能（v2.1.142）。',
+  '[{"title": "編集自動許可モード", "code": "claude --permission-mode acceptEdits"}, {"title": "完全自動モード", "code": "claude --permission-mode bypassPermissions"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  2,
+  'free',
+  '["mode-permission", "cli-dangerously-skip-permissions"]',
+  '--permission-mode ツール許可モードを起動時に設定 default/acceptedits/bypasspermissions/plan の権限モードを起動時に指定する（v2.1.132修正）。`claude agents` での起動や `-p` ヘッドレスモードでも有効。`--resume`/`-c` 再開時は前回の設定を引き継がないため都度指定が必要。`claude agents` フラグとしても使用可能（v2.1.142）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-fallback-model',
+  '--fallback-model',
+  'cli',
+  'プライマリモデル過負荷時の代替モデルを設定',
+  'プライマリモデルが過負荷または利用不可の場合に順に試す代替モデルを指定（v2.1.166追加）。インタラクティブセッションでも動作し、`fallbackModel` settings.json 設定で最大3つを永続設定可能。compaction でもフォールバック設定が引き継がれる（v2.1.178修正）。',
+  '[{"title": "フォールバックモデル指定", "code": "claude --fallback-model claude-sonnet-4-6"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  2,
+  'free',
+  '["cli-model", "file-settings-json"]',
+  '--fallback-model プライマリモデル過負荷時の代替モデルを設定 プライマリモデルが過負荷または利用不可の場合に順に試す代替モデルを指定（v2.1.166追加）。インタラクティブセッションでも動作し、`fallbackmodel` settings.json 設定で最大3つを永続設定可能。compaction でもフォールバック設定が引き継がれる（v2.1.178修正）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-settings',
+  '--settings',
+  'cli',
+  '外部JSONファイルからsettingsを読み込む',
+  'JSONファイルで設定を指定して ~/.claude/settings.json を補完・上書きする（v1.0.61追加）。`/bg` バックグラウンドセッションと `claude agents` にも引き継がれる（v2.1.142）。`--bare` フラグとの組み合わせで API キーやエージェント設定のファイル化にも使う。',
+  '[{"title": "外部設定ファイル指定", "code": "claude --settings ./team-settings.json"}, {"title": "bareモードと組み合わせ", "code": "claude --bare --settings ./ci.json -p \"テスト実行して\""}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["file-settings-json", "cli-bare"]',
+  '--settings 外部jsonファイルからsettingsを読み込む jsonファイルで設定を指定して ~/.claude/settings.json を補完・上書きする（v1.0.61追加）。`/bg` バックグラウンドセッションと `claude agents` にも引き継がれる（v2.1.142）。`--bare` フラグとの組み合わせで api キーやエージェント設定のファイル化にも使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-strict-mcp-config',
+  '--strict-mcp-config',
+  'cli',
+  'サブエージェントにもMCP設定制限を適用',
+  'サブエージェント（Agent tool）にも MCP 設定制限を適用し、設定外 MCP サーバーへのアクセスに警告を表示する（v2.1.153追加）。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。エンタープライズ環境で MCP アクセスを制御する際に使う。',
+  '[{"title": "MCP厳格制限で起動", "code": "claude --strict-mcp-config --mcp-config ./allowed.json"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  3,
+  'free',
+  '["cli-mcp-config", "mcp-overview"]',
+  '--strict-mcp-config サブエージェントにもmcp設定制限を適用 サブエージェント（agent tool）にも mcp 設定制限を適用し、設定外 mcp サーバーへのアクセスに警告を表示する（v2.1.153追加）。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。エンタープライズ環境で mcp アクセスを制御する際に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'agent-subagent',
   'Subagent System',
   'agent',

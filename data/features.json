@@ -3503,6 +3503,143 @@
       ]
     },
     {
+      "id": "cli-effort",
+      "name": "--effort",
+      "category": "cli",
+      "summary_ja": "起動時のThinking処理強度を指定",
+      "description_ja": "low/normal/high/max/auto の処理強度を起動時に固定する。Opus モデルでは xhigh も指定可能（v2.1.111追加）。`--effort` 設定は `claude agents` やバックグラウンドセッション（/bg）にも引き継がれる（v2.1.142）。起動後は /effort コマンドでもセッション内変更可能。",
+      "examples": [
+        {
+          "title": "最大思考量で起動",
+          "code": "claude --effort max"
+        },
+        {
+          "title": "Opus専用xhigh",
+          "code": "claude --effort xhigh"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/cli-reference"
+        }
+      ],
+      "difficulty": 2,
+      "tier": "free",
+      "related": [
+        "slash-effort",
+        "slash-model"
+      ]
+    },
+    {
+      "id": "cli-permission-mode",
+      "name": "--permission-mode",
+      "category": "cli",
+      "summary_ja": "ツール許可モードを起動時に設定",
+      "description_ja": "default/acceptEdits/bypassPermissions/plan の権限モードを起動時に指定する（v2.1.132修正）。`claude agents` での起動や `-p` ヘッドレスモードでも有効。`--resume`/`-c` 再開時は前回の設定を引き継がないため都度指定が必要。`claude agents` フラグとしても使用可能（v2.1.142）。",
+      "examples": [
+        {
+          "title": "編集自動許可モード",
+          "code": "claude --permission-mode acceptEdits"
+        },
+        {
+          "title": "完全自動モード",
+          "code": "claude --permission-mode bypassPermissions"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/cli-reference"
+        }
+      ],
+      "difficulty": 2,
+      "tier": "free",
+      "related": [
+        "mode-permission",
+        "cli-dangerously-skip-permissions"
+      ]
+    },
+    {
+      "id": "cli-fallback-model",
+      "name": "--fallback-model",
+      "category": "cli",
+      "summary_ja": "プライマリモデル過負荷時の代替モデルを設定",
+      "description_ja": "プライマリモデルが過負荷または利用不可の場合に順に試す代替モデルを指定（v2.1.166追加）。インタラクティブセッションでも動作し、`fallbackModel` settings.json 設定で最大3つを永続設定可能。compaction でもフォールバック設定が引き継がれる（v2.1.178修正）。",
+      "examples": [
+        {
+          "title": "フォールバックモデル指定",
+          "code": "claude --fallback-model claude-sonnet-4-6"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/cli-reference"
+        }
+      ],
+      "difficulty": 2,
+      "tier": "free",
+      "related": [
+        "cli-model",
+        "file-settings-json"
+      ]
+    },
+    {
+      "id": "cli-settings",
+      "name": "--settings",
+      "category": "cli",
+      "summary_ja": "外部JSONファイルからsettingsを読み込む",
+      "description_ja": "JSONファイルで設定を指定して ~/.claude/settings.json を補完・上書きする（v1.0.61追加）。`/bg` バックグラウンドセッションと `claude agents` にも引き継がれる（v2.1.142）。`--bare` フラグとの組み合わせで API キーやエージェント設定のファイル化にも使う。",
+      "examples": [
+        {
+          "title": "外部設定ファイル指定",
+          "code": "claude --settings ./team-settings.json"
+        },
+        {
+          "title": "bareモードと組み合わせ",
+          "code": "claude --bare --settings ./ci.json -p \"テスト実行して\""
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/cli-reference"
+        }
+      ],
+      "difficulty": 3,
+      "tier": "free",
+      "related": [
+        "file-settings-json",
+        "cli-bare"
+      ]
+    },
+    {
+      "id": "cli-strict-mcp-config",
+      "name": "--strict-mcp-config",
+      "category": "cli",
+      "summary_ja": "サブエージェントにもMCP設定制限を適用",
+      "description_ja": "サブエージェント（Agent tool）にも MCP 設定制限を適用し、設定外 MCP サーバーへのアクセスに警告を表示する（v2.1.153追加）。`/bg` バックグラウンドセッションにも引き継がれる（v2.1.143）。エンタープライズ環境で MCP アクセスを制御する際に使う。",
+      "examples": [
+        {
+          "title": "MCP厳格制限で起動",
+          "code": "claude --strict-mcp-config --mcp-config ./allowed.json"
+        }
+      ],
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/cli-reference"
+        }
+      ],
+      "difficulty": 3,
+      "tier": "free",
+      "related": [
+        "cli-mcp-config",
+        "mcp-overview"
+      ]
+    },
+    {
       "id": "agent-subagent",
       "name": "Subagent System",
       "category": "agent",
