@@ -1324,6 +1324,34 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["cli-mcp-config", "mcp-overview"],
     },
+    {
+        "id": "cli-debug", "name": "--debug", "category": "cli",
+        "summary_ja": "デバッグログを有効化してトラブルシュート",
+        "description_ja": "起動時にデバッグログを有効化。MCP接続エラー・フック実行問題・セッション診断に使う。フックエラーは`--debug`なしでも stderr 1行目が表示される（v2.1.98改善）。起動後の問題診断は `/doctor` も参照。",
+        "examples": [
+            {"title": "デバッグ起動", "code": "claude --debug"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-doctor", "slash-debug"],
+    },
+    {
+        "id": "cli-safe-mode", "name": "--safe-mode", "category": "cli",
+        "summary_ja": "カスタマイズを全無効にした安全起動モード",
+        "description_ja": "CLAUDE.md・プラグイン・スキル・フック・MCPサーバーをすべて無効化して起動するトラブルシュートモード（v2.1.169追加）。`CLAUDE_CODE_SAFE_MODE` 環境変数でも同様に有効化可能。カスタマイズが原因の問題の切り分けに使う。",
+        "examples": [
+            {"title": "安全モードで起動", "code": "claude --safe-mode"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-doctor", "slash-plugin"],
+    },
+    {
+        "id": "cli-from-pr", "name": "--from-pr", "category": "cli",
+        "summary_ja": "GitHubのPRに紐づくセッションを再開",
+        "description_ja": "GitHub PR番号またはURLを指定して関連セッションを再開する（v2.1.27追加）。v2.1.119でGitLab MR・Bitbucket PR・GitHub Enterprise URLにも対応拡張。PR番号だけでなくフルURLも受け付ける。",
+        "examples": [
+            {"title": "PR番号で再開", "code": "claude --from-pr 123"},
+            {"title": "PR URLで再開", "code": "claude --from-pr https://github.com/owner/repo/pull/123"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["cli-resume", "slash-resume"],
+    },
 
     # ========== Subagents ==========
     {

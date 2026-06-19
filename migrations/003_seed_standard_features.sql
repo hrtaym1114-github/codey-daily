@@ -2077,6 +2077,48 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'cli-debug',
+  '--debug',
+  'cli',
+  'デバッグログを有効化してトラブルシュート',
+  '起動時にデバッグログを有効化。MCP接続エラー・フック実行問題・セッション診断に使う。フックエラーは`--debug`なしでも stderr 1行目が表示される（v2.1.98改善）。起動後の問題診断は `/doctor` も参照。',
+  '[{"title": "デバッグ起動", "code": "claude --debug"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  2,
+  'free',
+  '["slash-doctor", "slash-debug"]',
+  '--debug デバッグログを有効化してトラブルシュート 起動時にデバッグログを有効化。mcp接続エラー・フック実行問題・セッション診断に使う。フックエラーは`--debug`なしでも stderr 1行目が表示される（v2.1.98改善）。起動後の問題診断は `/doctor` も参照。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-safe-mode',
+  '--safe-mode',
+  'cli',
+  'カスタマイズを全無効にした安全起動モード',
+  'CLAUDE.md・プラグイン・スキル・フック・MCPサーバーをすべて無効化して起動するトラブルシュートモード（v2.1.169追加）。`CLAUDE_CODE_SAFE_MODE` 環境変数でも同様に有効化可能。カスタマイズが原因の問題の切り分けに使う。',
+  '[{"title": "安全モードで起動", "code": "claude --safe-mode"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  2,
+  'free',
+  '["slash-doctor", "slash-plugin"]',
+  '--safe-mode カスタマイズを全無効にした安全起動モード claude.md・プラグイン・スキル・フック・mcpサーバーをすべて無効化して起動するトラブルシュートモード（v2.1.169追加）。`claude_code_safe_mode` 環境変数でも同様に有効化可能。カスタマイズが原因の問題の切り分けに使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'cli-from-pr',
+  '--from-pr',
+  'cli',
+  'GitHubのPRに紐づくセッションを再開',
+  'GitHub PR番号またはURLを指定して関連セッションを再開する（v2.1.27追加）。v2.1.119でGitLab MR・Bitbucket PR・GitHub Enterprise URLにも対応拡張。PR番号だけでなくフルURLも受け付ける。',
+  '[{"title": "PR番号で再開", "code": "claude --from-pr 123"}, {"title": "PR URLで再開", "code": "claude --from-pr https://github.com/owner/repo/pull/123"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/cli-reference"}]',
+  2,
+  'free',
+  '["cli-resume", "slash-resume"]',
+  '--from-pr githubのprに紐づくセッションを再開 github pr番号またはurlを指定して関連セッションを再開する（v2.1.27追加）。v2.1.119でgitlab mr・bitbucket pr・github enterprise urlにも対応拡張。pr番号だけでなくフルurlも受け付ける。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'agent-subagent',
   'Subagent System',
   'agent',
