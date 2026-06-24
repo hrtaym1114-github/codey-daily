@@ -1335,6 +1335,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-share',
+  '/share',
+  'slash-command',
+  'コンテンツをアップロードして共有',
+  'コンテンツをサーバーにアップロードして共有するコマンド（v2.1.187）。アップロード処理中にEsc・Ctrl-C・Ctrl-Dでキャンセルできる（v2.1.187でキャンセル操作が正しく機能するよう修正）。',
+  '[{"title": "コンテンツを共有", "code": "/share"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-export", "slash-copy"]',
+  '/share コンテンツをアップロードして共有 コンテンツをサーバーにアップロードして共有するコマンド（v2.1.187）。アップロード処理中にesc・ctrl-c・ctrl-dでキャンセルできる（v2.1.187でキャンセル操作が正しく機能するよう修正）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

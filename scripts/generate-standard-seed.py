@@ -908,6 +908,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-feedback", "slash-doctor"],
     },
+    {
+        "id": "slash-share", "name": "/share", "category": "slash-command",
+        "summary_ja": "コンテンツをアップロードして共有",
+        "description_ja": "コンテンツをサーバーにアップロードして共有するコマンド（v2.1.187）。アップロード処理中にEsc・Ctrl-C・Ctrl-Dでキャンセルできる（v2.1.187でキャンセル操作が正しく機能するよう修正）。",
+        "examples": [
+            {"title": "コンテンツを共有", "code": "/share"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-export", "slash-copy"],
+    },
 
     # ========== Built-in Tools ==========
     {
