@@ -917,6 +917,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-export", "slash-copy"],
     },
+    {
+        "id": "slash-deep-research", "name": "/deep-research", "category": "slash-command",
+        "summary_ja": "マルチエージェントで深掘りWeb調査を実施",
+        "description_ja": "Web検索を並列展開してソースを取得し、主張を敵対的に検証して引用付きレポートを合成する深掘り調査スキル。検証失敗を「all claims refuted」ではなく「unverified」として正しく報告するよう v2.1.196 で修正済み。",
+        "examples": [
+            {"title": "深掘り調査実行", "code": "/deep-research"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-review", "slash-ultrareview"],
+    },
 
     # ========== Built-in Tools ==========
     {

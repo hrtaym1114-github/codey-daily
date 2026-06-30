@@ -1349,6 +1349,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-deep-research',
+  '/deep-research',
+  'slash-command',
+  'マルチエージェントで深掘りWeb調査を実施',
+  'Web検索を並列展開してソースを取得し、主張を敵対的に検証して引用付きレポートを合成する深掘り調査スキル。検証失敗を「all claims refuted」ではなく「unverified」として正しく報告するよう v2.1.196 で修正済み。',
+  '[{"title": "深掘り調査実行", "code": "/deep-research"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-review", "slash-ultrareview"]',
+  '/deep-research マルチエージェントで深掘りweb調査を実施 web検索を並列展開してソースを取得し、主張を敵対的に検証して引用付きレポートを合成する深掘り調査スキル。検証失敗を「all claims refuted」ではなく「unverified」として正しく報告するよう v2.1.196 で修正済み。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
