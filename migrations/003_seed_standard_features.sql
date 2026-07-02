@@ -1363,6 +1363,76 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-desktop',
+  '/desktop',
+  'slash-command',
+  'Claude Codeデスクトップアプリとの接続を管理',
+  'Claude Code for Desktop（デスクトップアプリ）との接続を設定・管理するコマンド。/install-github-app・/resume・/web-setup と同様Escでダイアログを閉じられる（v2.1.136）。worktreeに出入りした後に作業ディレクトリを特定できず失敗する不具合がv2.1.198で修正された。',
+  '[{"title": "デスクトップアプリ接続", "code": "/desktop"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-remote-control", "slash-web-setup"]',
+  '/desktop claude codeデスクトップアプリとの接続を管理 claude code for desktop（デスクトップアプリ）との接続を設定・管理するコマンド。/install-github-app・/resume・/web-setup と同様escでダイアログを閉じられる（v2.1.136）。worktreeに出入りした後に作業ディレクトリを特定できず失敗する不具合がv2.1.198で修正された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-vim',
+  '/vim',
+  'slash-command',
+  'vimキーバインドを有効化する旧コマンド（廃止済み）',
+  'テキスト入力にvim風キーバインドを有効化する旧コマンド（v0.2.34追加）。v2.1.92で削除され、以降は /config のEditor modeからvimモードを切り替える。',
+  '[{"title": "vimモード有効化（廃止済み）", "code": "/vim"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-config"]',
+  '/vim vimキーバインドを有効化する旧コマンド（廃止済み） テキスト入力にvim風キーバインドを有効化する旧コマンド（v0.2.34追加）。v2.1.92で削除され、以降は /config のeditor modeからvimモードを切り替える。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-tag',
+  '/tag',
+  'slash-command',
+  'セッションにタグを付ける旧コマンド（廃止済み）',
+  'セッションにタグを付与する旧コマンド。/rename と同様、git worktree等の別ディレクトリからセッションを再開した際に誤ったセッションを更新してしまう不具合があった（v2.1.19修正）。v2.1.92で削除された。',
+  '[{"title": "タグ付け（廃止済み）", "code": "/tag"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-rename"]',
+  '/tag セッションにタグを付ける旧コマンド（廃止済み） セッションにタグを付与する旧コマンド。/rename と同様、git worktree等の別ディレクトリからセッションを再開した際に誤ったセッションを更新してしまう不具合があった（v2.1.19修正）。v2.1.92で削除された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-allowed-tools',
+  '/allowed-tools',
+  'slash-command',
+  'ツール許可管理コマンドの旧名（現 /permissions）',
+  'ツールの許可・拒否ルールを管理する旧コマンド名。v1.0.7で /permissions にリネームされた。許可・拒否履歴の確認やリトライは現在の /permissions コマンドを使用する。',
+  '[{"title": "許可管理（旧コマンド名）", "code": "/allowed-tools"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-permissions"]',
+  '/allowed-tools ツール許可管理コマンドの旧名（現 /permissions） ツールの許可・拒否ルールを管理する旧コマンド名。v1.0.7で /permissions にリネームされた。許可・拒否履歴の確認やリトライは現在の /permissions コマンドを使用する。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-approved-tools',
+  '/approved-tools',
+  'slash-command',
+  'ツール権限管理の最初期コマンド（廃止済み）',
+  'ツール権限を管理するための最初期のコマンド（v0.2.26追加、「New /approved-tools command for managing tool permissions」）。ツール許可管理の仕組みはその後 /allowed-tools（v1.0.7で /permissions にリネーム）へと発展し、現在は /permissions が使われている。',
+  '[{"title": "ツール権限管理（最初期・廃止済み）", "code": "/approved-tools"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-allowed-tools", "slash-permissions"]',
+  '/approved-tools ツール権限管理の最初期コマンド（廃止済み） ツール権限を管理するための最初期のコマンド（v0.2.26追加、「new /approved-tools command for managing tool permissions」）。ツール許可管理の仕組みはその後 /allowed-tools（v1.0.7で /permissions にリネーム）へと発展し、現在は /permissions が使われている。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

@@ -2676,6 +2676,143 @@
       "_hash": "7f5bbfd79a98"
     },
     {
+      "id": "slash-desktop",
+      "name": "/desktop",
+      "category": "slash-command",
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 2,
+      "tier": "free",
+      "related": [
+        "slash-remote-control",
+        "slash-web-setup"
+      ],
+      "summary_ja": "Claude Codeデスクトップアプリとの接続を管理",
+      "description_ja": "Claude Code for Desktop（デスクトップアプリ）との接続を設定・管理するコマンド。/install-github-app・/resume・/web-setup と同様Escでダイアログを閉じられる（v2.1.136）。worktreeに出入りした後に作業ディレクトリを特定できず失敗する不具合がv2.1.198で修正された。",
+      "examples": [
+        {
+          "title": "Connect desktop app",
+          "code": "/desktop"
+        }
+      ],
+      "summary_en": "Configure and manage the connection between the terminal session and the Claude Code for Desktop application, letting you pair sessions with the desktop app interface.",
+      "description_en": "Sets up and manages the connection to Claude Code for Desktop, the standalone desktop application. Like /install-github-app, /resume, and /web-setup, the connection dialog can be dismissed by pressing Esc, a behavior introduced in v2.1.136. In earlier versions, resuming a session after entering and leaving a git worktree could cause the command to fail, since Claude Code could no longer determine the correct working directory; this bug was fixed in v2.1.198. Use this command when you want to pair a terminal-based session with the desktop app for a richer interface, or when troubleshooting a connection that broke after switching worktrees. It requires no arguments and works alongside the other remote-connection commands such as /remote-control and /web-setup.",
+      "_hash": "6c0b3b540556"
+    },
+    {
+      "id": "slash-vim",
+      "name": "/vim",
+      "category": "slash-command",
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 1,
+      "tier": "free",
+      "related": [
+        "slash-config"
+      ],
+      "summary_ja": "vimキーバインドを有効化する旧コマンド（廃止済み）",
+      "description_ja": "テキスト入力にvim風キーバインドを有効化する旧コマンド（v0.2.34追加）。v2.1.92で削除され、以降は /config のEditor modeからvimモードを切り替える。",
+      "examples": [
+        {
+          "title": "Enable vim mode (deprecated)",
+          "code": "/vim"
+        }
+      ],
+      "summary_en": "A deprecated legacy command that once enabled vim-style keybindings for text input; the feature has moved into the /config command's Editor mode setting.",
+      "description_en": "This was a legacy command that enabled vim-style keybindings for text input, originally added in v0.2.34. It let users navigate and edit prompts using familiar vim modal editing commands instead of the default emacs-style bindings. The dedicated /vim command was removed in v2.1.92 once its functionality was consolidated into the broader settings system. Since then, vim mode is toggled through the Editor mode option inside the /config command rather than through its own standalone command. If you are looking for vim keybindings today, open /config and switch the Editor mode setting to vim instead of trying to run /vim directly, since the old command no longer exists in current versions of Claude Code.",
+      "_hash": "8dbc99a58108"
+    },
+    {
+      "id": "slash-tag",
+      "name": "/tag",
+      "category": "slash-command",
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 1,
+      "tier": "free",
+      "related": [
+        "slash-rename"
+      ],
+      "summary_ja": "セッションにタグを付ける旧コマンド（廃止済み）",
+      "description_ja": "セッションにタグを付与する旧コマンド。/rename と同様、git worktree等の別ディレクトリからセッションを再開した際に誤ったセッションを更新してしまう不具合があった（v2.1.19修正）。v2.1.92で削除された。",
+      "examples": [
+        {
+          "title": "Tag session (deprecated)",
+          "code": "/tag"
+        }
+      ],
+      "summary_en": "A removed legacy command for attaching a tag label to a session, once used to identify and organize sessions before it was deprecated and removed.",
+      "description_en": "This was a legacy command used to attach a descriptive tag to a session for easier identification. Like the related /rename command, it suffered from a bug where resuming a session from a different directory, such as after switching into a git worktree, could cause the wrong session to be updated instead of the intended one. That issue was fixed in v2.1.19. Despite the fix, /tag was ultimately removed in v2.1.92 as the tagging functionality was phased out in favor of other session management approaches. If you encounter references to /tag in older documentation or changelogs, note that the command no longer exists in current versions, and any tagging workflow should rely on newer alternatives instead.",
+      "_hash": "cca504602c53"
+    },
+    {
+      "id": "slash-allowed-tools",
+      "name": "/allowed-tools",
+      "category": "slash-command",
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 1,
+      "tier": "free",
+      "related": [
+        "slash-permissions"
+      ],
+      "summary_ja": "ツール許可管理コマンドの旧名（現 /permissions）",
+      "description_ja": "ツールの許可・拒否ルールを管理する旧コマンド名。v1.0.7で /permissions にリネームされた。許可・拒否履歴の確認やリトライは現在の /permissions コマンドを使用する。",
+      "examples": [
+        {
+          "title": "Manage permissions (legacy name)",
+          "code": "/allowed-tools"
+        }
+      ],
+      "summary_en": "The former name of the command for managing tool allow and deny rules, renamed to /permissions in v1.0.7 and no longer usable under this old name.",
+      "description_en": "This was the original name of the command used to manage tool allow and deny rules before it was renamed to /permissions in v1.0.7. It served the same purpose as the current command: letting you view, add, or remove rules that control which tools Claude Code is permitted to run automatically without prompting. If you need to review permission history, retry a previously denied action, or adjust allow and deny lists today, use /permissions instead, since /allowed-tools is kept only for historical reference and no longer functions as a command. Any scripts, aliases, or documentation still referencing /allowed-tools should be updated to use /permissions to avoid confusion in current versions of Claude Code.",
+      "_hash": "4cc5619fe0d7"
+    },
+    {
+      "id": "slash-approved-tools",
+      "name": "/approved-tools",
+      "category": "slash-command",
+      "links": [
+        {
+          "label": "📘 公式ドキュメント",
+          "url": "https://code.claude.com/docs/en/commands"
+        }
+      ],
+      "difficulty": 1,
+      "tier": "free",
+      "related": [
+        "slash-allowed-tools",
+        "slash-permissions"
+      ],
+      "summary_ja": "ツール権限管理の最初期コマンド（廃止済み）",
+      "description_ja": "ツール権限を管理するための最初期のコマンド（v0.2.26追加、「New /approved-tools command for managing tool permissions」）。ツール許可管理の仕組みはその後 /allowed-tools（v1.0.7で /permissions にリネーム）へと発展し、現在は /permissions が使われている。",
+      "examples": [
+        {
+          "title": "Manage tool permissions (earliest version, deprecated)",
+          "code": "/approved-tools"
+        }
+      ],
+      "summary_en": "The earliest command for managing tool permissions, introduced in v0.2.26 and later superseded by /allowed-tools and then by today's /permissions command.",
+      "description_en": "This was the very first command introduced for managing tool permissions, added in v0.2.26 with the changelog note \"New /approved-tools command for managing tool permissions.\" It let users control which tools Claude Code was allowed to run without confirmation. The permission management system later evolved: /approved-tools was succeeded by /allowed-tools, which was itself renamed to /permissions in v1.0.7. Today, all tool permission management, including viewing allow and deny rules, reviewing history, and retrying denied actions, is handled through the /permissions command. If you come across /approved-tools in old release notes or documentation, treat it as a historical predecessor rather than a command you can actually run in current versions.",
+      "_hash": "4ce5c5c28ab8"
+    },
+    {
       "id": "tool-bash",
       "name": "Bash",
       "category": "tool",
