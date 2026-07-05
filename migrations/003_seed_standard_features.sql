@@ -1433,6 +1433,48 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-dataviz',
+  '/dataviz',
+  'slash-command',
+  'チャート・ダッシュボード設計のガイドスキル',
+  'v2.1.198で追加された組み込みスキル。チャート・グラフ・ダッシュボードなどのデータ可視化を作成する前に読み込み、実行可能なカラーパレット検証ツールを含むデザインガイダンスを提供する。',
+  '[{"title": "データ可視化のガイド", "code": "/dataviz"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/dataviz チャート・ダッシュボード設計のガイドスキル v2.1.198で追加された組み込みスキル。チャート・グラフ・ダッシュボードなどのデータ可視化を作成する前に読み込み、実行可能なカラーパレット検証ツールを含むデザインガイダンスを提供する。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-pr-comments',
+  '/pr-comments',
+  'slash-command',
+  'GitHub PRのレビューコメントを取得（旧コマンド）',
+  'Claude Code初期から存在した組み込みコマンドの一つで、GitHub PRのレビューコメントを取得する（v1.0.68時点で「certain commands like /pr-comments」としてモデル名の不具合修正対象に言及）。PRレビュー関連機能はその後 /code-review（旧/simplify）などへ発展。',
+  '[{"title": "PRコメント取得（旧コマンド）", "code": "/pr-comments"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-review", "slash-code-review"]',
+  '/pr-comments github prのレビューコメントを取得（旧コマンド） claude code初期から存在した組み込みコマンドの一つで、github prのレビューコメントを取得する（v1.0.68時点で「certain commands like /pr-comments」としてモデル名の不具合修正対象に言及）。prレビュー関連機能はその後 /code-review（旧/simplify）などへ発展。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-buddy',
+  '/buddy',
+  'slash-command',
+  'エイプリルフールの遊び心コマンド（期間限定）',
+  'v2.1.89でエイプリルフール（4月1日）向けに追加された遊び心コマンド。「hatch a small creature that watches you code（コーディングを見守る小さな生き物を孵化させる）」という説明で登場した期間限定のイースターエッグ機能。',
+  '[{"title": "生き物を孵化（イースターエッグ）", "code": "/buddy"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/buddy エイプリルフールの遊び心コマンド（期間限定） v2.1.89でエイプリルフール（4月1日）向けに追加された遊び心コマンド。「hatch a small creature that watches you code（コーディングを見守る小さな生き物を孵化させる）」という説明で登場した期間限定のイースターエッグ機能。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

@@ -971,6 +971,33 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-allowed-tools", "slash-permissions"],
     },
+    {
+        "id": "slash-dataviz", "name": "/dataviz", "category": "slash-command",
+        "summary_ja": "チャート・ダッシュボード設計のガイドスキル",
+        "description_ja": "v2.1.198で追加された組み込みスキル。チャート・グラフ・ダッシュボードなどのデータ可視化を作成する前に読み込み、実行可能なカラーパレット検証ツールを含むデザインガイダンスを提供する。",
+        "examples": [
+            {"title": "データ可視化のガイド", "code": "/dataviz"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
+    {
+        "id": "slash-pr-comments", "name": "/pr-comments", "category": "slash-command",
+        "summary_ja": "GitHub PRのレビューコメントを取得（旧コマンド）",
+        "description_ja": "Claude Code初期から存在した組み込みコマンドの一つで、GitHub PRのレビューコメントを取得する（v1.0.68時点で「certain commands like /pr-comments」としてモデル名の不具合修正対象に言及）。PRレビュー関連機能はその後 /code-review（旧/simplify）などへ発展。",
+        "examples": [
+            {"title": "PRコメント取得（旧コマンド）", "code": "/pr-comments"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-review", "slash-code-review"],
+    },
+    {
+        "id": "slash-buddy", "name": "/buddy", "category": "slash-command",
+        "summary_ja": "エイプリルフールの遊び心コマンド（期間限定）",
+        "description_ja": "v2.1.89でエイプリルフール（4月1日）向けに追加された遊び心コマンド。「hatch a small creature that watches you code（コーディングを見守る小さな生き物を孵化させる）」という説明で登場した期間限定のイースターエッグ機能。",
+        "examples": [
+            {"title": "生き物を孵化（イースターエッグ）", "code": "/buddy"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
 
     # ========== Built-in Tools ==========
     {
