@@ -998,6 +998,24 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": [],
     },
+    {
+        "id": "slash-output-style", "name": "/output-style", "category": "slash-command",
+        "summary_ja": "出力スタイルを切り替える旧コマンド（廃止済み）",
+        "description_ja": "v1.0.81で追加された組み込み出力スタイル切替コマンド（「Explanatory」「Learning」など）。v2.0.30で非推奨化が案内され、v2.1.73で正式に廃止。プロンプトキャッシュ改善のためセッション開始時にスタイルを固定する方針となり、/configに統合された。",
+        "examples": [
+            {"title": "出力スタイル選択（旧・廃止済み）", "code": "/output-style"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-config", "mode-output-style"],
+    },
+    {
+        "id": "slash-statusline", "name": "/statusline", "category": "slash-command",
+        "summary_ja": "ターミナルのステータスライン設定コマンド",
+        "description_ja": "v1.0.71で追加された組み込みコマンド。任意のスクリプト出力をターミナルのプロンプト部分に常時表示できるカスタムステータスラインを設定する。後継として/statusline-setupスキルが提供されている。",
+        "examples": [
+            {"title": "ステータスラインを設定", "code": "/statusline"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["misc-statusline"],
+    },
 
     # ========== Built-in Tools ==========
     {

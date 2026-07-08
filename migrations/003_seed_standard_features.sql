@@ -1475,6 +1475,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-output-style',
+  '/output-style',
+  'slash-command',
+  '出力スタイルを切り替える旧コマンド（廃止済み）',
+  'v1.0.81で追加された組み込み出力スタイル切替コマンド（「Explanatory」「Learning」など）。v2.0.30で非推奨化が案内され、v2.1.73で正式に廃止。プロンプトキャッシュ改善のためセッション開始時にスタイルを固定する方針となり、/configに統合された。',
+  '[{"title": "出力スタイル選択（旧・廃止済み）", "code": "/output-style"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-config", "mode-output-style"]',
+  '/output-style 出力スタイルを切り替える旧コマンド（廃止済み） v1.0.81で追加された組み込み出力スタイル切替コマンド（「explanatory」「learning」など）。v2.0.30で非推奨化が案内され、v2.1.73で正式に廃止。プロンプトキャッシュ改善のためセッション開始時にスタイルを固定する方針となり、/configに統合された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-statusline',
+  '/statusline',
+  'slash-command',
+  'ターミナルのステータスライン設定コマンド',
+  'v1.0.71で追加された組み込みコマンド。任意のスクリプト出力をターミナルのプロンプト部分に常時表示できるカスタムステータスラインを設定する。後継として/statusline-setupスキルが提供されている。',
+  '[{"title": "ステータスラインを設定", "code": "/statusline"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["misc-statusline"]',
+  '/statusline ターミナルのステータスライン設定コマンド v1.0.71で追加された組み込みコマンド。任意のスクリプト出力をターミナルのプロンプト部分に常時表示できるカスタムステータスラインを設定する。後継として/statusline-setupスキルが提供されている。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
