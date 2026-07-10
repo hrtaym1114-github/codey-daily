@@ -212,7 +212,16 @@ FEATURES = [
         "examples": [
             {"title": "診断実行", "code": "/doctor"},
         ],
-        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-plugin", "slash-mcp"],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-plugin", "slash-mcp", "slash-checkup"],
+    },
+    {
+        "id": "slash-checkup", "name": "/checkup", "category": "slash-command",
+        "summary_ja": "/doctorのエイリアス（設定の総合診断）",
+        "description_ja": "v2.1.205で/doctorが不具合の診断・修正まで行うフルセットアップチェックアップ機能へ拡張された際に追加されたエイリアスコマンド。/doctorと同じ機能を呼び出せる。",
+        "examples": [
+            {"title": "診断実行（/doctorのエイリアス）", "code": "/checkup"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-doctor"],
     },
     {
         "id": "slash-usage", "name": "/usage", "category": "slash-command",

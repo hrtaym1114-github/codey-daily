@@ -266,8 +266,22 @@ VALUES (
   '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
   2,
   'free',
-  '["slash-plugin", "slash-mcp"]',
+  '["slash-plugin", "slash-mcp", "slash-checkup"]',
   '/doctor 環境の診断・問題チェック mcp サーバーのエラー、無効化されたプラグインの警告、バージョン競合などの問題を診断して表示。トラブルシュートの第一歩。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-checkup',
+  '/checkup',
+  'slash-command',
+  '/doctorのエイリアス（設定の総合診断）',
+  'v2.1.205で/doctorが不具合の診断・修正まで行うフルセットアップチェックアップ機能へ拡張された際に追加されたエイリアスコマンド。/doctorと同じ機能を呼び出せる。',
+  '[{"title": "診断実行（/doctorのエイリアス）", "code": "/checkup"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-doctor"]',
+  '/checkup /doctorのエイリアス（設定の総合診断） v2.1.205で/doctorが不具合の診断・修正まで行うフルセットアップチェックアップ機能へ拡張された際に追加されたエイリアスコマンド。/doctorと同じ機能を呼び出せる。'
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
