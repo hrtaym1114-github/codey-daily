@@ -1025,6 +1025,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["misc-statusline"],
     },
+    {
+        "id": "slash-subtask", "name": "/subtask", "category": "slash-command",
+        "summary_ja": "セッション内サブエージェントを起動する新コマンド",
+        "description_ja": "v2.1.212で追加。/fork がバックグラウンドセッションへの分岐専用になったのに伴い、これまで/forkが担っていた「セッション内サブエージェントの起動」機能を引き継いだ新コマンド。",
+        "examples": [
+            {"title": "サブエージェント起動", "code": "/subtask"},
+        ],
+        "links": [], "difficulty": 3, "tier": "free", "related": ["slash-fork", "agent-subagent"],
+    },
 
     # ========== Built-in Tools ==========
     {

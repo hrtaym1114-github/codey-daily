@@ -1517,6 +1517,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-subtask',
+  '/subtask',
+  'slash-command',
+  'セッション内サブエージェントを起動する新コマンド',
+  'v2.1.212で追加。/fork がバックグラウンドセッションへの分岐専用になったのに伴い、これまで/forkが担っていた「セッション内サブエージェントの起動」機能を引き継いだ新コマンド。',
+  '[{"title": "サブエージェント起動", "code": "/subtask"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  3,
+  'free',
+  '["slash-fork", "agent-subagent"]',
+  '/subtask セッション内サブエージェントを起動する新コマンド v2.1.212で追加。/fork がバックグラウンドセッションへの分岐専用になったのに伴い、これまで/forkが担っていた「セッション内サブエージェントの起動」機能を引き継いだ新コマンド。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
