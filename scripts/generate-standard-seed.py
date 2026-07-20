@@ -782,6 +782,13 @@ FEATURES = [
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-simplify", "slash-review", "slash-effort"],
     },
     {
+        "id": "slash-verify", "name": "/verify", "category": "slash-command",
+        "summary_ja": "プロジェクトの検証コマンドを実行するスキル",
+        "description_ja": "ビルド・テストなどプロジェクトごとに定義された検証コマンドを実行するスキル。v2.1.215以降、/code-reviewと同様にClaudeが自動実行しなくなり、必要な時に/verifyで明示的に呼び出す必要がある。",
+        "examples": [{"title": "プロジェクト検証", "code": "/verify"}],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-code-review"],
+    },
+    {
         "id": "slash-env", "name": "/env", "category": "slash-command",
         "summary_ja": "ツール実行環境の環境変数を設定・管理",
         "description_ja": "Bash・PowerShell ツールが使用する環境変数をセッション内で動的に設定・確認するコマンド。v2.1.89 以降、Bash だけでなく PowerShell ツールにも適用される。settings.json の env: 設定と組み合わせて使用できる。",

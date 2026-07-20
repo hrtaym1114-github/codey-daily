@@ -1139,6 +1139,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-verify',
+  '/verify',
+  'slash-command',
+  'プロジェクトの検証コマンドを実行するスキル',
+  'ビルド・テストなどプロジェクトごとに定義された検証コマンドを実行するスキル。v2.1.215以降、/code-reviewと同様にClaudeが自動実行しなくなり、必要な時に/verifyで明示的に呼び出す必要がある。',
+  '[{"title": "プロジェクト検証", "code": "/verify"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-code-review"]',
+  '/verify プロジェクトの検証コマンドを実行するスキル ビルド・テストなどプロジェクトごとに定義された検証コマンドを実行するスキル。v2.1.215以降、/code-reviewと同様にclaudeが自動実行しなくなり、必要な時に/verifyで明示的に呼び出す必要がある。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-env',
   '/env',
   'slash-command',
