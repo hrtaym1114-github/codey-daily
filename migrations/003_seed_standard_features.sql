@@ -1545,6 +1545,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-autocompact',
+  '/autocompact',
+  'slash-command',
+  '自動コンパクトの設定ダイアログを開く',
+  'v2.1.234で追加。自動コンパクト（コンテキストが閾値に達した際の自動要約）の設定ダイアログを開く。/add-dir や /theme と同様、作業中（ターン実行中）でもフルスクリーンTUI上でダイアログを開けるようになった。',
+  '[{"title": "自動コンパクト設定", "code": "/autocompact"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-compact", "slash-config"]',
+  '/autocompact 自動コンパクトの設定ダイアログを開く v2.1.234で追加。自動コンパクト（コンテキストが閾値に達した際の自動要約）の設定ダイアログを開く。/add-dir や /theme と同様、作業中（ターン実行中）でもフルスクリーンtui上でダイアログを開けるようになった。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

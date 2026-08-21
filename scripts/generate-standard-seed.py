@@ -1041,6 +1041,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 3, "tier": "free", "related": ["slash-fork", "agent-subagent"],
     },
+    {
+        "id": "slash-autocompact", "name": "/autocompact", "category": "slash-command",
+        "summary_ja": "自動コンパクトの設定ダイアログを開く",
+        "description_ja": "v2.1.234で追加。自動コンパクト（コンテキストが閾値に達した際の自動要約）の設定ダイアログを開く。/add-dir や /theme と同様、作業中（ターン実行中）でもフルスクリーンTUI上でダイアログを開けるようになった。",
+        "examples": [
+            {"title": "自動コンパクト設定", "code": "/autocompact"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-compact", "slash-config"],
+    },
 
     # ========== Built-in Tools ==========
     {
