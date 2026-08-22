@@ -345,13 +345,14 @@ app.get('/progress', async (c) => {
       "SELECT feature_id FROM user_progress WHERE user_id = ? AND status = 'skipped'"
     ).bind(session.userId).all<{ feature_id: string }>();
     const streak = await DB.prepare(
-      'SELECT current_streak, last_activity_date FROM user_streaks WHERE user_id = ?'
-    ).bind(session.userId).first<{ current_streak: number; last_activity_date: string }>();
+      'SELECT current_streak, longest_streak, last_activity_date FROM user_streaks WHERE user_id = ?'
+    ).bind(session.userId).first<{ current_streak: number; longest_streak: number; last_activity_date: string }>();
 
     return c.json({
       touched: touched.results.map(r => r.feature_id),
       skipped: skipped.results.map(r => r.feature_id),
       streak: streak?.current_streak ?? 0,
+      longestStreak: streak?.longest_streak ?? 0,
       lastVisit: streak?.last_activity_date ?? '',
       authenticated: true,
     });
