@@ -1050,6 +1050,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-compact", "slash-config"],
     },
+    {
+        "id": "slash-list-agents", "name": "/list-agents", "category": "slash-command",
+        "summary_ja": "到達可能なチームメイトやエージェントを一覧表示",
+        "description_ja": "v2.1.239で追加。ListAgents ツールと連動するコマンドで、サブエージェントや他セッションに加えて、生きているチームメイト（teammates）も一覧に表示されるようになった。以前はチームメイトが一覧から漏れていた不具合の修正でもある。",
+        "examples": [
+            {"title": "エージェント一覧を表示", "code": "/list-agents"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["agent-subagent"],
+    },
 
     # ========== Built-in Tools ==========
     {

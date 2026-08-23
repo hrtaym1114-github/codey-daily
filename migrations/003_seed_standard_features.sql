@@ -1559,6 +1559,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-list-agents',
+  '/list-agents',
+  'slash-command',
+  '到達可能なチームメイトやエージェントを一覧表示',
+  'v2.1.239で追加。ListAgents ツールと連動するコマンドで、サブエージェントや他セッションに加えて、生きているチームメイト（teammates）も一覧に表示されるようになった。以前はチームメイトが一覧から漏れていた不具合の修正でもある。',
+  '[{"title": "エージェント一覧を表示", "code": "/list-agents"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["agent-subagent"]',
+  '/list-agents 到達可能なチームメイトやエージェントを一覧表示 v2.1.239で追加。listagents ツールと連動するコマンドで、サブエージェントや他セッションに加えて、生きているチームメイト（teammates）も一覧に表示されるようになった。以前はチームメイトが一覧から漏れていた不具合の修正でもある。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
