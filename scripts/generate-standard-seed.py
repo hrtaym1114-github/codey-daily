@@ -1059,6 +1059,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 1, "tier": "free", "related": ["agent-subagent"],
     },
+    {
+        "id": "slash-skill-doctor", "name": "/skill-doctor", "category": "slash-command",
+        "summary_ja": "使われていないスキルを検出しコンテキストコストを表示",
+        "description_ja": "v2.1.261で追加。読み込み済みのスキルのうち使われていないものと、それらがコンテキストに与えているコストを表示し、不要なスキルを整理（プルーン）する判断に使う。",
+        "examples": [
+            {"title": "未使用スキルを確認", "code": "/skill-doctor"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-skills", "slash-doctor", "skill-overview"],
+    },
 
     # ========== Built-in Tools ==========
     {

@@ -1573,6 +1573,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-skill-doctor',
+  '/skill-doctor',
+  'slash-command',
+  '使われていないスキルを検出しコンテキストコストを表示',
+  'v2.1.261で追加。読み込み済みのスキルのうち使われていないものと、それらがコンテキストに与えているコストを表示し、不要なスキルを整理（プルーン）する判断に使う。',
+  '[{"title": "未使用スキルを確認", "code": "/skill-doctor"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-skills", "slash-doctor", "skill-overview"]',
+  '/skill-doctor 使われていないスキルを検出しコンテキストコストを表示 v2.1.261で追加。読み込み済みのスキルのうち使われていないものと、それらがコンテキストに与えているコストを表示し、不要なスキルを整理（プルーン）する判断に使う。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
