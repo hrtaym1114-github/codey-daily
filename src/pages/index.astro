@@ -32,9 +32,16 @@ const labels: Record<string, string> = {
       <p class="text-gray-600 text-sm">Claude Code の標準機能 {total} を3つの方法で学ぶ</p>
     </header>
 
-    <section id="streak-bar" class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-5 flex justify-between text-sm">
-      <span><span class="font-bold" id="streak-count">-</span> 日連続 🔥</span>
-      <span>累計 <span class="font-bold" id="touched-count">-</span> / {total} 機能</span>
+    <section id="streak-bar" class="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-5 text-sm">
+      <div class="flex justify-between items-center">
+        <span>
+          <span class="font-bold text-base" id="streak-count">-</span>
+          <span class="text-gray-600"> 日連続 🔥</span>
+          <span class="text-gray-400 text-xs ml-1" id="longest-streak-label"></span>
+        </span>
+        <span>累計 <span class="font-bold" id="touched-count">-</span> / {total} 機能</span>
+      </div>
+      <p id="streak-cheer" class="text-xs text-amber-600 mt-1 hidden"></p>
     </section>
 
     <section class="grid grid-cols-4 gap-2 mb-5">
@@ -159,8 +166,37 @@ const labels: Record<string, string> = {
     async function loadProgress() {
       const res = await fetch('/api/progress', { headers: { 'X-Anon-Id': anonId } });
       const data = await res.json();
-      (document.getElementById('streak-count') as HTMLElement).textContent = String(data.streak ?? 0);
+      const current = data.streak ?? 0;
+      const longest = data.longestStreak ?? 0;
+
+      (document.getElementById('streak-count') as HTMLElement).textContent = String(current);
       (document.getElementById('touched-count') as HTMLElement).textContent = String(data.touched?.length ?? 0);
+
+      const longestLabel = document.getElementById('longest-streak-label') as HTMLElement;
+      const cheer = document.getElementById('streak-cheer') as HTMLElement;
+
+      if (longest > 0) {
+        longestLabel.textContent = `（最長 ${longest}）`;
+      }
+
+      // 励ましメッセージ：状況に応じて切替
+      let msg = '';
+      if (current === 0 && longest === 0) {
+        // 初回ユーザー
+      } else if (current === 0 && longest > 0) {
+        msg = `🌱 再スタート！過去最長 ${longest} 日を更新しよう`;
+      } else if (current >= longest && current > 0) {
+        msg = `🏆 自己ベスト更新中！`;
+      } else if (longest - current <= 3) {
+        msg = `🚀 あと ${longest - current} 日で最長記録 ${longest} 日を更新`;
+      } else if (current >= 7) {
+        msg = `🔥 ${current} 日連続！継続中`;
+      }
+
+      if (msg) {
+        cheer.textContent = msg;
+        cheer.classList.remove('hidden');
+      }
     }
 
     async function updateProgress(action: 'touch' | 'skip', featureId: string) {
