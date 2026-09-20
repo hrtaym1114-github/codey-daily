@@ -1587,6 +1587,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-update-config',
+  '/update-config',
+  'slash-command',
+  'settings.jsonのハーネス設定を対話的に更新',
+  'permissions・env・hooksなど settings.json 上のClaude Codeハーネス設定を対話的に変更するコマンド。v2.1.275で、書き込み時に`Write(path)`権限ルールを誤って生成し、実際のファイル権限チェックと一致しない不具合が修正された（正しくは`Edit(path)`ルール）。',
+  '[{"title": "設定を更新", "code": "/update-config"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-config", "slash-permissions", "file-settings-json"]',
+  '/update-config settings.jsonのハーネス設定を対話的に更新 permissions・env・hooksなど settings.json 上のclaude codeハーネス設定を対話的に変更するコマンド。v2.1.275で、書き込み時に`write(path)`権限ルールを誤って生成し、実際のファイル権限チェックと一致しない不具合が修正された（正しくは`edit(path)`ルール）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

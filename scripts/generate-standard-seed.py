@@ -1068,6 +1068,15 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-skills", "slash-doctor", "skill-overview"],
     },
+    {
+        "id": "slash-update-config", "name": "/update-config", "category": "slash-command",
+        "summary_ja": "settings.jsonのハーネス設定を対話的に更新",
+        "description_ja": "permissions・env・hooksなど settings.json 上のClaude Codeハーネス設定を対話的に変更するコマンド。v2.1.275で、書き込み時に`Write(path)`権限ルールを誤って生成し、実際のファイル権限チェックと一致しない不具合が修正された（正しくは`Edit(path)`ルール）。",
+        "examples": [
+            {"title": "設定を更新", "code": "/update-config"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-config", "slash-permissions", "file-settings-json"],
+    },
 
     # ========== Built-in Tools ==========
     {
