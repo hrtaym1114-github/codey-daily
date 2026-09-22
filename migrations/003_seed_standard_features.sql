@@ -1601,6 +1601,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-continue',
+  '/continue',
+  'slash-command',
+  '直前のセッションを継続',
+  '直前に終了したセッションをそのまま継続する。/resume と同様にフルスクリーンモードのセッション一覧に表示され、v2.1.271で短い端末で1〜2件しか表示されない不具合が修正された。',
+  '[{"title": "直前のセッションを継続", "code": "/continue"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-resume", "cli-continue"]',
+  '/continue 直前のセッションを継続 直前に終了したセッションをそのまま継続する。/resume と同様にフルスクリーンモードのセッション一覧に表示され、v2.1.271で短い端末で1〜2件しか表示されない不具合が修正された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-artifacts',
+  '/artifacts',
+  'slash-command',
+  'セッションにアーティファクトを添付',
+  'ファイルなどのアーティファクトを現在のセッションに添付するコマンド。v2.1.271で、`--resume`後に添付済みアーティファクトがセッションから消えてしまう不具合が修正された。',
+  '[{"title": "アーティファクトを添付", "code": "/artifacts"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-resume"]',
+  '/artifacts セッションにアーティファクトを添付 ファイルなどのアーティファクトを現在のセッションに添付するコマンド。v2.1.271で、`--resume`後に添付済みアーティファクトがセッションから消えてしまう不具合が修正された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

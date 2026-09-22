@@ -1077,6 +1077,24 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-config", "slash-permissions", "file-settings-json"],
     },
+    {
+        "id": "slash-continue", "name": "/continue", "category": "slash-command",
+        "summary_ja": "直前のセッションを継続",
+        "description_ja": "直前に終了したセッションをそのまま継続する。/resume と同様にフルスクリーンモードのセッション一覧に表示され、v2.1.271で短い端末で1〜2件しか表示されない不具合が修正された。",
+        "examples": [
+            {"title": "直前のセッションを継続", "code": "/continue"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-resume", "cli-continue"],
+    },
+    {
+        "id": "slash-artifacts", "name": "/artifacts", "category": "slash-command",
+        "summary_ja": "セッションにアーティファクトを添付",
+        "description_ja": "ファイルなどのアーティファクトを現在のセッションに添付するコマンド。v2.1.271で、`--resume`後に添付済みアーティファクトがセッションから消えてしまう不具合が修正された。",
+        "examples": [
+            {"title": "アーティファクトを添付", "code": "/artifacts"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-resume"],
+    },
 
     # ========== Built-in Tools ==========
     {
