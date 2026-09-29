@@ -408,6 +408,15 @@ FEATURES = [
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-usage", "slash-upgrade"],
     },
     {
+        "id": "slash-rate-limit-options", "name": "/rate-limit-options", "category": "slash-command",
+        "summary_ja": "使用量上限到達時の選択肢を開く",
+        "description_ja": "claude.ai サブスクライバー向けのコマンド。使用量上限の通知メッセージからこのコマンドが案内される。v2.1.284 で /help とコマンドメニューに掲載され、探しやすくなった。",
+        "examples": [
+            {"title": "上限時の選択肢を確認", "code": "/rate-limit-options"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-usage", "slash-extra-usage"],
+    },
+    {
         "id": "slash-rewind", "name": "/rewind", "category": "slash-command",
         "summary_ja": "会話を巻き戻してコード変更を取り消す",
         "description_ja": "ピッカーで任意のポイントを選択して会話を巻き戻し、コード変更も元に戻せる。/undo はエイリアス。VS Code では Esc×2 でも起動可能。",

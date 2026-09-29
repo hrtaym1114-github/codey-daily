@@ -565,6 +565,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-rate-limit-options',
+  '/rate-limit-options',
+  'slash-command',
+  '使用量上限到達時の選択肢を開く',
+  'claude.ai サブスクライバー向けのコマンド。使用量上限の通知メッセージからこのコマンドが案内される。v2.1.284 で /help とコマンドメニューに掲載され、探しやすくなった。',
+  '[{"title": "上限時の選択肢を確認", "code": "/rate-limit-options"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-usage", "slash-extra-usage"]',
+  '/rate-limit-options 使用量上限到達時の選択肢を開く claude.ai サブスクライバー向けのコマンド。使用量上限の通知メッセージからこのコマンドが案内される。v2.1.284 で /help とコマンドメニューに掲載され、探しやすくなった。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-rewind',
   '/rewind',
   'slash-command',
