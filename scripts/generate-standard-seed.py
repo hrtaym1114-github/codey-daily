@@ -952,6 +952,15 @@ FEATURES = [
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-review", "slash-ultrareview"],
     },
     {
+        "id": "slash-stop", "name": "/stop", "category": "slash-command",
+        "summary_ja": "バックグラウンドセッションを停止",
+        "description_ja": "バックグラウンドセッションの停止に使うコマンド。bareモードの通知で /stop と claude --resume が案内される（v2.1.299）。ターン実行中に送った他のスラッシュコマンドはターン終了後に実行されるが、/stop は例外（v2.1.287）。",
+        "examples": [
+            {"title": "セッション停止", "code": "/stop"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-bg", "slash-tasks"],
+    },
+    {
         "id": "slash-desktop", "name": "/desktop", "category": "slash-command",
         "summary_ja": "Claude Codeデスクトップアプリとの接続を管理",
         "description_ja": "Claude Code for Desktop（デスクトップアプリ）との接続を設定・管理するコマンド。/install-github-app・/resume・/web-setup と同様Escでダイアログを閉じられる（v2.1.136）。worktreeに出入りした後に作業ディレクトリを特定できず失敗する不具合がv2.1.198で修正された。",

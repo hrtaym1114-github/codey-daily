@@ -1405,6 +1405,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-stop',
+  '/stop',
+  'slash-command',
+  'バックグラウンドセッションを停止',
+  'バックグラウンドセッションの停止に使うコマンド。bareモードの通知で /stop と claude --resume が案内される（v2.1.299）。ターン実行中に送った他のスラッシュコマンドはターン終了後に実行されるが、/stop は例外（v2.1.287）。',
+  '[{"title": "セッション停止", "code": "/stop"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-bg", "slash-tasks"]',
+  '/stop バックグラウンドセッションを停止 バックグラウンドセッションの停止に使うコマンド。bareモードの通知で /stop と claude --resume が案内される（v2.1.299）。ターン実行中に送った他のスラッシュコマンドはターン終了後に実行されるが、/stop は例外（v2.1.287）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-desktop',
   '/desktop',
   'slash-command',
