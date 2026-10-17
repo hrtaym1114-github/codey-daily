@@ -772,6 +772,34 @@ FEATURES = [
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-extra-usage", "slash-usage", "slash-upgrade"],
     },
     {
+        "id": "slash-design", "name": "/design", "category": "slash-command",
+        "summary_ja": "Claude Design 連携の同意・取り消しを管理",
+        "description_ja": "Claude Design（claude.ai/design）連携を操作するコマンド。`/design consent` と `/design revoke` のサブコマンドがある。クラウドセッションで失敗した場合は claude.ai/design/settings を案内する（v2.1.302 で修正）。",
+        "examples": [
+            {"title": "連携への同意", "code": "/design consent"},
+            {"title": "同意の取り消し", "code": "/design revoke"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-design-login", "slash-design-sync"],
+    },
+    {
+        "id": "slash-design-login", "name": "/design-login", "category": "slash-command",
+        "summary_ja": "Claude Design へのログイン",
+        "description_ja": "Claude Design（claude.ai/design）用のログインコマンド。クラウドセッションでは利用できない。v2.1.302 で、スタンドアロン版 Claude Design が 2026年12月14日に終了する旨の通知が追加された。",
+        "examples": [
+            {"title": "Claude Design にログイン", "code": "/design-login"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-design", "slash-design-sync", "slash-login"],
+    },
+    {
+        "id": "slash-design-sync", "name": "/design-sync", "category": "slash-command",
+        "summary_ja": "Claude Design との同期コマンド",
+        "description_ja": "Claude Design（claude.ai/design）と連携する同期用コマンド。v2.1.302 で、スタンドアロン版 Claude Design が 2026年12月14日に終了する旨の通知が追加された。",
+        "examples": [
+            {"title": "Claude Design と同期", "code": "/design-sync"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-design", "slash-design-login"],
+    },
+    {
         "id": "slash-heapdump", "name": "/heapdump", "category": "slash-command",
         "summary_ja": "ヒープメモリダンプを生成する開発者向けコマンド",
         "description_ja": "デバッグ用に Node.js ヒープメモリダンプファイルを生成する。メモリ使用量の問題調査やバグ報告時に使用する開発者向け診断コマンド。Windows では v2.1.73 でデスクトップフォルダが既存の場合の EEXIST エラーを修正済み。",

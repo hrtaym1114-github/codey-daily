@@ -1125,6 +1125,48 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-design',
+  '/design',
+  'slash-command',
+  'Claude Design 連携の同意・取り消しを管理',
+  'Claude Design（claude.ai/design）連携を操作するコマンド。`/design consent` と `/design revoke` のサブコマンドがある。クラウドセッションで失敗した場合は claude.ai/design/settings を案内する（v2.1.302 で修正）。',
+  '[{"title": "連携への同意", "code": "/design consent"}, {"title": "同意の取り消し", "code": "/design revoke"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-design-login", "slash-design-sync"]',
+  '/design claude design 連携の同意・取り消しを管理 claude design（claude.ai/design）連携を操作するコマンド。`/design consent` と `/design revoke` のサブコマンドがある。クラウドセッションで失敗した場合は claude.ai/design/settings を案内する（v2.1.302 で修正）。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-design-login',
+  '/design-login',
+  'slash-command',
+  'Claude Design へのログイン',
+  'Claude Design（claude.ai/design）用のログインコマンド。クラウドセッションでは利用できない。v2.1.302 で、スタンドアロン版 Claude Design が 2026年12月14日に終了する旨の通知が追加された。',
+  '[{"title": "Claude Design にログイン", "code": "/design-login"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-design", "slash-design-sync", "slash-login"]',
+  '/design-login claude design へのログイン claude design（claude.ai/design）用のログインコマンド。クラウドセッションでは利用できない。v2.1.302 で、スタンドアロン版 claude design が 2026年12月14日に終了する旨の通知が追加された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-design-sync',
+  '/design-sync',
+  'slash-command',
+  'Claude Design との同期コマンド',
+  'Claude Design（claude.ai/design）と連携する同期用コマンド。v2.1.302 で、スタンドアロン版 Claude Design が 2026年12月14日に終了する旨の通知が追加された。',
+  '[{"title": "Claude Design と同期", "code": "/design-sync"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-design", "slash-design-login"]',
+  '/design-sync claude design との同期コマンド claude design（claude.ai/design）と連携する同期用コマンド。v2.1.302 で、スタンドアロン版 claude design が 2026年12月14日に終了する旨の通知が追加された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-heapdump',
   '/heapdump',
   'slash-command',
