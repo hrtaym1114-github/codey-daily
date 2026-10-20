@@ -1405,6 +1405,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-auto-mode-setup',
+  '/auto-mode-setup',
+  'slash-command',
+  'auto mode をあなたの環境に合わせる対話式セットアップ',
+  'プロジェクトと最近のセッションを読み取り、auto mode にあなたの環境を学習させるガイド付きセットアップ（v2.1.304追加）。Bedrock・Vertex・Foundry・Claude apps gateway・テレメトリ無効のセッションでも利用できる。',
+  '[{"title": "auto mode のセットアップ", "code": "/auto-mode-setup"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-permissions", "slash-less-permission-prompts"]',
+  '/auto-mode-setup auto mode をあなたの環境に合わせる対話式セットアップ プロジェクトと最近のセッションを読み取り、auto mode にあなたの環境を学習させるガイド付きセットアップ（v2.1.304追加）。bedrock・vertex・foundry・claude apps gateway・テレメトリ無効のセッションでも利用できる。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-bug',
   '/bug',
   'slash-command',

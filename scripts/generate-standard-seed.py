@@ -953,6 +953,15 @@ FEATURES = [
         "links": [], "difficulty": 3, "tier": "free", "related": ["slash-model", "slash-effort"],
     },
     {
+        "id": "slash-auto-mode-setup", "name": "/auto-mode-setup", "category": "slash-command",
+        "summary_ja": "auto mode をあなたの環境に合わせる対話式セットアップ",
+        "description_ja": "プロジェクトと最近のセッションを読み取り、auto mode にあなたの環境を学習させるガイド付きセットアップ（v2.1.304追加）。Bedrock・Vertex・Foundry・Claude apps gateway・テレメトリ無効のセッションでも利用できる。",
+        "examples": [
+            {"title": "auto mode のセットアップ", "code": "/auto-mode-setup"},
+        ],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-permissions", "slash-less-permission-prompts"],
+    },
+    {
         "id": "slash-bug", "name": "/bug", "category": "slash-command",
         "summary_ja": "バグ報告をAnthropicに送信",
         "description_ja": "Claude Code のバグを報告する専用コマンド。説明文の入力が必須で（v2.1.178改善）、モデルの拒否応答テキストがGitHub issueタイトルに誤使用される問題も修正済み。一般的なフィードバックや機能要望には /feedback を使用。",
