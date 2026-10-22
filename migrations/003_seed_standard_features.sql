@@ -1713,6 +1713,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-privacy-settings',
+  '/privacy-settings',
+  'slash-command',
+  'プライバシー設定の選択肢を表示・変更する',
+  'プライバシー設定の選択肢を提示するコマンド。v2.1.304で、ネットワークやサーバーのエラー後に、自分には適用されない選択肢が表示されてしまう不具合が修正された。',
+  '[{"title": "プライバシー設定を開く", "code": "/privacy-settings"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-config"]',
+  '/privacy-settings プライバシー設定の選択肢を表示・変更する プライバシー設定の選択肢を提示するコマンド。v2.1.304で、ネットワークやサーバーのエラー後に、自分には適用されない選択肢が表示されてしまう不具合が修正された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

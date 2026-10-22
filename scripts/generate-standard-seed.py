@@ -1150,6 +1150,13 @@ FEATURES = [
         ],
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-resume"],
     },
+    {
+        "id": "slash-privacy-settings", "name": "/privacy-settings", "category": "slash-command",
+        "summary_ja": "プライバシー設定の選択肢を表示・変更する",
+        "description_ja": "プライバシー設定の選択肢を提示するコマンド。v2.1.304で、ネットワークやサーバーのエラー後に、自分には適用されない選択肢が表示されてしまう不具合が修正された。",
+        "examples": [{"title": "プライバシー設定を開く", "code": "/privacy-settings"}],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-config"],
+    },
 
     # ========== Built-in Tools ==========
     {
