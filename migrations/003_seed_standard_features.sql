@@ -1727,6 +1727,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-stickers',
+  '/stickers',
+  'slash-command',
+  'ステッカーパックの案内を表示する',
+  'Claude Code のステッカーパックに関するコマンド。v2.1.323 で、ブラウザのページを開く代わりに「ステッカーパックは現在すべて配布済み」と表示する挙動に変更された。',
+  '[{"title": "ステッカーパックの状況を確認", "code": "/stickers"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/stickers ステッカーパックの案内を表示する claude code のステッカーパックに関するコマンド。v2.1.323 で、ブラウザのページを開く代わりに「ステッカーパックは現在すべて配布済み」と表示する挙動に変更された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',

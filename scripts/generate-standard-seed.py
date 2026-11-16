@@ -1157,6 +1157,13 @@ FEATURES = [
         "examples": [{"title": "プライバシー設定を開く", "code": "/privacy-settings"}],
         "links": [], "difficulty": 1, "tier": "free", "related": ["slash-config"],
     },
+    {
+        "id": "slash-stickers", "name": "/stickers", "category": "slash-command",
+        "summary_ja": "ステッカーパックの案内を表示する",
+        "description_ja": "Claude Code のステッカーパックに関するコマンド。v2.1.323 で、ブラウザのページを開く代わりに「ステッカーパックは現在すべて配布済み」と表示する挙動に変更された。",
+        "examples": [{"title": "ステッカーパックの状況を確認", "code": "/stickers"}],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
 
     # ========== Built-in Tools ==========
     {
