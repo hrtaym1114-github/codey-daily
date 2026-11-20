@@ -772,6 +772,24 @@ FEATURES = [
         "links": [], "difficulty": 2, "tier": "free", "related": ["slash-extra-usage", "slash-usage", "slash-upgrade"],
     },
     {
+        "id": "slash-passes", "name": "/passes", "category": "slash-command",
+        "summary_ja": "ゲストパスの残数を確認・共有する",
+        "description_ja": "ゲストパス（guest passes）の残り数を表示し共有に使うコマンド。v2.1.329 で、サーバーエラー後にパス数が誤表示される問題と、ゲストパスが残っていないのに共有用の使用クレジットを案内してしまう問題が修正された。",
+        "examples": [
+            {"title": "ゲストパスを確認", "code": "/passes"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": ["slash-usage-credits", "slash-usage"],
+    },
+    {
+        "id": "slash-radio", "name": "/radio", "category": "slash-command",
+        "summary_ja": "/radio コマンド（Bedrock等でも利用可）",
+        "description_ja": "v2.1.251 で、Bedrock・Vertex AI・Foundry・Claude Platform on AWS の各環境、およびテレメトリ無効時でも /radio が利用できるように変更された。CHANGELOG に機能の詳細な説明はなく、利用可否の拡大のみが記載されている。",
+        "examples": [
+            {"title": "radio を実行", "code": "/radio"},
+        ],
+        "links": [], "difficulty": 1, "tier": "free", "related": [],
+    },
+    {
         "id": "slash-design", "name": "/design", "category": "slash-command",
         "summary_ja": "Claude Design 連携の同意・取り消しを管理",
         "description_ja": "Claude Design（claude.ai/design）連携を操作するコマンド。`/design consent` と `/design revoke` のサブコマンドがある。クラウドセッションで失敗した場合は claude.ai/design/settings を案内する（v2.1.302 で修正）。",

@@ -1125,6 +1125,34 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-passes',
+  '/passes',
+  'slash-command',
+  'ゲストパスの残数を確認・共有する',
+  'ゲストパス（guest passes）の残り数を表示し共有に使うコマンド。v2.1.329 で、サーバーエラー後にパス数が誤表示される問題と、ゲストパスが残っていないのに共有用の使用クレジットを案内してしまう問題が修正された。',
+  '[{"title": "ゲストパスを確認", "code": "/passes"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '["slash-usage-credits", "slash-usage"]',
+  '/passes ゲストパスの残数を確認・共有する ゲストパス（guest passes）の残り数を表示し共有に使うコマンド。v2.1.329 で、サーバーエラー後にパス数が誤表示される問題と、ゲストパスが残っていないのに共有用の使用クレジットを案内してしまう問題が修正された。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
+  'slash-radio',
+  '/radio',
+  'slash-command',
+  '/radio コマンド（Bedrock等でも利用可）',
+  'v2.1.251 で、Bedrock・Vertex AI・Foundry・Claude Platform on AWS の各環境、およびテレメトリ無効時でも /radio が利用できるように変更された。CHANGELOG に機能の詳細な説明はなく、利用可否の拡大のみが記載されている。',
+  '[{"title": "radio を実行", "code": "/radio"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  1,
+  'free',
+  '[]',
+  '/radio /radio コマンド（bedrock等でも利用可） v2.1.251 で、bedrock・vertex ai・foundry・claude platform on aws の各環境、およびテレメトリ無効時でも /radio が利用できるように変更された。changelog に機能の詳細な説明はなく、利用可否の拡大のみが記載されている。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'slash-design',
   '/design',
   'slash-command',
