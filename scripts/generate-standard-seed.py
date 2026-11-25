@@ -1182,6 +1182,13 @@ FEATURES = [
         "examples": [{"title": "ステッカーパックの状況を確認", "code": "/stickers"}],
         "links": [], "difficulty": 1, "tier": "free", "related": [],
     },
+    {
+        "id": "slash-routines", "name": "/routines", "category": "slash-command",
+        "summary_ja": "/schedule の旧称エイリアス",
+        "description_ja": "v2.1.332 で /schedule・権限プロンプト・/loop のクラウド提案の表記が「ルーティン」から「クラウドスケジュールタスク」に変更されたが、従来の /routines も引き続き使える。",
+        "examples": [{"title": "クラウドスケジュールタスクを管理", "code": "/routines"}],
+        "links": [], "difficulty": 2, "tier": "free", "related": ["slash-schedule", "slash-loop"],
+    },
 
     # ========== Built-in Tools ==========
     {

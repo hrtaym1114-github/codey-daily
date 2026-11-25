@@ -1769,6 +1769,20 @@ VALUES (
 );
 INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
 VALUES (
+  'slash-routines',
+  '/routines',
+  'slash-command',
+  '/schedule の旧称エイリアス',
+  'v2.1.332 で /schedule・権限プロンプト・/loop のクラウド提案の表記が「ルーティン」から「クラウドスケジュールタスク」に変更されたが、従来の /routines も引き続き使える。',
+  '[{"title": "クラウドスケジュールタスクを管理", "code": "/routines"}]',
+  '[{"label": "📘 公式ドキュメント", "url": "https://code.claude.com/docs/en/commands"}]',
+  2,
+  'free',
+  '["slash-schedule", "slash-loop"]',
+  '/routines /schedule の旧称エイリアス v2.1.332 で /schedule・権限プロンプト・/loop のクラウド提案の表記が「ルーティン」から「クラウドスケジュールタスク」に変更されたが、従来の /routines も引き続き使える。'
+);
+INSERT INTO features (id, name, category, summary_ja, description_ja, examples, links, difficulty, tier, related, search_text)
+VALUES (
   'tool-bash',
   'Bash',
   'tool',
